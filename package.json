@@ -4,11 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "buildDocker": "docker build -t damer ."
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "sequelize": "^6.35.1",
+    "tedious": "^16.6.0"
   }
 }
