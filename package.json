@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "buildDocker": "docker build -t damer ."
+    "buildDocker": "docker build -t damer .",
+    "runDocker" : "docker run -p 8080:8080 -d damer",
+    "runDockerSave" : "docker save -o damer.tar damer"
   },
   "author": "",
   "license": "ISC",
