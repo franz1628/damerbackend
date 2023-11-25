@@ -13,6 +13,7 @@ class Server {
         this.personPath = '/api/person';
         this.usuarioPath = '/api/usuario';
         this.paisPath = '/api/pais';
+        this.parametroPath = '/api/parametro';
 
         this.conectarDB();
 
@@ -46,6 +47,9 @@ class Server {
         this.app.use( this.personPath, require('../routes/person'));
         this.app.use( this.usuarioPath, require('../routes/usuario'));
         this.app.use( this.paisPath, require('../routes/pais'));
+        this.app.use( this.parametroPath, require('../routes/parametro'));
+
+
         this.app.use(express.static(path.join(__dirname, '../dist')));
         this.app.get('*', (req, res) => {
             res.sendFile(path.join(__dirname, '../dist/index.html'));

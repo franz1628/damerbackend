@@ -1,6 +1,7 @@
 const Role = require('../models/role');
 const Person = require('../models/person');
 const {Usuario} = require('../models/usuario');
+const { Parametro } = require('../models/parametro');
 
 
 const isValidRole = async(role = '') => {
@@ -32,12 +33,19 @@ const usuarioExists = async( id ) => {
         throw new Error(`Id does not exist: ${ id }`);
     }
 }
+const parametroExists = async( id ) => {
+    const usuarioExists = await Parametro.findById(id);
+    if ( !usuarioExists ) {
+        throw new Error(`Id does not exist: ${ id }`);
+    }
+}
 
 module.exports = {
     isValidRole,
     emailExists,
     personExists,
     usuarioExists,
+    parametroExists
 
 }
 
