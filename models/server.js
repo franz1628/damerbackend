@@ -13,6 +13,7 @@ class Server {
         this.personPath = '/api/person';
         this.usuarioPath = '/api/usuario';
         this.paisPath = '/api/pais';
+        this.departamentoPath = '/api/departamento';
         this.parametroPath = '/api/parametro';
 
         this.conectarDB();
@@ -47,6 +48,7 @@ class Server {
         this.app.use( this.personPath, require('../routes/person'));
         this.app.use( this.usuarioPath, require('../routes/usuario'));
         this.app.use( this.paisPath, require('../routes/pais'));
+        this.app.use( this.departamentoPath, require('../routes/departamento'));
         this.app.use( this.parametroPath, require('../routes/parametro'));
 
 

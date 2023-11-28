@@ -2,6 +2,8 @@ const Role = require('../models/role');
 const Person = require('../models/person');
 const {Usuario} = require('../models/usuario');
 const { Parametro } = require('../models/parametro');
+const { Departamento } = require('../models/departamento');
+const { Pais } = require('../models/pais');
 
 
 const isValidRole = async(role = '') => {
@@ -39,13 +41,29 @@ const parametroExists = async( id ) => {
         throw new Error(`Id does not exist: ${ id }`);
     }
 }
+const paisExists = async( id ) => {
+    const exists = await Pais.findOne({ where: { id: id } });
+    console.log(id);
+    if ( !exists ) {
+        throw new Error(`Id does not exist: ${ id }`);
+    }
+}
+const departamentoExists = async( id ) => {
+    const exists = await Departamento.findOne({ where: { id: id } });
+    console.log(id);
+    if ( !exists ) {
+        throw new Error(`Id does not exist: ${ id }`);
+    }
+}
 
 module.exports = {
     isValidRole,
     emailExists,
     personExists,
     usuarioExists,
-    parametroExists
+    parametroExists,
+    departamentoExists,
+    paisExists
 
 }
 
