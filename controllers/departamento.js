@@ -19,7 +19,7 @@ const departamentoGet = async (req = request, res = response) => {
 }
 
 const departamentoPost = async (req, res = response) => {
-
+    delete req.body.id;
     const departamento = new Departamento(req.body);
 
     // Guardar en BD
@@ -33,11 +33,11 @@ const departamentoPost = async (req, res = response) => {
 const departamentoPut = async (req, res = response) => {
 
     const { id } = req.params;
-    const {descripcion} = req.body;
 
-    const departamento = await Departamento.update({
-        descripcion: descripcion,
-    }, {
+    delete req.body.id;
+    console.log(req.body);
+
+    const departamento = await Departamento.update(req.body, {
         where: {
             id: id,
         }

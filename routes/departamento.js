@@ -4,7 +4,7 @@ const { check } = require('express-validator');
 
 
 const { validFields } = require('../middlewares/valid-fields');
-const { isValidRole, emailExists, departamentoExists, paisExists } = require('../helpers/db-validators');
+const { isValidRole, departamentoExists, paisExists } = require('../helpers/db-validators');
 
 const { departamentoGet,
         departamentoPut,
@@ -18,6 +18,8 @@ const router = Router();
 router.get('/', departamentoGet );
 
 router.put('/:id',[
+    check('descripcion', 'La descripcion es requerida').not().isEmpty(),
+    check('idPais').custom(paisExists),
     validFields
 ],departamentoPut );
 
