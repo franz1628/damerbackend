@@ -16,6 +16,7 @@ class Server {
         this.departamentoPath = '/api/departamento';
         this.provinciaPath = '/api/provincia';
         this.distritoPath = '/api/distrito';
+        this.negocioPath = '/api/negocio';
         this.parametroPath = '/api/parametro';
 
         this.conectarDB();
@@ -53,6 +54,7 @@ class Server {
         this.app.use( this.departamentoPath, require('../routes/departamento'));
         this.app.use( this.provinciaPath, require('../routes/provincia'));
         this.app.use( this.distritoPath, require('../routes/distrito'));
+        this.app.use( this.negocioPath, require('../routes/negocio'));
         this.app.use( this.parametroPath, require('../routes/parametro'));
 
 
