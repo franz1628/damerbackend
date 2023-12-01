@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 const { db } = require("../database/config");
 const { Provincia } = require("./provincia");
 
-const Distrito = db.define('Pais', {
+const Negocio = db.define('Negocio', {
     codigo: { type: DataTypes.INTEGER },
     ruc: { type: DataTypes.STRING },
     nombreComercial: { type: DataTypes.STRING },
@@ -35,7 +35,7 @@ const Distrito = db.define('Pais', {
     manzana: { type: DataTypes.STRING },
     lote: { type: DataTypes.STRING },
 }, {
-    tableName: 'DISTRITO'
+    tableName: 'NEGOCIO'
 });
 
 Distrito.belongsTo(Distrito, { foreignKey: 'codDistrito',targetKey:'codigo' });

@@ -1,9 +1,23 @@
 const { DataTypes } = require("sequelize");
 const { db } = require("../database/config");
-const { Departamento } = require("./departamento");
+const { Provincia } = require("./provincia");
 
-const Provincia = db.define('Provincia', {
+const TipoUrbanizacion = db.define('TipoUrbanizacion', {
+    codigo: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+            notEmpty: true,
+        },
+    },
     descripcion: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+            notEmpty: true,
+        },
+    },
+    descripcionResumida: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
@@ -15,15 +29,14 @@ const Provincia = db.define('Provincia', {
         defaultValue: 1,
     }
 },{
-    tableName: 'PROVINCIA'
+    tableName: 'TIPOURBANIZACION'
 });
 
-Provincia.belongsTo(Departamento,{foreignKey:'idDepartamento'});
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
 // Usuario.belongsTo(TipoDocumento, { foreignKey: 'idTipoDocumento' });
 
 module.exports = {
-    Provincia,
+    TipoUrbanizacion,
     // Otros modelos pueden ser exportados aquí si es necesario
 };

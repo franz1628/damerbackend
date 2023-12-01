@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 const { db } = require("../database/config");
 const { Provincia } = require("./provincia");
 
-const Distrito = db.define('Pais', {
+const Distrito = db.define('Distrito', {
     codigo: {
         type: DataTypes.INTEGER,
         allowNull: false,

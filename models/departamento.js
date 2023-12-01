@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 const { db } = require("../database/config");
 const { Pais } = require("./pais");
 
-const Departamento = db.define('Pais', {
+const Departamento = db.define('Departamento', {
     descripcion: {
         type: DataTypes.STRING,
         allowNull: false,
