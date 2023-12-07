@@ -3,31 +3,27 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 
 const { validFields } = require('../middlewares/valid-fields');
-const { isValidRole, provinciaExists } = require('../helpers/db-validators');
+const { isValidRole } = require('../helpers/db-validators');
 
 const { get,
-        getCodigo,
         put,
         post,
         deleted,
-        patch } = require('../controllers/negocio');
+        patch } = require('../controllers/megaCategoria');
 
 const router = Router();
 
 router.get('/', get );
 
-router.get('/codigo/:codigo',[
-    check('codigo', 'El codigo es requerido').not().isEmpty(),
-    validFields
-] ,getCodigo );
-
 router.put('/:id',[
     check('codigo', 'El codigo es requerido').not().isEmpty(),
+    check('descripcion', 'La descripcion es requerida').not().isEmpty(),
     validFields
 ],put );
 
 router.post('/',[
     check('codigo', 'El codigo es requerido').not().isEmpty(),
+    check('descripcion', 'La descripcion es requerida').not().isEmpty(),
     validFields
 ], post );
 

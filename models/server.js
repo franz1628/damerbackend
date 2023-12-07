@@ -21,6 +21,11 @@ class Server {
         this.parametroPath = '/api/parametro';
         this.canalPath = '/api/canal';
         this.zonaPath = '/api/zona';
+        this.tipoZonaPath = '/api/tipoZona';
+        this.urbanizacionPath = '/api/urbanizacion';
+        this.canastaPath = '/api/canasta';
+        this.megaCategoriaPath = '/api/megaCategoria';
+        this.categoriaPath = '/api/categoria';
 
         this.conectarDB();
 
@@ -62,6 +67,11 @@ class Server {
         this.app.use( this.parametroPath, require('../routes/parametro'));
         this.app.use( this.canalPath, require('../routes/canal'));
         this.app.use( this.zonaPath, require('../routes/zona'));
+        this.app.use( this.tipoZonaPath, require('../routes/tipoZona'));
+        this.app.use( this.urbanizacionPath, require('../routes/urbanizacion'));
+        this.app.use( this.canastaPath, require('../routes/canasta'));
+        this.app.use( this.megaCategoriaPath, require('../routes/megaCategoria'));
+        this.app.use( this.categoriaPath, require('../routes/categoria'));
 
 
         this.app.use(express.static(path.join(__dirname, '../dist')));

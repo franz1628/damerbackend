@@ -9,16 +9,13 @@ const Negocio = db.define('Negocio', {
     nombreResumido: { type: DataTypes.STRING },
     nombreTip: { type: DataTypes.STRING },
     codCanal: { type: DataTypes.INTEGER },
-    codZona: { type: DataTypes.INTEGER },
     direccion: { type: DataTypes.STRING },
-   // codDistrito: { type: DataTypes.INTEGER },
+    codDistrito: { type: DataTypes.INTEGER },
     codUrb: { type: DataTypes.INTEGER },
     codRuta: { type: DataTypes.INTEGER },
     lat: { type: DataTypes.STRING },
     lgn: { type: DataTypes.STRING },
     estado: { type: DataTypes.INTEGER, defaultValue:1 },
-    fechaRegistro: { type: DataTypes.Date, defaultValue :new Date() },
-    fechaActualiza: { type: DataTypes.Date },
     entregaFactura: { type: DataTypes.INTEGER },
     levantarNegocio: { type: DataTypes.INTEGER },
     negocioEquivalente: { type: DataTypes.INTEGER },
@@ -38,12 +35,12 @@ const Negocio = db.define('Negocio', {
     tableName: 'NEGOCIO'
 });
 
-Distrito.belongsTo(Distrito, { foreignKey: 'codDistrito',targetKey:'codigo' });
+//Negocio.belongsTo(Distrito, { foreignKey: 'codDistrito',targetKey:'codigo' });
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
 // Usuario.belongsTo(TipoDocumento, { foreignKey: 'idTipoDocumento' });
 
 module.exports = {
-    Distrito,
+    Negocio,
     // Otros modelos pueden ser exportados aquí si es necesario
 };

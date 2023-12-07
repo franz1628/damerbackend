@@ -1,26 +1,20 @@
 const { DataTypes } = require("sequelize");
 const { db } = require("../database/config");
 const { TipoRelevamiento } = require("./tipoRelevamiento");
-const { TipoZona } = require("./tipoZona");
 
-const Zona = db.define('Zona', {
-    codigo: { type: DataTypes.INTEGER, },
+const TipoZona = db.define('TipoZona', {
     descripcion: { type: DataTypes.STRING, },
-    numeroOrden: { type: DataTypes.INTEGER },
     estado: { type: DataTypes.INTEGER, defaultValue: 1, },
-    alias1: { type: DataTypes.STRING },
-    alias2: { type: DataTypes.STRING },
-    alias3: { type: DataTypes.STRING },
     fechaRegistro: { type: DataTypes.DATE }
 }, {
-    tableName: 'ZONA'
+    tableName: 'TIPOZONA'
 });
 
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
-Zona.belongsTo(TipoZona, { foreignKey: 'idTipoZona',defaultValue:1 });
+//Zona.belongsTo(TipoRelevamiento, { foreignKey: 'idTipoRelevamiento',defaultValue:1 });
 
 module.exports = {
-    Zona,
+    TipoZona,
     // Otros modelos pueden ser exportados aquí si es necesario
 };
