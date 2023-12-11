@@ -10,7 +10,6 @@ const MegaCategoria = db.define('MegaCategoria', {
             notEmpty: true,
         },
     },
-    codCanasta: {type: DataTypes.INTEGER},
     descripcion: {type: DataTypes.STRING},
     descripcionResumida: {type: DataTypes.STRING},
     tip: {type: DataTypes.STRING},

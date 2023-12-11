@@ -17,6 +17,24 @@ const get = async (req = request, res = response) => {
     });
 }
 
+const getCodigo = async (req = request, res = response) => {
+
+    const { codigo } = req.params;
+
+    const model_all = await Canasta.findAll({
+        where: {
+            estado: 1,
+            codigo:codigo
+        }
+    })
+
+    res.json({
+        data: model_all,
+        state: 1,
+        message: ''
+    });
+}
+
 const post = async (req, res = response) => {
     console.log('etjej');
     delete req.body.id;
@@ -75,6 +93,7 @@ const deleted = async (req, res = response) => {
 
 module.exports = {
     get,
+    getCodigo,
     post,
     put,
     patch,
