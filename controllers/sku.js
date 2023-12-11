@@ -1,10 +1,10 @@
 const { response, request } = require('express');
 const bcryptjs = require('bcryptjs');
 const { where } = require('sequelize');
-const { Categoria } = require('../models/categoria');
+const { Sku } = require('../models/sku');
 
 const get = async (req = request, res = response) => {
-    const model_all = await Categoria.findAll({
+    const model_all = await Sku.findAll({
         where: {
             estado: 1
         }
@@ -18,9 +18,8 @@ const get = async (req = request, res = response) => {
 }
 
 const post = async (req, res = response) => {
-    console.log('etjej');
     delete req.body.id;
-    const model = new Categoria(req.body);
+    const model = new Sku(req.body);
 
     // Guardar en BD
     await model.save();
@@ -30,15 +29,16 @@ const post = async (req, res = response) => {
     });
 }
 
-const postCanastaMegaCategoria = async (req, res = response) => {
+const postByCategoria = async (req, res = response) => {
 
-    const { codCanasta,codMegaCategoria } = req.body;
+    const { codCanasta, codMegaCategoria, codCategoria } = req.body;
 
-    const model_all = await Categoria.findAll({
+    const model_all = await Sku.findAll({
         where: {
             estado: 1,
             codCanasta:codCanasta,
             codMegaCategoria:codMegaCategoria,
+            codCategoria:codCategoria,
         }
     })
 
@@ -55,7 +55,7 @@ const put = async (req, res = response) => {
 
     delete req.body.id;
 
-    const model = await Categoria.update(req.body, {
+    const model = await Sku.update(req.body, {
         where: {
             id: id,
         }
@@ -70,14 +70,14 @@ const put = async (req, res = response) => {
 
 const patch = (req, res = response) => {
     res.json({
-        msg: 'patch API - CategoriaPatch'
+        msg: 'patch API - SkuPatch'
     });
 }
 
 const deleted = async (req, res = response) => {
     const { id } = req.params;
 
-    const model = await Categoria.update({
+    const model = await Sku.update({
         estado: false,
     }, {
         where: {
@@ -95,7 +95,7 @@ const deleted = async (req, res = response) => {
 module.exports = {
     get,
     post,
-    postCanastaMegaCategoria,
+    postByCategoria,
     put,
     patch,
     deleted,

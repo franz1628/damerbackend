@@ -1,9 +1,10 @@
 const { DataTypes } = require("sequelize");
 const { db } = require("../database/config");
-const { MegaCategoria } = require("./megaCategoria");
 const { Canasta } = require("./canasta");
+const { MegaCategoria } = require("./megaCategoria");
+const { Categoria } = require("./categoria");
 
-const Categoria = db.define('Categoria', {
+const Sku = db.define('Sku', {
     codigo: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -25,15 +26,16 @@ const Categoria = db.define('Categoria', {
         type : DataTypes.DATE
     }
 },{
-    tableName: 'CATEGORIA'
+    tableName: 'SKU'
 });
 
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
-Categoria.belongsTo(MegaCategoria, { foreignKey: 'codMegaCategoria',defaultValue:0 })
-Categoria.belongsTo(Canasta, { foreignKey: 'codCanasta',defaultValue:0 })
+Sku.belongsTo(Canasta, { foreignKey: 'codCanasta',defaultValue:0 })
+Sku.belongsTo(MegaCategoria, { foreignKey: 'codMegaCategoria',defaultValue:0 })
+Sku.belongsTo(Categoria, { foreignKey: 'codCategoria',defaultValue:0 })
 
 module.exports = {
-    Categoria,
+    Sku,
     // Otros modelos pueden ser exportados aquí si es necesario
 };

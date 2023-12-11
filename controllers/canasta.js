@@ -36,7 +36,6 @@ const getCodigo = async (req = request, res = response) => {
 }
 
 const post = async (req, res = response) => {
-    console.log('etjej');
     delete req.body.id;
     const model = new Canasta(req.body);
 
@@ -47,6 +46,8 @@ const post = async (req, res = response) => {
         model
     });
 }
+
+
 
 const put = async (req, res = response) => {
 

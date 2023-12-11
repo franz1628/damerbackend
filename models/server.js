@@ -26,6 +26,7 @@ class Server {
         this.canastaPath = '/api/canasta';
         this.megaCategoriaPath = '/api/megaCategoria';
         this.categoriaPath = '/api/categoria';
+        this.skuPath = '/api/sku';
 
         this.conectarDB();
 
@@ -72,6 +73,7 @@ class Server {
         this.app.use( this.canastaPath, require('../routes/canasta'));
         this.app.use( this.megaCategoriaPath, require('../routes/megaCategoria'));
         this.app.use( this.categoriaPath, require('../routes/categoria'));
+        this.app.use( this.skuPath, require('../routes/sku'));
 
 
         this.app.use(express.static(path.join(__dirname, '../dist')));
