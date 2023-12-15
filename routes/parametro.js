@@ -4,7 +4,7 @@ const { check } = require('express-validator');
 
 
 const { validFields } = require('../middlewares/valid-fields');
-const { parametroExists } = require('../helpers/db-validators');
+const { codigoParametroExists } = require('../helpers/db-validators');
 
 const { parametroGet,
         parametroIdGet,

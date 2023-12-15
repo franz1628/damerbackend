@@ -64,6 +64,14 @@ const provinciaExists = async( id ) => {
     }
 }
 
+const codigoParametroExists = async( codigo ) => {
+    const exists = await Parametro.findOne({ where: { codigo:codigo } });
+
+    if ( !exists ) {
+        throw new Error(`El codigo ya esta registrado: ${ codigo }`);
+    }
+}
+
 module.exports = {
     isValidRole,
     emailExists,
@@ -72,6 +80,7 @@ module.exports = {
     parametroExists,
     departamentoExists,
     provinciaExists,
+    codigoParametroExists,
     paisExists
 
 }

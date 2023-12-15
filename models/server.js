@@ -27,6 +27,8 @@ class Server {
         this.megaCategoriaPath = '/api/megaCategoria';
         this.categoriaPath = '/api/categoria';
         this.skuPath = '/api/sku';
+        this.medicionPath = '/api/medicion';
+        this.tipoMonedaPath = '/api/tipoMoneda';
 
         this.conectarDB();
 
@@ -74,6 +76,8 @@ class Server {
         this.app.use( this.megaCategoriaPath, require('../routes/megaCategoria'));
         this.app.use( this.categoriaPath, require('../routes/categoria'));
         this.app.use( this.skuPath, require('../routes/sku'));
+        this.app.use( this.medicionPath, require('../routes/medicion'));
+        this.app.use( this.tipoMonedaPath, require('../routes/tipoMoneda'));
 
 
         this.app.use(express.static(path.join(__dirname, '../dist')));
