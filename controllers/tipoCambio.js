@@ -1,10 +1,10 @@
 const { response, request } = require('express');
 const bcryptjs = require('bcryptjs');
 const { where } = require('sequelize');
-const { TipoMoneda } = require('../models/tipoMoneda');
+const { TipoCambio } = require('../models/tipoCambio');
 
 const get = async (req = request, res = response) => {
-    const model_all = await TipoMoneda.findAll({
+    const model_all = await TipoCambio.findAll({
         where: {
             estado: 1
         }
@@ -19,7 +19,7 @@ const get = async (req = request, res = response) => {
 
 const post = async (req, res = response) => {
     delete req.body.id;
-    const model = new TipoMoneda(req.body);
+    const model = new TipoCambio(req.body);
 
     // Guardar en BD
     await model.save();
@@ -35,7 +35,7 @@ const put = async (req, res = response) => {
 
     delete req.body.id;
 
-    const model = await TipoMoneda.update(req.body, {
+    const model = await TipoCambio.update(req.body, {
         where: {
             id: id,
         }
@@ -50,14 +50,14 @@ const put = async (req, res = response) => {
 
 const patch = (req, res = response) => {
     res.json({
-        msg: 'patch API - TipoMonedaPatch'
+        msg: 'patch API - TipoCambioPatch'
     });
 }
 
 const deleted = async (req, res = response) => {
     const { id } = req.params;
 
-    const model = await TipoMoneda.update({
+    const model = await TipoCambio.update({
         estado: false,
     }, {
         where: {

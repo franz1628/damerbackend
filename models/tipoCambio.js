@@ -1,7 +1,7 @@
 const { DataTypes, Sequelize } = require("sequelize");
 const { db } = require("../database/config");
 
-const TipoMoneda = db.define('TipoMoneda', {
+const TipoCambio = db.define('TipoCambio', {
     idMoneda: {type: DataTypes.INTEGER},
     idTipoTipoMoneda: {type: DataTypes.INTEGER},
     valor: {type: DataTypes.INTEGER},
@@ -15,14 +15,14 @@ const TipoMoneda = db.define('TipoMoneda', {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
 },{
-    tableName: 'TIPOMONEDA'
+    tableName: 'TIPOCAMBIO'
 });
 
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
-//TipoMoneda.belongsTo(Pais, { foreignKey: 'codPais',defaultValue:1 });
+//TipoCambio.belongsTo(Pais, { foreignKey: 'codPais',defaultValue:1 });
 
 module.exports = {
-    TipoMoneda,
+    TipoCambio,
     // Otros modelos pueden ser exportados aquí si es necesario
 };

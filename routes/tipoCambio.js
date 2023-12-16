@@ -9,7 +9,7 @@ const { get,
         put,
         post,
         deleted,
-        patch } = require('../controllers/tipoMoneda');
+        patch } = require('../controllers/tipoCambio');
 
 const router = Router();
 

@@ -28,7 +28,8 @@ class Server {
         this.categoriaPath = '/api/categoria';
         this.skuPath = '/api/sku';
         this.medicionPath = '/api/medicion';
-        this.tipoMonedaPath = '/api/tipoMoneda';
+        this.tipoCambioPath = '/api/tipoCambio';
+        this.tipoTipoCambioPath = '/api/tipoTipoCambio';
 
         this.conectarDB();
 
@@ -77,7 +78,8 @@ class Server {
         this.app.use( this.categoriaPath, require('../routes/categoria'));
         this.app.use( this.skuPath, require('../routes/sku'));
         this.app.use( this.medicionPath, require('../routes/medicion'));
-        this.app.use( this.tipoMonedaPath, require('../routes/tipoMoneda'));
+        this.app.use( this.tipoCambioPath, require('../routes/tipoCambio'));
+        this.app.use( this.tipoTipoCambioPath, require('../routes/tipoTipoCambio'));
 
 
         this.app.use(express.static(path.join(__dirname, '../dist')));
