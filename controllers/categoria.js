@@ -17,8 +17,20 @@ const get = async (req = request, res = response) => {
     });
 }
 
+const postCodigo = async (req = request, res = response) => {
+    const model = await Categoria.findOne({
+        where: {
+            estado: 1,
+            codigo : req.body.codigo
+        }
+    })
+
+    res.json(
+        model
+    );
+}
+
 const post = async (req, res = response) => {
-    console.log('etjej');
     delete req.body.id;
     const model = new Categoria(req.body);
 
@@ -94,6 +106,7 @@ const deleted = async (req, res = response) => {
 
 module.exports = {
     get,
+    postCodigo,
     post,
     postCanastaMegaCategoria,
     put,

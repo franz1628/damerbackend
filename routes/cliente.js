@@ -9,9 +9,8 @@ const { get,
         postCodigo,
         put,
         post,
-        postCanastaMegaCategoria,
         deleted,
-        patch } = require('../controllers/categoria');
+        patch } = require('../controllers/cliente');
 
 const router = Router();
 
@@ -24,19 +23,14 @@ router.post('/codigo',[
 
 router.put('/:id',[
     check('codigo', 'El codigo es requerido').not().isEmpty(),
-    check('descripcion', 'La descripcion es requerida').not().isEmpty(),
     validFields
 ],put );
 
 router.post('/',[
     check('codigo', 'El codigo es requerido').not().isEmpty(),
-    check('descripcion', 'La descripcion es requerida').not().isEmpty(),
     validFields
 ], post );
 
-router.post('/canasta/megaCategoria',[
-    validFields
-], postCanastaMegaCategoria );
 
 router.delete('/:id',[
     validFields

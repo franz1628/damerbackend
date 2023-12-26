@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, Sequelize } = require("sequelize");
 const { db } = require("../database/config");
 
 const Canasta = db.define('Canasta', {
@@ -24,7 +24,8 @@ const Canasta = db.define('Canasta', {
         defaultValue: 1,
     },
     fechaRegistro:{
-        type : DataTypes.DATE
+        type : DataTypes.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
 },{
     tableName: 'CANASTA'

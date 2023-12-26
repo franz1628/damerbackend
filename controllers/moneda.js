@@ -1,10 +1,10 @@
 const { response, request } = require('express');
 const bcryptjs = require('bcryptjs');
 const { where } = require('sequelize');
-const { Canasta } = require('../models/canasta');
+const { Moneda } = require('../models/moneda');
 
 const get = async (req = request, res = response) => {
-    const model_all = await Canasta.findAll({
+    const model_all = await Moneda.findAll({
         where: {
             estado: 1
         }
@@ -17,27 +17,9 @@ const get = async (req = request, res = response) => {
     });
 }
 
-const getCodigo = async (req = request, res = response) => {
-
-    const { codigo } = req.params;
-
-    const model_all = await Canasta.findAll({
-        where: {
-            estado: 1,
-            codigo:codigo
-        }
-    })
-
-    res.json({
-        data: model_all,
-        state: 1,
-        message: ''
-    });
-}
-
 const post = async (req, res = response) => {
     delete req.body.id;
-    const model = new Canasta(req.body);
+    const model = new Moneda(req.body);
 
     // Guardar en BD
     await model.save();
@@ -47,26 +29,13 @@ const post = async (req, res = response) => {
     });
 }
 
-const postCodigo = async (req = request, res = response) => {
-    const model = await Canasta.findOne({
-        where: {
-            estado: 1,
-            codigo : req.body.codigo
-        }
-    })
-
-    res.json(
-        model
-    );
-}
-
 const put = async (req, res = response) => {
 
     const { id } = req.params;
 
     delete req.body.id;
 
-    const model = await Canasta.update(req.body, {
+    const model = await Moneda.update(req.body, {
         where: {
             id: id,
         }
@@ -81,14 +50,14 @@ const put = async (req, res = response) => {
 
 const patch = (req, res = response) => {
     res.json({
-        msg: 'patch API - CanastaPatch'
+        msg: 'patch API - MonedaPatch'
     });
 }
 
 const deleted = async (req, res = response) => {
     const { id } = req.params;
 
-    const model = await Canasta.update({
+    const model = await Moneda.update({
         estado: false,
     }, {
         where: {
@@ -105,8 +74,6 @@ const deleted = async (req, res = response) => {
 
 module.exports = {
     get,
-    getCodigo,
-    postCodigo,
     post,
     put,
     patch,

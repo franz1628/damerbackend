@@ -46,6 +46,19 @@ const post = async (req, res = response) => {
     });
 }
 
+const postCodigo = async (req = request, res = response) => {
+    const model = await MegaCategoria.findOne({
+        where: {
+            estado: 1,
+            codigo : req.body.codigo
+        }
+    })
+
+    res.json(
+        model
+    );
+}
+
 const put = async (req, res = response) => {
 
     const { id } = req.params;
@@ -91,6 +104,7 @@ const deleted = async (req, res = response) => {
 
 module.exports = {
     get,
+    postCodigo,
     getCodigo,
     post,
     put,

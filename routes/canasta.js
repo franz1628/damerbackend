@@ -10,7 +10,8 @@ const { get,
         put,
         post,
         deleted,
-        patch } = require('../controllers/canasta');
+        patch, 
+        postCodigo} = require('../controllers/canasta');
 
 const router = Router();
 
@@ -29,6 +30,11 @@ router.post('/',[
     check('descripcion', 'La descripcion es requerida').not().isEmpty(),
     validFields
 ], post );
+
+router.post('/codigo/',[
+    check('codigo', 'El codigo es requerido').not().isEmpty(),
+    validFields
+], postCodigo );
 
 
 

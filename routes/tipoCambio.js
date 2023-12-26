@@ -17,7 +17,7 @@ router.get('/', get );
 
 router.put('/:id',[
     check('idMoneda', 'El codigo es requerido').not().isEmpty(),
-    check('idTipoTipoMoneda', 'El codigo es requerido').not().isEmpty(),
+    check('idTipoTipoCambio', 'El codigo es requerido').not().isEmpty(),
     check('valor', 'El codigo es requerido').not().isEmpty(),
     check('fecha', 'El codigo es requerido').not().isEmpty(),
 
@@ -26,7 +26,7 @@ router.put('/:id',[
 
 router.post('/',[
     check('idMoneda', 'El codigo es requerido').not().isEmpty(),
-    check('idTipoTipoMoneda', 'El codigo es requerido').not().isEmpty(),
+    check('idTipoTipoCambio', 'El codigo es requerido').not().isEmpty(),
     check('valor', 'El codigo es requerido').not().isEmpty(),
     check('fecha', 'El codigo es requerido').not().isEmpty(),
     validFields

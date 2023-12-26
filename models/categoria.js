@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, Sequelize } = require("sequelize");
 const { db } = require("../database/config");
 const { MegaCategoria } = require("./megaCategoria");
 const { Canasta } = require("./canasta");
@@ -22,7 +22,8 @@ const Categoria = db.define('Categoria', {
         defaultValue: 1,
     },
     fechaRegistro:{
-        type : DataTypes.DATE
+        type : DataTypes.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
 },{
     tableName: 'CATEGORIA'

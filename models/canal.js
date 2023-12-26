@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, Sequelize } = require("sequelize");
 const { db } = require("../database/config");
 const { TipoRelevamiento } = require("./tipoRelevamiento");
 
@@ -37,7 +37,8 @@ const Canal = db.define('canal', {
         defaultValue: 1,
     },
     fechaRegistro:{
-        type : DataTypes.DATE
+        type : DataTypes.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
 },{
     tableName: 'CANAL'
