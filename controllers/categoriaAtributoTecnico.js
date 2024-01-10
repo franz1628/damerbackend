@@ -1,10 +1,11 @@
 const { response, request } = require('express');
 const bcryptjs = require('bcryptjs');
 const { where, Op, Sequelize } = require('sequelize');
-const { Categoria } = require('../models/categoria');
+const { CategoriaAtributoTecnico } = require('../models/categoriaAtributoTecnico');
+const { AtributoTecnicoVariedad } = require('../models/atributoTecnicoVariedad');
 
 const get = async (req = request, res = response) => {
-    const model_all = await Categoria.findAll({
+    const model_all = await CategoriaAtributoTecnico.findAll({
         where: {
             estado: 1
         }
@@ -18,29 +19,14 @@ const get = async (req = request, res = response) => {
 }
 
 const postCodigo = async (req = request, res = response) => {
-    const model = await Categoria.findOne({
+    const model = await CategoriaAtributoTecnico.findAll({
         where: {
             estado: 1,
-            codigo : req.body.codigo
-        }
+            codCategoria : req.body.codCategoria
+        },
+        include : {model:AtributoTecnicoVariedad,foreignKey:'codigo'}
     })
-
-    res.json(
-        model
-    );
-}
-
-const postDescripcion = async (req = request, res = response) => {
-    const model = await Categoria.findAll({
-        where: {
-            estado: 1,
-            descripcion: Sequelize.where(
-                Sequelize.fn('LOWER', Sequelize.col('descripcion')),
-                'LIKE',
-                `%${req.body.descripcion.toLowerCase()}%`
-            )
-        }
-    })
+    
 
     res.json(
         model
@@ -49,7 +35,7 @@ const postDescripcion = async (req = request, res = response) => {
 
 const post = async (req, res = response) => {
     delete req.body.id;
-    const model = new Categoria(req.body);
+    const model = new CategoriaAtributoTecnico(req.body);
 
     // Guardar en BD
     await model.save();
@@ -59,24 +45,6 @@ const post = async (req, res = response) => {
     });
 }
 
-const postCanastaMegaCategoria = async (req, res = response) => {
-
-    const { codCanasta,codMegaCategoria } = req.body;
-
-    const model_all = await Categoria.findAll({
-        where: {
-            estado: 1,
-            codCanasta:codCanasta,
-            codMegaCategoria:codMegaCategoria,
-        }
-    })
-
-    res.json({
-        data: model_all,
-        state: 1,
-        message: ''
-    });
-}
 
 const put = async (req, res = response) => {
 
@@ -84,7 +52,7 @@ const put = async (req, res = response) => {
 
     delete req.body.id;
 
-    const model = await Categoria.update(req.body, {
+    const model = await CategoriaAtributoTecnico.update(req.body, {
         where: {
             id: id,
         }
@@ -99,14 +67,14 @@ const put = async (req, res = response) => {
 
 const patch = (req, res = response) => {
     res.json({
-        msg: 'patch API - CategoriaPatch'
+        msg: 'patch API - CategoriaAtributoTecnicoPatch'
     });
 }
 
 const deleted = async (req, res = response) => {
     const { id } = req.params;
 
-    const model = await Categoria.update({
+    const model = await CategoriaAtributoTecnico.update({
         estado: false,
     }, {
         where: {
@@ -124,9 +92,7 @@ const deleted = async (req, res = response) => {
 module.exports = {
     get,
     postCodigo,
-    postDescripcion,
     post,
-    postCanastaMegaCategoria,
     put,
     patch,
     deleted,

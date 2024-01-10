@@ -35,8 +35,10 @@ class Server {
         this.clienteDireccionPath = '/api/clienteDireccion';
         this.clienteContactoPath = '/api/clienteContacto';
         this.atributoTecnicoVariedadPath = '/api/atributoTecnicoVariedad';
+        this.atributoTecnicoVariedadValorPath = '/api/atributoTecnicoVariedadValor';
         this.atributoTecnicoNegocioPath = '/api/atributoTecnicoNegocio';
         this.variablePath = '/api/variable';
+        this.categoriaAtributoTecnicoPath = '/api/categoriaAtributoTecnico';
 
         this.conectarDB();
 
@@ -92,8 +94,10 @@ class Server {
         this.app.use(this.clienteDireccionPath, require('../routes/clienteDireccion'));
         this.app.use(this.clienteContactoPath, require('../routes/clienteContacto'));
         this.app.use(this.atributoTecnicoVariedadPath, require('../routes/atributoTecnicoVariedad'));
+        this.app.use(this.atributoTecnicoVariedadValorPath, require('../routes/atributoTecnicoVariedadValor'));
         this.app.use(this.atributoTecnicoNegocioPath, require('../routes/atributoTecnicoNegocio'));
         this.app.use(this.variablePath, require('../routes/variable'));
+        this.app.use(this.categoriaAtributoTecnicoPath, require('../routes/categoriaAtributoTecnico'));
 
 
         this.app.use(express.static(path.join(__dirname, '../dist')));

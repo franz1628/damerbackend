@@ -6,43 +6,31 @@ const { validFields } = require('../middlewares/valid-fields');
 const { isValidRole } = require('../helpers/db-validators');
 
 const { get,
-        postCodigo,
-        postDescripcion,
+    postCodigoAtributoTecnicoVariedad,
         put,
         post,
-        postCanastaMegaCategoria,
         deleted,
-        patch } = require('../controllers/categoria');
+        patch } = require('../controllers/atributoTecnicoVariedadValor');
 
 const router = Router();
 
 router.get('/', get );
 
-router.post('/codigo',[
-    check('codigo', 'El codigo es requerido').not().isEmpty(),
+router.post('/codAtributoTecnicoVariedad',[
+    check('codAtributoTecnicoVariedad', 'El codigo es requerido').not().isEmpty(),
     validFields
-] ,postCodigo );
-
-router.post('/descripcion',[
-    check('descripcion', 'El descripcion es requerido').not().isEmpty(),
-    validFields
-] ,postDescripcion );
+] ,postCodigoAtributoTecnicoVariedad );
 
 router.put('/:id',[
     check('codigo', 'El codigo es requerido').not().isEmpty(),
-    check('descripcion', 'La descripcion es requerida').not().isEmpty(),
     validFields
 ],put );
 
 router.post('/',[
     check('codigo', 'El codigo es requerido').not().isEmpty(),
-    check('descripcion', 'La descripcion es requerida').not().isEmpty(),
     validFields
 ], post );
 
-router.post('/canasta/megaCategoria',[
-    validFields
-], postCanastaMegaCategoria );
 
 router.delete('/:id',[
     validFields
