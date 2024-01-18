@@ -31,35 +31,77 @@ const postCodigo = async (req = request, res = response) => {
 }
 
 const post = async (req, res = response) => {
-    delete req.body.id;
-    const model = new Cliente(req.body);
+    try {
+        delete req.body.id;
+        const model = new Cliente(req.body);
 
-    // Guardar en BD
-    await model.save();
+        await model.save();
 
-    res.json({
-        model
-    });
+        res.status(201).json({
+            model,
+            state: 1,
+            message: 'Cliente creada correctamente'
+        });
+    } catch (error) {
+        res.status(500).json({
+            state: 0,
+            message: 'Internal Server Error'
+        });
+    }
 }
 
 
 const put = async (req, res = response) => {
+    try {
+        const { id } = req.params;
+        delete req.body.id;
 
-    const { id } = req.params;
+        const model = await Cliente.findOne({
+            where: {
+                id:id
+            }
+        })
 
-    delete req.body.id;
+        if(model.codigo!=req.body.codigo){
+            const buscaModel = await Cliente.findOne({
+                where: {
+                    codigo:req.body.codigo
+                }
+            })
 
-    const model = await Cliente.update(req.body, {
-        where: {
-            id: id,
+            if(buscaModel){
+                return res.status(400).json({
+                    state: 0,
+                    message: 'El codigo ya existe',
+                });
+            }
         }
-    });
 
-    res.json({
-        data: [model],
-        state: 1,
-        message: 'Actualizado correctamente'
-    });
+        const [rowsAffected, updatedModel] = await Cliente.update(req.body, {
+            where: {
+                id: id,
+            },
+            returning: true,
+        });
+
+        if (rowsAffected === 0) {
+            return res.status(404).json({
+                state: 0,
+                message: 'Registro no encontrado',
+            });
+        }
+
+        res.json({
+            data: [updatedModel],
+            state: 1,
+            message: 'Actualizado correctamente',
+        });
+    } catch (error) {
+        res.status(500).json({
+            state: 0,
+            message: 'Internal Server Error',
+        });
+    }
 }
 
 const patch = (req, res = response) => {

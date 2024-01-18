@@ -17,6 +17,21 @@ const get = async (req = request, res = response) => {
     });
 }
 
+const getCodCliente = async (req = request, res = response) => {
+    const model_all = await ClienteContacto.findAll({
+        where: {
+            estado: 1,
+            codCliente:req.params.codCliente
+        }
+    })
+
+    res.json({
+        data: model_all,
+        state: 1,
+        message: ''
+    });
+}
+
 const postCodigo = async (req = request, res = response) => {
     const model = await ClienteContacto.findOne({
         where: {
@@ -88,6 +103,7 @@ const deleted = async (req, res = response) => {
 
 module.exports = {
     get,
+    getCodCliente,
     postCodigo,
     post,
     put,

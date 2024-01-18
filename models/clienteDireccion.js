@@ -1,8 +1,8 @@
 const { DataTypes, Sequelize } = require("sequelize");
 const { db } = require("../database/config");
+const {Cliente} = require("../models/cliente");
 
 const ClienteDireccion = db.define('ClienteDireccion', {
-    codCliente: {type: DataTypes.INTEGER},
     idTipoDireccion: {type: DataTypes.INTEGER},
     codDistrito: {type: DataTypes.INTEGER},
     codUrbanizacion: {type: DataTypes.INTEGER},
@@ -26,7 +26,7 @@ const ClienteDireccion = db.define('ClienteDireccion', {
 
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
-// Cliente.belongsTo(MegaCliente, { foreignKey: 'codMegaCliente',defaultValue:0 })
+ClienteDireccion.belongsTo(Cliente, { foreignKey: 'codCliente'})
 
 module.exports = {
     ClienteDireccion,
