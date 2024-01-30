@@ -6,6 +6,7 @@ const {Canal} = require("../models/canal");
 const ClienteCanal = db.define('ClienteCanal', {
     codCliente: {type: DataTypes.INTEGER},
     codCanal: {type: DataTypes.INTEGER},
+    nombreAgrupacion: {type: DataTypes.STRING},
     estado: {
         type: DataTypes.INTEGER,
         defaultValue: 1,

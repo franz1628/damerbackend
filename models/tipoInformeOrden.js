@@ -1,16 +1,15 @@
 const { DataTypes, Sequelize } = require("sequelize");
 const { db } = require("../database/config");
-const {Cliente} = require("./cliente");
-const {Categoria} = require("./categoria");
- 
-const AtributoFuncionalVariedad = db.define('AtributoFuncionalVariedad', {
+
+const TipoInformeOrden = db.define('TipoInformeOrden', {
     codigo: {type: DataTypes.INTEGER},
     descripcion: {type: DataTypes.STRING},
     descripcionResumida: {type: DataTypes.STRING},
     tip: {type: DataTypes.STRING},
-    idIndiceAtributo: {type: DataTypes.INTEGER},
-    idTipoUnidadMedida: {type: DataTypes.INTEGER},
-    idUnidadMedida: {type: DataTypes.INTEGER},
+    claseInforme: {type: DataTypes.INTEGER},
+    estudios: {type: DataTypes.INTEGER},
+    variables: {type: DataTypes.INTEGER},
+    unidades: {type: DataTypes.INTEGER},
     alias1: {type: DataTypes.STRING},
     alias2: {type: DataTypes.STRING},
     alias3: {type: DataTypes.STRING},
@@ -23,16 +22,16 @@ const AtributoFuncionalVariedad = db.define('AtributoFuncionalVariedad', {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
 },{
-    tableName: 'ATRIBUTOFUNCIONALVARIEDAD'
+    tableName: 'TIPOINFORMEORDEN'
 });
 
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
-//AtributoFuncionalVariedad.belongsTo(Cliente, { foreignKey: 'codCliente'})
-AtributoFuncionalVariedad.belongsTo(Categoria, { foreignKey: 'codCategoria',as:'Categoria',targetKey:'codigo'})
-AtributoFuncionalVariedad.belongsTo(Cliente, { foreignKey: 'codCliente',as:'Cliente',targetKey:'codigo'})
+//TipoInformeOrden.belongsTo(Cliente, { foreignKey: 'codCliente'})
+// TipoInformeOrden.belongsTo(Canal, { foreignKey: 'codCanal',as:'Canal',targetKey:'codigo'})
+// TipoInformeOrden.belongsTo(Cliente, { foreignKey: 'codCliente',as:'Cliente',targetKey:'codigo'})
 
 module.exports = {
-    AtributoFuncionalVariedad,
+    TipoInformeOrden,
     // Otros modelos pueden ser exportados aquí si es necesario
 };

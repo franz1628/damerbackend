@@ -6,6 +6,7 @@ const {Zona} = require("../models/zona");
 const ClienteZona = db.define('ClienteZona', {
     codCliente: {type: DataTypes.INTEGER},
     codZona: {type: DataTypes.INTEGER},
+    nombreAgrupacion: {type: DataTypes.STRING},
     estado: {
         type: DataTypes.INTEGER,
         defaultValue: 1,

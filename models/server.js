@@ -9,41 +9,49 @@ class Server {
     constructor() {
         this.app = express();
         this.port = process.env.PORT || 8080;
-        this.authPath = '/api/auth';
-        this.personPath = '/api/person';
-        this.usuarioPath = '/api/usuario';
-        this.paisPath = '/api/pais';
-        this.departamentoPath = '/api/departamento';
-        this.provinciaPath = '/api/provincia';
-        this.distritoPath = '/api/distrito';
-        this.negocioPath = '/api/negocio';
-        this.tipoUrbanizacionPath = '/api/tipoUrbanizacion';
-        this.parametroPath = '/api/parametro';
-        this.canalPath = '/api/canal';
-        this.zonaPath = '/api/zona';
-        this.tipoZonaPath = '/api/tipoZona';
-        this.urbanizacionPath = '/api/urbanizacion';
-        this.canastaPath = '/api/canasta';
-        this.megaCategoriaPath = '/api/megaCategoria';
-        this.categoriaPath = '/api/categoria';
-        this.skuPath = '/api/sku';
-        this.medicionPath = '/api/medicion';
-        this.tipoCambioPath = '/api/tipoCambio';
-        this.tipoTipoCambioPath = '/api/tipoTipoCambio';
-        this.monedaPath = '/api/moneda';
-        this.clientePath = '/api/cliente';
-        this.clienteDireccionPath = '/api/clienteDireccion';
-        this.clienteContactoPath = '/api/clienteContacto';
-        this.clienteCategoriaPath = '/api/clienteCategoria';
-        this.clienteCanalPath = '/api/clienteCanal';
-        this.clienteZonaPath = '/api/clienteZona';
-        this.atributoTecnicoVariedadPath = '/api/atributoTecnicoVariedad';
-        this.atributoTecnicoVariedadValorPath = '/api/atributoTecnicoVariedadValor';
-        this.atributoTecnicoNegocioPath = '/api/atributoTecnicoNegocio';
-        this.variablePath = '/api/variable';
-        this.categoriaAtributoTecnicoPath = '/api/categoriaAtributoTecnico';
-        this.categoriaAtributoTecnicoValorPath = '/api/categoriaAtributoTecnicoValor';
-        this.frecuenciaPath = '/api/frecuencia';
+
+        this.paths = {
+            auth: '/api/auth',
+            person: '/api/person',
+            usuario: '/api/usuario',
+            pais: '/api/pais',
+            departamento: '/api/departamento',
+            provincia: '/api/provincia',
+            distrito: '/api/distrito',
+            negocio: '/api/negocio',
+            tipoUrbanizacion: '/api/tipoUrbanizacion',
+            parametro: '/api/parametro',
+            canal: '/api/canal',
+            zona: '/api/zona',
+            tipoZona: '/api/tipoZona',
+            urbanizacion: '/api/urbanizacion',
+            canasta: '/api/canasta',
+            megaCategoria: '/api/megaCategoria',
+            categoria: '/api/categoria',
+            sku: '/api/sku',
+            medicion: '/api/medicion',
+            tipoCambio: '/api/tipoCambio',
+            tipoTipoCambio: '/api/tipoTipoCambio',
+            moneda: '/api/moneda',
+            cliente: '/api/cliente',
+            clienteDireccion: '/api/clienteDireccion',
+            clienteContacto: '/api/clienteContacto',
+            clienteCategoria: '/api/clienteCategoria',
+            clienteCanal: '/api/clienteCanal',
+            clienteZona: '/api/clienteZona',
+            atributoTecnicoVariedad: '/api/atributoTecnicoVariedad',
+            atributoTecnicoVariedadValor: '/api/atributoTecnicoVariedadValor',
+            atributoTecnicoNegocio: '/api/atributoTecnicoNegocio',
+            variable: '/api/variable',
+            categoriaAtributoTecnico: '/api/categoriaAtributoTecnico',
+            categoriaAtributoTecnicoValor: '/api/categoriaAtributoTecnicoValor',
+            frecuencia: '/api/frecuencia',
+            atributoFuncionalVariedad: '/api/atributoFuncionalVariedad',
+            tipoEstudio: '/api/tipoEstudio',
+            tipoUnidadMedida: '/api/tipoUnidadMedida',
+            unidadMedida: '/api/unidadMedida',
+            tipoInformeOrden: '/api/tipoInformeOrden',
+        };
 
         this.conectarDB();
 
@@ -73,41 +81,9 @@ class Server {
     }
 
     routes() {
-        this.app.use(this.authPath, require('../routes/auth'));
-        this.app.use(this.personPath, require('../routes/person'));
-        this.app.use(this.usuarioPath, require('../routes/usuario'));
-        this.app.use(this.paisPath, require('../routes/pais'));
-        this.app.use(this.departamentoPath, require('../routes/departamento'));
-        this.app.use(this.provinciaPath, require('../routes/provincia'));
-        this.app.use(this.distritoPath, require('../routes/distrito'));
-        this.app.use(this.negocioPath, require('../routes/negocio'));
-        this.app.use(this.tipoUrbanizacionPath, require('../routes/tipoUrbanizacion'));
-        this.app.use(this.parametroPath, require('../routes/parametro'));
-        this.app.use(this.canalPath, require('../routes/canal'));
-        this.app.use(this.zonaPath, require('../routes/zona'));
-        this.app.use(this.tipoZonaPath, require('../routes/tipoZona'));
-        this.app.use(this.urbanizacionPath, require('../routes/urbanizacion'));
-        this.app.use(this.canastaPath, require('../routes/canasta'));
-        this.app.use(this.megaCategoriaPath, require('../routes/megaCategoria'));
-        this.app.use(this.categoriaPath, require('../routes/categoria'));
-        this.app.use(this.skuPath, require('../routes/sku'));
-        this.app.use(this.medicionPath, require('../routes/medicion'));
-        this.app.use(this.tipoCambioPath, require('../routes/tipoCambio'));
-        this.app.use(this.tipoTipoCambioPath, require('../routes/tipoTipoCambio'));
-        this.app.use(this.monedaPath, require('../routes/moneda'));
-        this.app.use(this.clientePath, require('../routes/cliente'));
-        this.app.use(this.clienteDireccionPath, require('../routes/clienteDireccion'));
-        this.app.use(this.clienteContactoPath, require('../routes/clienteContacto'));
-        this.app.use(this.atributoTecnicoVariedadPath, require('../routes/atributoTecnicoVariedad'));
-        this.app.use(this.atributoTecnicoVariedadValorPath, require('../routes/atributoTecnicoVariedadValor'));
-        this.app.use(this.atributoTecnicoNegocioPath, require('../routes/atributoTecnicoNegocio'));
-        this.app.use(this.variablePath, require('../routes/variable'));
-        this.app.use(this.categoriaAtributoTecnicoPath, require('../routes/categoriaAtributoTecnico'));
-        this.app.use(this.categoriaAtributoTecnicoValorPath, require('../routes/categoriaAtributoTecnicoValor'));
-        this.app.use(this.frecuenciaPath, require('../routes/frecuencia'));
-        this.app.use(this.clienteCategoriaPath, require('../routes/clienteCategoria'));
-        this.app.use(this.clienteCanalPath, require('../routes/clienteCanal'));
-        this.app.use(this.clienteZonaPath, require('../routes/clienteZona'));
+        for (const [key, value] of Object.entries(this.paths)) {
+            this.app.use(value, require(`../routes/${key}`));
+        }
 
 
         this.app.use(express.static(path.join(__dirname, '../dist')));
