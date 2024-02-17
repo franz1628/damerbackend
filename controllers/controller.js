@@ -1,5 +1,5 @@
 
-const Controller = (Model) => {
+let Controller = (Model) => {
     return {
         get : async (req = request, res = response) => {
             const model_all = await Model.findAll({
@@ -14,6 +14,16 @@ const Controller = (Model) => {
                 message: ''
             });
         },
+        postId : async (req = request, res = response) => {
+            const model = await Model.findOne({
+                where: {
+                    estado: 1,
+                    id: req.body.id
+                }
+            });
+        
+            res.json(model);
+        },
         post : async (req, res = response) => {
             try {
                 delete req.body.id;
@@ -22,14 +32,14 @@ const Controller = (Model) => {
                 await model.save();
         
                 res.status(201).json({
-                    model,
+                    data:model,
                     state: 1,
                     message: 'Model creada correctamente'
                 });
             } catch (error) {
                 res.status(500).json({
                     state: 0,
-                    message: 'Internal Server Error'
+                    message: 'Error en el servidor'
                 });
             }
         },

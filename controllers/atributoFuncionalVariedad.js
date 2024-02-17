@@ -59,6 +59,22 @@ const postCodigo = async (req = request, res = response) => {
     );
 }
 
+const postIdClienteIdCategoria = async (req = request, res = response) => {
+    const model_all = await AtributoFuncionalVariedad.findAll({
+        where: {
+            estado: 1,
+            idCliente : req.body.idCliente,
+            idCategoria : req.body.idCategoria
+        }
+    })
+
+    res.json({
+        data: model_all,
+        state: 1,
+        message: ''
+    });
+}
+
 const post = async (req, res = response) => {
     delete req.body.id;
     const model = new AtributoFuncionalVariedad(req.body);
@@ -119,6 +135,7 @@ module.exports = {
     get,
     getCodClienteCodCategoria,
     postCodigo,
+    postIdClienteIdCategoria,
     post,
     put,
     patch,

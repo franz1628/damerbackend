@@ -1,7 +1,7 @@
 const { DataTypes, Sequelize } = require("sequelize");
 const { db } = require("../database/config");
-const {Cliente} = require("./cliente");
-const {Canal} = require("./canal");
+// const { TipoInformeOrden } = require("./tipoInformeOrden");
+
 
 const TipoEstudio = db.define('TipoEstudio', {
 
@@ -32,13 +32,7 @@ const TipoEstudio = db.define('TipoEstudio', {
     tableName: 'TIPOESTUDIO'
 });
 
-
-// Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
-//TipoEstudio.belongsTo(Cliente, { foreignKey: 'codCliente'})
-// TipoEstudio.belongsTo(Canal, { foreignKey: 'codCanal',as:'Canal',targetKey:'codigo'})
-// TipoEstudio.belongsTo(Cliente, { foreignKey: 'codCliente',as:'Cliente',targetKey:'codigo'})
-
 module.exports = {
-    TipoEstudio,
+    TipoEstudio, 
     // Otros modelos pueden ser exportados aquí si es necesario
 };

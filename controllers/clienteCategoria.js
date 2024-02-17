@@ -59,6 +59,31 @@ const postCodigo = async (req = request, res = response) => {
     );
 }
 
+const postIdCliente = async (req = request, res = response) => {
+    const model_all = await ClienteCategoria.findAll({
+        where: {
+            estado: 1,
+            idCliente: req.body.idCliente
+        },
+        include: [
+            {
+                model: Categoria,
+                as: 'Categoria'
+            },
+            {
+                model: Cliente,
+                as: 'Cliente'
+            }
+        ]
+    });
+
+    res.json({
+        data: model_all,
+        state: 1,
+        message: ''
+    });
+}
+
 const post = async (req, res = response) => {
     delete req.body.id;
     const model = new ClienteCategoria(req.body);
@@ -117,6 +142,7 @@ const deleted = async (req, res = response) => {
 
 module.exports = {
     get,
+    postIdCliente,
     getCodCliente,
     postCodigo,
     post,

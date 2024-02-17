@@ -44,6 +44,31 @@ const getCodCliente = async (req = request, res = response) => {
     });
 }
 
+const postIdCliente = async (req = request, res = response) => {
+    const model_all = await ClienteCanal.findAll({
+        where: {
+            estado: 1,
+            idCliente: req.body.idCliente
+        },
+        include: [
+            {
+                model: Canal,
+                as: 'Canal'
+            },
+            {
+                model: Cliente,
+                as: 'Cliente'
+            }
+        ]
+    });
+
+    res.json({
+        data: model_all,
+        state: 1,
+        message: ''
+    });
+}
+
 const postCodigo = async (req = request, res = response) => {
     const model = await ClienteCanal.findOne({
         where: {
@@ -116,6 +141,7 @@ const deleted = async (req, res = response) => {
 module.exports = {
     get,
     getCodCliente,
+    postIdCliente,
     postCodigo,
     post,
     put,

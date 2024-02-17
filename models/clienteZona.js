@@ -22,8 +22,8 @@ const ClienteZona = db.define('ClienteZona', {
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
 //ClienteZona.belongsTo(Cliente, { foreignKey: 'codCliente'})
-ClienteZona.belongsTo(Zona, { foreignKey: 'codZona',as:'Zona',targetKey:'codigo'})
-ClienteZona.belongsTo(Cliente, { foreignKey: 'codCliente',as:'Cliente',targetKey:'codigo'})
+ClienteZona.belongsTo(Zona, { foreignKey: 'idZona',as:'Zona',targetKey:'id'})
+ClienteZona.belongsTo(Cliente, { foreignKey: 'idCliente',as:'Cliente',targetKey:'id'})
 
 module.exports = {
     ClienteZona,

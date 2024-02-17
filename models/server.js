@@ -51,6 +51,14 @@ class Server {
             tipoUnidadMedida: '/api/tipoUnidadMedida',
             unidadMedida: '/api/unidadMedida',
             tipoInformeOrden: '/api/tipoInformeOrden',
+            categoriaUnidadVenta: '/api/categoriaUnidadVenta',
+            contrato: '/api/contrato',
+            contratoDetalle: '/api/contratoDetalle',
+            estadoContrato: '/api/estadoContrato',
+            contratoHistorial: '/api/contratoHistorial',
+            contratoVariable: '/api/contratoVariable',
+            contratoUnidadVenta: '/api/contratoUnidadVenta',
+            contratoMes: '/api/contratoMes',
         };
 
         this.conectarDB();

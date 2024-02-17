@@ -1,5 +1,6 @@
 const { DataTypes, Sequelize } = require("sequelize");
 const { db } = require("../database/config");
+const { TipoEstudio } = require("./tipoEstudio");
 
 const TipoInformeOrden = db.define('TipoInformeOrden', {
     codigo: {type: DataTypes.INTEGER},
@@ -8,7 +9,7 @@ const TipoInformeOrden = db.define('TipoInformeOrden', {
     tip: {type: DataTypes.STRING},
     claseInforme: {type: DataTypes.INTEGER},
     estudios: {type: DataTypes.INTEGER},
-    variables: {type: DataTypes.INTEGER},
+    variables: {type: DataTypes.INTEGER}, 
     unidades: {type: DataTypes.INTEGER},
     alias1: {type: DataTypes.STRING},
     alias2: {type: DataTypes.STRING},
@@ -26,12 +27,8 @@ const TipoInformeOrden = db.define('TipoInformeOrden', {
 });
 
 
-// Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
-//TipoInformeOrden.belongsTo(Cliente, { foreignKey: 'codCliente'})
-// TipoInformeOrden.belongsTo(Canal, { foreignKey: 'codCanal',as:'Canal',targetKey:'codigo'})
-// TipoInformeOrden.belongsTo(Cliente, { foreignKey: 'codCliente',as:'Cliente',targetKey:'codigo'})
 
-module.exports = {
+module.exports = { 
     TipoInformeOrden,
     // Otros modelos pueden ser exportados aquí si es necesario
 };

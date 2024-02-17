@@ -6,37 +6,29 @@ const { validFields } = require('../middlewares/valid-fields');
 const { isValidRole } = require('../helpers/db-validators');
 
 const { get,
-        getCodCliente,
-        postIdCliente,
         postCodigo,
         put,
         post,
         deleted,
-        patch } = require('../controllers/clienteZona');
+        patch } = require('../controllers/unidadVenta');
 
 const router = Router();
 
 router.get('/', get );
-router.get('/codCliente/:codCliente', getCodCliente );
 
 router.post('/codigo',[
     // check('codigo', 'El codigo es requerido').not().isEmpty(),
     validFields
 ] ,postCodigo );
 
-router.post('/idCliente',[
-     check('idCliente', 'El idCliente es requerido').not().isEmpty(),
-    validFields
-] ,postIdCliente );
 
 router.put('/:id',[
-    // check('codCliente', 'El codigo es requerido').not().isEmpty(),
+    check('codCliente', 'El codigo es requerido').not().isEmpty(),
     validFields
 ],put );
 
 router.post('/',[
-     check('idCliente', 'El idCliente es requerido').not().isEmpty(),
-     check('idZona', 'El idZona es requerido').not().isEmpty(),
+    check('codCliente', 'El codigo es requerido').not().isEmpty(),
     validFields
 ], post );
 

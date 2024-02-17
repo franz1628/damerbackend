@@ -1,12 +1,17 @@
 const { response, request } = require('express');
 const bcryptjs = require('bcryptjs');
 const { TipoEstudio } = require('../models/tipoEstudio');
+const { TipoInformeOrden } = require('../models/tipoInformeOrden');
 
 const get = async (req = request, res = response) => {
     const model_all = await TipoEstudio.findAll({
         where: {
-            estado: 1
-        }
+            estado: 1,
+        },
+        include: [{
+            model:TipoInformeOrden,
+            as:'TipoInformeOrden'
+        }]
     })
 
     res.json({
