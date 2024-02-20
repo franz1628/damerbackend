@@ -4,6 +4,7 @@ const {Cliente} = require("./cliente");
 const {Categoria} = require("./categoria");
 const { EstadoContrato } = require("./estadoContrato");
 const { Frecuencia } = require("./frecuencia");
+const { DateTime } = require("luxon");
 
 const Contrato = db.define('Contrato', {
     idCliente: {type: DataTypes.INTEGER},
@@ -14,6 +15,8 @@ const Contrato = db.define('Contrato', {
     shot: {type: DataTypes.INTEGER},
     extension: {type: DataTypes.INTEGER},
     version: {type: DataTypes.INTEGER},
+    fechaAprobacion: {type: DataTypes.DATE},
+    fechaModificacion: {type: DataTypes.DATE},
     estado: {
         type: DataTypes.INTEGER,
         defaultValue: 1,
@@ -25,6 +28,7 @@ const Contrato = db.define('Contrato', {
 },{
     tableName: 'CONTRATO'
 });
+
 
 Contrato.belongsTo(Categoria, { foreignKey: 'idCategoria',as:'Categoria',targetKey:'id'})
 Contrato.belongsTo(Cliente, { foreignKey: 'idCliente',as:'Cliente',targetKey:'id'})

@@ -22,6 +22,24 @@ control.get = async (req = request, res = response) => {
         message: ''
     });
 },
+control.getById = async (req = request, res = response) => {
+    let model = await TipoInformeOrden.findOne({
+        where: {
+            estado: 1,
+            id:req.params.id
+        },
+        include: [{
+            model: TipoEstudio,
+            as: 'TipoEstudio'
+        }]
+    })
+
+    res.json({
+        data: model,
+        state: 1,
+        message: ''
+    });
+},
 //Sobreescribiendo el metodo
 control.post = async (req, res = response) => {
     try {

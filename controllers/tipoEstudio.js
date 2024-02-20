@@ -21,6 +21,25 @@ const get = async (req = request, res = response) => {
     });
 }
 
+const getById = async (req = request, res = response) => {
+    let model = await TipoEstudio.findOne({
+        where: {
+            estado: 1,
+            id:req.params.id
+        },
+        include: [{
+            model: TipoInformeOrden,
+            as: 'TipoInformeOrden'
+        }]
+    })
+
+    res.json({
+        data: model,
+        state: 1,
+        message: ''
+    });
+}
+
 const postCodigo = async (req = request, res = response) => {
     const model = await TipoEstudio.findOne({
         where: {
@@ -92,6 +111,7 @@ const deleted = async (req, res = response) => {
 
 module.exports = {
     get,
+    getById,
     postCodigo,
     post,
     put,
