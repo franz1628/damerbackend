@@ -3,7 +3,6 @@ const { db } = require("../database/config");
 const { AtributoTecnicoVariedad } = require("./atributoTecnicoVariedad");
 
 const AtributoTecnicoVariedadValor = db.define('AtributoTecnicoVariedadValor', {
-    codigo : {type: DataTypes.INTEGER},
 	valor : {type: DataTypes.STRING},
 	comentario : {type: DataTypes.STRING},
 	alias1 : {type: DataTypes.STRING},
@@ -20,7 +19,7 @@ const AtributoTecnicoVariedadValor = db.define('AtributoTecnicoVariedadValor', {
     tableName: 'ATRIBUTOTECNICOVARIEDAD_VALOR'
 });
 
-AtributoTecnicoVariedadValor.belongsTo(AtributoTecnicoVariedad, { foreignKey: 'codAtributoTecnicoVariedad'})
+AtributoTecnicoVariedadValor.belongsTo(AtributoTecnicoVariedad, { foreignKey: 'idAtributoTecnicoVariedad'})
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
 // AtributoTecnicoVariedad.belongsTo(AtributoTecnicoVariedad, { foreignKey: 'AtributoTecnicoVariedad',defaultValue:0 })
 

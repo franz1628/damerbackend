@@ -6,35 +6,39 @@ const { validFields } = require('../middlewares/valid-fields');
 const { isValidRole, provinciaExists } = require('../helpers/db-validators');
 
 const { get,
-        getCodigo,
-        put,
-        post,
-        deleted,
-        patch } = require('../controllers/negocio');
+    getId,
+    put,
+    post,
+    postDescripcion,
+    deleted,
+    patch } = require('../controllers/negocio');
 
 const router = Router();
 
-router.get('/', get );
+router.get('/', get);
+router.get('/:id', getId);
 
-router.get('/codigo/:codigo',[
-    check('codigo', 'El codigo es requerido').not().isEmpty(),
+
+router.put('/:id', [
+    check('id', 'El codigo es requerido').not().isEmpty(),
     validFields
-] ,getCodigo );
+], put);
 
-router.put('/:id',[
-    check('codigo', 'El codigo es requerido').not().isEmpty(),
+router.post('/', [
+    check('id', 'El codigo es requerido').not().isEmpty(),
     validFields
-],put );
+], post);
 
-router.post('/',[
-    check('codigo', 'El codigo es requerido').not().isEmpty(),
+router.post('/postDescripcion', [
+    check('descripcion', 'La descripcion es requerido').not().isEmpty(),
     validFields
-], post );
+], postDescripcion);
 
-router.delete('/:id',[
+
+router.delete('/:id', [
     validFields
-],deleted );
+], deleted);
 
-router.patch('/', patch );
+router.patch('/', patch);
 
 module.exports = router;

@@ -14,6 +14,20 @@ let Controller = (Model) => {
                 message: ''
             });
         },
+        getId : async (req = request, res = response) => {
+            const model = await Model.findOne({
+                where: {
+                    estado: 1,
+                    id:req.params.id
+                }
+            })
+        
+            res.json({
+                data: model,
+                state: 1,
+                message: ''
+            });
+        },
         postId : async (req = request, res = response) => {
             const model = await Model.findOne({
                 where: {
@@ -39,47 +53,14 @@ let Controller = (Model) => {
             } catch (error) {
                 res.status(500).json({
                     state: 0,
-                    message: 'Error en el servidor'
+                    message: error
                 });
             }
-        },
-        postCodigo : async (req = request, res = response) => {
-            const model = await Model.findOne({
-                where: {
-                    estado: 1,
-                    codigo : req.body.codigo
-                }
-            })
-    
-            res.json(
-                model
-            );
         },
         put : async (req, res = response) => {
             try {
                 const { id } = req.params;
                 delete req.body.id;
-        
-                const model = await Model.findOne({
-                    where: {
-                        id:id
-                    }
-                })
-        
-                if(model.codigo!=req.body.codigo){
-                    const buscaModel = await Model.findOne({
-                        where: {
-                            codigo:req.body.codigo
-                        }
-                    })
-        
-                    if(buscaModel){
-                        return res.status(400).json({
-                            state: 0,
-                            message: 'El codigo ya existe',
-                        });
-                    }
-                }
         
                 const [rowsAffected, updatedModel] = await Model.update(req.body, {
                     where: {
@@ -103,7 +84,7 @@ let Controller = (Model) => {
             } catch (error) {
                 res.status(500).json({
                     state: 0,
-                    message: 'Internal Server Error',
+                    message: error.toString(),
                 });
             }
         },

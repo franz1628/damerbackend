@@ -2,13 +2,6 @@ const { DataTypes } = require("sequelize");
 const { db } = require("../database/config");
 
 const Parametro = db.define('Parametro', {
-    codigo: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-        },
-    },
     descripcion: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -22,7 +15,7 @@ const Parametro = db.define('Parametro', {
     tip: {
         type: DataTypes.STRING
     },
-    idInputClasificado: {
+    idClasificadoReferencia: {
         type: DataTypes.INTEGER
     },
     valorParametro1: {

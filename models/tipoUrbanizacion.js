@@ -3,13 +3,6 @@ const { db } = require("../database/config");
 const { Provincia } = require("./provincia");
 
 const TipoUrbanizacion = db.define('TipoUrbanizacion', {
-    codigo: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-        },
-    },
     descripcion: {
         type: DataTypes.STRING,
         allowNull: false,

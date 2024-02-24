@@ -21,11 +21,6 @@ router.get('/', get );
 
 router.get('/contratos', getContratos );
 
-router.post('/codigo',[
-    // check('codigo', 'El codigo es requerido').not().isEmpty(),
-    validFields
-] ,postCodigo );
-
 router.post('/id',[
     check('id', 'El id es requerido').not().isEmpty(),
     validFields

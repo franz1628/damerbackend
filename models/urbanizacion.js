@@ -1,12 +1,15 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, Sequelize } = require("sequelize");
 const { db } = require("../database/config");
 const { Distrito } = require("./distrito");
 
 const Urbanizacion = db.define('Urbanizacion', {
-    codigo: { type: DataTypes.INTEGER, },
     descripcion: { type: DataTypes.STRING, },
+    idDistrito: { type: DataTypes.INTEGER, },
     estado: { type: DataTypes.INTEGER, },
-    fechaRegistro: { type: DataTypes.DATE }
+    fechaRegistro:{
+        type : DataTypes.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+    }
 }, {
     tableName: 'URBANIZACION'
 });

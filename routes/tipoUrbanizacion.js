@@ -16,13 +16,11 @@ const router = Router();
 router.get('/', get );
 
 router.put('/:id',[
-    check('codigo', 'El codigo es requerido').not().isEmpty(),
     check('descripcion', 'La descripcion es requerida').not().isEmpty(),
     validFields
 ],put );
 
 router.post('/',[
-    check('codigo', 'El codigo es requerido').not().isEmpty(),
     check('descripcion', 'La descripcion es requerida').not().isEmpty(),
     validFields
 ], post );

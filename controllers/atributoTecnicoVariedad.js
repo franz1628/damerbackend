@@ -17,19 +17,6 @@ const get = async (req = request, res = response) => {
     });
 }
 
-const postCodigo = async (req = request, res = response) => {
-    const model = await AtributoTecnicoVariedad.findOne({
-        where: {
-            estado: 1,
-            codigo : req.body.codigo
-        }
-    })
-
-    res.json(
-        model
-    );
-}
-
 const post = async (req, res = response) => {
     delete req.body.id;
     const model = new AtributoTecnicoVariedad(req.body);
@@ -88,7 +75,6 @@ const deleted = async (req, res = response) => {
 
 module.exports = {
     get,
-    postCodigo,
     post,
     put,
     patch,
