@@ -3,13 +3,6 @@ const { db } = require("../database/config");
 const { TipoRelevamiento } = require("./tipoRelevamiento");
 
 const Canal = db.define('canal', {
-    codigo: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-        },
-    },
     descripcion: {
         type: DataTypes.STRING,
         allowNull: false,

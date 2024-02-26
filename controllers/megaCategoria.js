@@ -17,13 +17,12 @@ const get = async (req = request, res = response) => {
     });
 }
 
-const getCodigo = async (req = request, res = response) => {
-    const { codigo } = req.params;
-    console.log(codigo);
+const getId = async (req = request, res = response) => {
+    const { id } = req.params;
     const model_all = await MegaCategoria.findAll({
         where: {
             estado: 1,
-            codCanasta:codigo
+            idCanasta:id
         }
     })
 
@@ -46,11 +45,11 @@ const post = async (req, res = response) => {
     });
 }
 
-const postCodigo = async (req = request, res = response) => {
+const postId = async (req = request, res = response) => {
     const model = await MegaCategoria.findOne({
         where: {
             estado: 1,
-            codigo : req.body.codigo
+            id : req.body.id
         }
     })
 
@@ -104,8 +103,8 @@ const deleted = async (req, res = response) => {
 
 module.exports = {
     get,
-    postCodigo,
-    getCodigo,
+    postId,
+    getId,
     post,
     put,
     patch,

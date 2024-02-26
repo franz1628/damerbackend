@@ -18,13 +18,13 @@ const get = async (req = request, res = response) => {
     });
 }
 
-const postCodigo = async (req = request, res = response) => {
+const postId = async (req = request, res = response) => {
     const model = await CategoriaAtributoTecnico.findAll({
         where: {
             estado: 1,
-            codCategoria : req.body.codCategoria
+            idCategoria : req.body.idCategoria
         },
-        include : {model:AtributoTecnicoVariedad,foreignKey:'codigo'}
+        include : {model:AtributoTecnicoVariedad,foreignKey:'id'}
     })
     
 
@@ -91,7 +91,7 @@ const deleted = async (req, res = response) => {
 
 module.exports = {
     get,
-    postCodigo,
+    postId,
     post,
     put,
     patch,

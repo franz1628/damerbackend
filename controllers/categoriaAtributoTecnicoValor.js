@@ -18,7 +18,7 @@ const get = async (req = request, res = response) => {
     });
 }
 
-const postCodCategoriaTecnicoVariedad = async (req = request, res = response) => {
+const postIdCategoriaTecnicoVariedad = async (req = request, res = response) => {
     const model = await CategoriaAtributoTecnicoValor.findAll({
         where: {
             estado: 1,
@@ -91,7 +91,7 @@ const deleted = async (req, res = response) => {
 
 module.exports = {
     get,
-    postCodCategoriaTecnicoVariedad,
+    postIdCategoriaTecnicoVariedad,
     post,
     put,
     patch,

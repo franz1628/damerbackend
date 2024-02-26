@@ -6,7 +6,7 @@ const { validFields } = require('../middlewares/valid-fields');
 const { isValidRole } = require('../helpers/db-validators');
 
 const { get,
-        postCodigo,
+        postId,
         postIdCategoria,
         put,
         post,

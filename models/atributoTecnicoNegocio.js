@@ -3,7 +3,6 @@ const { db } = require("../database/config");
 
 const AtributoTecnicoNegocio = db.define('AtributoTecnicoNegocio', {
     idPais: {type: DataTypes.INTEGER},
-    codigo: {type: DataTypes.INTEGER},
     descripcion: {type: DataTypes.STRING},
     descripcionResumida: {type: DataTypes.STRING},
     tip: {type: DataTypes.STRING},

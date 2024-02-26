@@ -5,13 +5,6 @@ const { MegaCategoria } = require("./megaCategoria");
 const { Categoria } = require("./categoria");
 
 const Sku = db.define('Sku', {
-    codigo: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-        },
-    },
     descripcion: {type: DataTypes.STRING},
     descripcionResumida: {type: DataTypes.STRING},
     tip: {type: DataTypes.STRING},
@@ -31,9 +24,9 @@ const Sku = db.define('Sku', {
 
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
-Sku.belongsTo(Canasta, { foreignKey: 'codCanasta',defaultValue:0 })
-Sku.belongsTo(MegaCategoria, { foreignKey: 'codMegaCategoria',defaultValue:0 })
-Sku.belongsTo(Categoria, { foreignKey: 'codCategoria',defaultValue:0 })
+Sku.belongsTo(Canasta, { foreignKey: 'idCanasta',defaultValue:0 })
+Sku.belongsTo(MegaCategoria, { foreignKey: 'idMegaCategoria',defaultValue:0 })
+Sku.belongsTo(Categoria, { foreignKey: 'idCategoria',defaultValue:0 })
 
 module.exports = {
     Sku,

@@ -19,13 +19,12 @@ const get = async (req = request, res = response) => {
     });
 }
 
-const getCodClienteCodCategoria = async (req = request, res = response) => {
-    console.log(req.params);
+const getIdClienteIdCategoria = async (req = request, res = response) => {
     const model_all = await AtributoFuncionalVariedad.findAll({
         where: {
             estado: 1,
-            codCliente: req.params.codCliente,
-            codCategoria: req.params.codCategoria,
+            idCliente: req.params.idCliente,
+            idCategoria: req.params.idCategoria,
         },
         include: [
             {
@@ -46,18 +45,6 @@ const getCodClienteCodCategoria = async (req = request, res = response) => {
     });
 }
 
-const postCodigo = async (req = request, res = response) => {
-    const model = await AtributoFuncionalVariedad.findOne({
-        where: {
-            estado: 1,
-            codigo : req.body.codigo
-        }
-    })
-
-    res.json(
-        model
-    );
-}
 
 const postIdClienteIdCategoria = async (req = request, res = response) => {
     const model_all = await AtributoFuncionalVariedad.findAll({
@@ -133,8 +120,7 @@ const deleted = async (req, res = response) => {
 
 module.exports = {
     get,
-    getCodClienteCodCategoria,
-    postCodigo,
+    getIdClienteIdCategoria,
     postIdClienteIdCategoria,
     post,
     put,

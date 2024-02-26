@@ -1,6 +1,8 @@
 const { DataTypes, Sequelize } = require("sequelize");
 const { db } = require("../database/config");
 const { CategoriaAtributoTecnico } = require("./categoriaAtributoTecnico");
+const { AtributoTecnicoVariedad } = require("./atributoTecnicoVariedad");
+const { AtributoTecnicoVariedadValor } = require("./atributoTecnicoVariedadValor");
 
 const CategoriaAtributoTecnicoValor = db.define('CategoriaAtributoTecnicoValor', {
 	comentario : {type:DataTypes.STRING} ,
@@ -17,6 +19,7 @@ const CategoriaAtributoTecnicoValor = db.define('CategoriaAtributoTecnicoValor',
 });
 
 CategoriaAtributoTecnicoValor.belongsTo(CategoriaAtributoTecnico, { foreignKey: 'idCategoriaAtributoTecnico'})
+CategoriaAtributoTecnicoValor.belongsTo(AtributoTecnicoVariedadValor, { foreignKey: 'idAtributoTecnicoVariedadValor'})
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
 
 module.exports = {

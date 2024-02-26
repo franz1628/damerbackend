@@ -29,12 +29,12 @@ const getCodCliente = async (req = request, res = response) => {
             {
                 model: Categoria,
                 as: 'Categoria',
-                foreignKey: 'codigo'
+                foreignKey: 'id'
             },
             {
                 model: Cliente,
                 as: 'Cliente',
-                foreignKey: 'codigo'
+                foreignKey: 'id'
             }
         ]
     });

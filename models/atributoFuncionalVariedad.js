@@ -4,7 +4,6 @@ const {Cliente} = require("./cliente");
 const {Categoria} = require("./categoria");
  
 const AtributoFuncionalVariedad = db.define('AtributoFuncionalVariedad', {
-    codigo: {type: DataTypes.INTEGER},
     descripcion: {type: DataTypes.STRING},
     descripcionResumida: {type: DataTypes.STRING},
     tip: {type: DataTypes.STRING},
@@ -29,8 +28,8 @@ const AtributoFuncionalVariedad = db.define('AtributoFuncionalVariedad', {
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
 //AtributoFuncionalVariedad.belongsTo(Cliente, { foreignKey: 'codCliente'})
-AtributoFuncionalVariedad.belongsTo(Categoria, { foreignKey: 'codCategoria',as:'Categoria',targetKey:'codigo'})
-AtributoFuncionalVariedad.belongsTo(Cliente, { foreignKey: 'codCliente',as:'Cliente',targetKey:'codigo'})
+AtributoFuncionalVariedad.belongsTo(Categoria, { foreignKey: 'codCategoria',as:'Categoria',targetKey:'id'})
+AtributoFuncionalVariedad.belongsTo(Cliente, { foreignKey: 'codCliente',as:'Cliente',targetKey:'id'})
 
 module.exports = {
     AtributoFuncionalVariedad,

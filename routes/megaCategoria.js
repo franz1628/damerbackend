@@ -6,8 +6,8 @@ const { validFields } = require('../middlewares/valid-fields');
 const { isValidRole } = require('../helpers/db-validators');
 
 const { get,
-        getCodigo,
-        postCodigo,
+        getId,
+        postId,
         put,
         post,
         deleted,
@@ -17,24 +17,22 @@ const router = Router();
 
 router.get('/', get );
 
-router.get('/canasta/:codigo', getCodigo );
+router.get('/canasta/:id', getId );
 
 router.put('/:id',[
-    check('codigo', 'El codigo es requerido').not().isEmpty(),
     check('descripcion', 'La descripcion es requerida').not().isEmpty(),
     validFields
 ],put );
 
 router.post('/',[
-    check('codigo', 'El codigo es requerido').not().isEmpty(),
     check('descripcion', 'La descripcion es requerida').not().isEmpty(),
     validFields
 ], post );
 
-router.post('/codigo/',[
-    check('codigo', 'El codigo es requerido').not().isEmpty(),
+router.post('/id/',[
+    check('id', 'El id es requerido').not().isEmpty(),
     validFields
-], postCodigo );
+], postId );
 
 router.delete('/:id',[
     validFields

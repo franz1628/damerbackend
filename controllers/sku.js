@@ -31,14 +31,14 @@ const post = async (req, res = response) => {
 
 const postByCategoria = async (req, res = response) => {
 
-    const { codCanasta, codMegaCategoria, codCategoria } = req.body;
+    const { idCanasta, idMegaCategoria, idCategoria } = req.body;
 
     const model_all = await Sku.findAll({
         where: {
             estado: 1,
-            codCanasta:codCanasta,
-            codMegaCategoria:codMegaCategoria,
-            codCategoria:codCategoria,
+            idCanasta:idCanasta,
+            idMegaCategoria:idMegaCategoria,
+            idCategoria:idCategoria,
         }
     })
 

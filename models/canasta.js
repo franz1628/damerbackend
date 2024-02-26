@@ -2,13 +2,6 @@ const { DataTypes, Sequelize } = require("sequelize");
 const { db } = require("../database/config");
 
 const Canasta = db.define('Canasta', {
-    codigo: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-        },
-    },
     descripcion: {type: DataTypes.STRING},
     descripcionResumida: {type: DataTypes.STRING},
     tip: {type: DataTypes.STRING},

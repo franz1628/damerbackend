@@ -17,11 +17,11 @@ const get = async (req = request, res = response) => {
     });
 }
 
-const postCodigo = async (req = request, res = response) => {
+const postId = async (req = request, res = response) => {
     const model = await Categoria.findOne({
         where: {
             estado: 1,
-            codigo : req.body.codigo
+            id : req.body.id
         }
     })
 
@@ -61,13 +61,13 @@ const post = async (req, res = response) => {
 
 const postCanastaMegaCategoria = async (req, res = response) => {
 
-    const { codCanasta,codMegaCategoria } = req.body;
+    const { idCanasta,idMegaCategoria } = req.body;
 
     const model_all = await Categoria.findAll({
         where: {
             estado: 1,
-            codCanasta:codCanasta,
-            codMegaCategoria:codMegaCategoria,
+            idCanasta:idCanasta,
+            idMegaCategoria:idMegaCategoria,
         }
     })
 
@@ -123,7 +123,7 @@ const deleted = async (req, res = response) => {
 
 module.exports = {
     get,
-    postCodigo,
+    postId,
     postDescripcion,
     post,
     postCanastaMegaCategoria,
