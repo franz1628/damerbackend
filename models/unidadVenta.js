@@ -4,7 +4,6 @@ const {TipoUnidadMedida} = require("../models/tipoUnidadMedida");
 const {UnidadMedida} = require("../models/unidadMedida");
 
 const UnidadVenta = db.define('UnidadVenta', {
-    codigo: {type: DataTypes.INTEGER},
     descripcion: {type: DataTypes.STRING},
     descripcionResumida: {type: DataTypes.STRING},
     tip: {type: DataTypes.STRING},

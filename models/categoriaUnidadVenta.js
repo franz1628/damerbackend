@@ -2,6 +2,8 @@ const { DataTypes, Sequelize } = require("sequelize");
 const { db } = require("../database/config");
 const {Categoria} = require("./categoria");
 const {UnidadVenta} = require("./unidadVenta");
+const { TipoUnidadMedida } = require("./tipoUnidadMedida");
+const { UnidadMedida } = require("./unidadMedida");
 
 const CategoriaUnidadVenta = db.define('CategoriaUnidadVenta', {
     estado: {
@@ -21,6 +23,8 @@ const CategoriaUnidadVenta = db.define('CategoriaUnidadVenta', {
 //CategoriaUnidadVenta.belongsTo(Cliente, { foreignKey: 'codCliente'})
 CategoriaUnidadVenta.belongsTo(Categoria, { foreignKey: 'idCategoria',as:'Categoria',targetKey:'id'})
 CategoriaUnidadVenta.belongsTo(UnidadVenta, { foreignKey: 'idUnidadVenta',as:'UnidadVenta',targetKey:'id'})
+CategoriaUnidadVenta.belongsTo(TipoUnidadMedida, { foreignKey: 'idTipoUnidadMedida',as:'TipoUnidadMedida',targetKey:'id'})
+CategoriaUnidadVenta.belongsTo(UnidadMedida, { foreignKey: 'idUnidadMedida',as:'UnidadMedida',targetKey:'id'})
 
 
 module.exports = {

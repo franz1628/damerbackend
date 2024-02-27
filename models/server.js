@@ -60,6 +60,7 @@ class Server {
             contratoUnidadVenta: '/api/contratoUnidadVenta',
             contratoMes: '/api/contratoMes',
             clasificadoReferencia: '/api/clasificadoReferencia',
+            unidadVenta: '/api/unidadVenta',
         };
 
         this.conectarDB();

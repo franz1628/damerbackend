@@ -3,8 +3,6 @@ const { db } = require("../database/config");
 const { TipoUnidadMedida } = require("./tipoUnidadMedida");
 
 const UnidadMedida = db.define('UnidadMedida', {
-
-    codigo: { type: DataTypes.INTEGER },
     descripcion: { type: DataTypes.STRING },
     descripcionResumida: { type: DataTypes.STRING },
     tip: { type: DataTypes.STRING },
@@ -25,7 +23,7 @@ const UnidadMedida = db.define('UnidadMedida', {
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
 //UnidadMedida.belongsTo(Cliente, { foreignKey: 'codCliente'})
-UnidadMedida.belongsTo(TipoUnidadMedida, { foreignKey: 'codTipoUnidadMedida', as: 'TipoUnidadMedida', targetKey: 'codigo' })
+UnidadMedida.belongsTo(TipoUnidadMedida, { foreignKey: 'idTipoUnidadMedida', as: 'TipoUnidadMedida', targetKey: 'id' })
 
 module.exports = {
     UnidadMedida,

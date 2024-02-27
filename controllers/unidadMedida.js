@@ -1,12 +1,17 @@
 const { response, request } = require('express');
 
 const { UnidadMedida } = require('../models/unidadMedida');
+const { TipoUnidadMedida } = require('../models/tipoUnidadMedida');
 
 
 const get = async (req = request, res = response) => {
     const model_all = await UnidadMedida.findAll({
         where: {
             estado: 1
+        },
+        include:{
+            model:TipoUnidadMedida,
+            as:'TipoUnidadMedida'
         }
     })
 
@@ -17,20 +22,7 @@ const get = async (req = request, res = response) => {
     });
 }
 
-const postCodigo = async (req = request, res = response) => {
-    const model = await UnidadMedida.findOne({
-        where: {
-            estado: 1,
-            codigo : req.body.codigo
-        }
-    })
-
-    res.json(
-        model
-    );
-}
-
-const postCodTipoUnidadMedida = async (req = request, res = response) => {
+const postIdTipoUnidadMedida = async (req = request, res = response) => {
     const models = await UnidadMedida.findAll({
         where: {
             estado: 1,
@@ -103,8 +95,7 @@ const deleted = async (req, res = response) => {
 
 module.exports = {
     get,
-    postCodTipoUnidadMedida,
-    postCodigo,
+    postIdTipoUnidadMedida,
     post,
     put,
     patch,

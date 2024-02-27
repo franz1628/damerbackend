@@ -6,7 +6,6 @@ const { validFields } = require('../middlewares/valid-fields');
 const { isValidRole } = require('../helpers/db-validators');
 
 const { get,
-        postCodigo,
         put,
         post,
         deleted,
@@ -16,19 +15,13 @@ const router = Router();
 
 router.get('/', get );
 
-router.post('/codigo',[
-    // check('codigo', 'El codigo es requerido').not().isEmpty(),
-    validFields
-] ,postCodigo );
 
 
 router.put('/:id',[
-    check('codCliente', 'El codigo es requerido').not().isEmpty(),
     validFields
 ],put );
 
 router.post('/',[
-    check('codCliente', 'El codigo es requerido').not().isEmpty(),
     validFields
 ], post );
 
