@@ -1,13 +1,30 @@
 const { response, request } = require('express');
 const bcryptjs = require('bcryptjs');
-const { where } = require('sequelize');
+const { where, Sequelize } = require('sequelize');
 const { Sku } = require('../models/sku');
+const { Canasta } = require('../models/canasta');
+const { MegaCategoria } = require('../models/megaCategoria');
+const { Categoria } = require('../models/categoria');
 
 const get = async (req = request, res = response) => {
     const model_all = await Sku.findAll({
         where: {
             estado: 1
-        }
+        },
+        include:[
+            {
+                model:Canasta,
+                as:'Canasta',
+            },
+            {
+                model:MegaCategoria,
+                as:'MegaCategoria',
+            },
+            {
+                model:Categoria,
+                as:'Categoria',
+            },
+        ]
     })
 
     res.json({
@@ -31,15 +48,27 @@ const post = async (req, res = response) => {
 
 const postByCategoria = async (req, res = response) => {
 
-    const { idCanasta, idMegaCategoria, idCategoria } = req.body;
+    const {idCategoria } = req.body;
 
     const model_all = await Sku.findAll({
         where: {
             estado: 1,
-            idCanasta:idCanasta,
-            idMegaCategoria:idMegaCategoria,
             idCategoria:idCategoria,
-        }
+        },
+        include:[
+            {
+                model:Canasta,
+                as:'Canasta',
+            },
+            {
+                model:MegaCategoria,
+                as:'MegaCategoria',
+            },
+            {
+                model:Categoria,
+                as:'Categoria',
+            },
+        ]
     })
 
     res.json({
@@ -47,6 +76,64 @@ const postByCategoria = async (req, res = response) => {
         state: 1,
         message: ''
     });
+}
+
+const postId = async (req = request, res = response) => {
+    const model = await Sku.findOne({
+        where: {
+            estado: 1,
+            id : req.body.id
+        },
+        include:[
+            {
+                model:Canasta,
+                as:'Canasta',
+            },
+            {
+                model:MegaCategoria,
+                as:'MegaCategoria',
+            },
+            {
+                model:Categoria,
+                as:'Categoria',
+            },
+        ]
+    })
+
+    res.json(
+        model
+    );
+}
+
+const postDescripcion = async (req = request, res = response) => {
+    const model = await Sku.findAll({
+        where: {
+            estado: 1,
+            descripcion: Sequelize.where(
+                Sequelize.fn('LOWER', Sequelize.col('Sku.descripcion')),
+                'LIKE',
+                `%${req.body.descripcion.toLowerCase()}%`
+            )
+        },
+        include:[
+            {
+                model:Canasta,
+                as:'Canasta',
+            },
+            {
+                model:MegaCategoria,
+                as:'MegaCategoria',
+            },
+            {
+                model:Categoria,
+                as:'Categoria',
+            },
+        ]
+    })
+
+    res.json(
+        model
+    );
 }
 
 const put = async (req, res = response) => {
@@ -95,7 +182,9 @@ const deleted = async (req, res = response) => {
 module.exports = {
     get,
     post,
+    postId,
     postByCategoria,
+    postDescripcion,
     put,
     patch,
     deleted,

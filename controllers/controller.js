@@ -52,6 +52,7 @@ let Controller = (Model) => {
                 });
             } catch (error) {
                 res.status(500).json({
+                    data:[],
                     state: 0,
                     message: error
                 });

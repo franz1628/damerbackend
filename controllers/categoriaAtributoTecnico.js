@@ -3,6 +3,7 @@ const bcryptjs = require('bcryptjs');
 const { where, Op, Sequelize } = require('sequelize');
 const { CategoriaAtributoTecnico } = require('../models/categoriaAtributoTecnico');
 const { AtributoTecnicoVariedad } = require('../models/atributoTecnicoVariedad');
+const { AtributoTecnicoVariedadValor } = require('../models/atributoTecnicoVariedadValor');
 
 const get = async (req = request, res = response) => {
     const model_all = await CategoriaAtributoTecnico.findAll({
@@ -24,7 +25,15 @@ const postId = async (req = request, res = response) => {
             estado: 1,
             idCategoria : req.body.idCategoria
         },
-        include : {model:AtributoTecnicoVariedad,foreignKey:'id'}
+        include : [{
+            model:AtributoTecnicoVariedad,
+            as:'AtributoTecnicoVariedad',
+            include:[{
+                model:AtributoTecnicoVariedadValor,
+                as:'AtributoTecnicoVariedadValor'
+            }]
+          
+        }]
     })
     
 

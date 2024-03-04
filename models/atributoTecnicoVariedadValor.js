@@ -20,10 +20,12 @@ const AtributoTecnicoVariedadValor = db.define('AtributoTecnicoVariedadValor', {
 });
 
 AtributoTecnicoVariedadValor.belongsTo(AtributoTecnicoVariedad, { foreignKey: 'idAtributoTecnicoVariedad'})
+AtributoTecnicoVariedad.hasMany(AtributoTecnicoVariedadValor, { foreignKey: 'idAtributoTecnicoVariedad',as:'AtributoTecnicoVariedadValor',targetKey:'id'})
+
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
 // AtributoTecnicoVariedad.belongsTo(AtributoTecnicoVariedad, { foreignKey: 'AtributoTecnicoVariedad',defaultValue:0 })
 
-module.exports = {
+module.exports = { 
     AtributoTecnicoVariedadValor,
     // Otros modelos pueden ser exportados aquí si es necesario
 };

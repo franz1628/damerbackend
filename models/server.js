@@ -61,6 +61,9 @@ class Server {
             contratoMes: '/api/contratoMes',
             clasificadoReferencia: '/api/clasificadoReferencia',
             unidadVenta: '/api/unidadVenta',
+            skuAtributoTecnicoVariedadValor: '/api/skuAtributoTecnicoVariedadValor',
+            agrupacionZonas: '/api/agrupacionZonas',
+            agrupacionZonasDetalle: '/api/agrupacionZonasDetalle',
         };
 
         this.conectarDB();

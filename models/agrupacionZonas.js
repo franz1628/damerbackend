@@ -1,15 +1,14 @@
 const { DataTypes, Sequelize } = require("sequelize");
 const { db } = require("../database/config");
 
-const AtributoTecnicoVariedad = db.define('AtributoTecnicoVariedad', {
-    idPais: {type: DataTypes.INTEGER},
+ 
+const AgrupacionZonas = db.define('AgrupacionZonas', {
     descripcion: {type: DataTypes.STRING},
     descripcionResumida: {type: DataTypes.STRING},
     tip: {type: DataTypes.STRING},
-    posiblesValores: {type: DataTypes.INTEGER},
-    solicitarUnidad: {type: DataTypes.INTEGER},
-    variosValores: {type: DataTypes.INTEGER},
-    idClasificadoReferencia: {type: DataTypes.INTEGER},
+    idTipoAgrupacion1: {type: DataTypes.INTEGER},
+    idTipoAgrupacion2: {type: DataTypes.INTEGER},
+    idTipoAgrupacion3: {type: DataTypes.INTEGER},
     alias1: {type: DataTypes.STRING},
     alias2: {type: DataTypes.STRING},
     alias3: {type: DataTypes.STRING},
@@ -22,13 +21,10 @@ const AtributoTecnicoVariedad = db.define('AtributoTecnicoVariedad', {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
 },{
-    tableName: 'ATRIBUTOTECNICOVARIEDAD'
+    tableName: 'AGRUPACIONZONAS'
 });
 
-// Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
-// AtributoTecnicoVariedad.belongsTo(AtributoTecnicoVariedad, { foreignKey: 'AtributoTecnicoVariedad',defaultValue:0 })
-
 module.exports = {
-    AtributoTecnicoVariedad,
+    AgrupacionZonas,
     // Otros modelos pueden ser exportados aquí si es necesario
 };

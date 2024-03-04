@@ -1,10 +1,12 @@
 const { response, request } = require('express');
 const bcryptjs = require('bcryptjs');
-const { where, Sequelize } = require('sequelize');
-const { Zona } = require('../models/zona');
+const { where, Op, Sequelize } = require('sequelize');
+const { CategoriaAtributoTecnico } = require('../models/categoriaAtributoTecnico');
+const { AtributoFuncionalVariedadValor } = require('../models/atributoFuncionalVariedadValor');
+const { AtributoFuncionalVariedad } = require('../models/atributoFuncionalVariedad');
 
 const get = async (req = request, res = response) => {
-    const model_all = await Zona.findAll({
+    const model_all = await AtributoFuncionalVariedadValor.findAll({
         where: {
             estado: 1
         }
@@ -17,9 +19,24 @@ const get = async (req = request, res = response) => {
     });
 }
 
+const postIdAtributoFuncionalVariedad = async (req = request, res = response) => {
+    const model = await AtributoFuncionalVariedadValor.findAll({
+        where: {
+            estado: 1,
+            idAtributoFuncionalVariedad : req.body.idAtributoFuncionalVariedad
+        },
+        include : {model:AtributoFuncionalVariedad,as:'AtributoFuncionalVariedad'}
+    })
+    
+
+    res.json(
+        model
+    );
+}
+
 const post = async (req, res = response) => {
     delete req.body.id;
-    const model = new Zona(req.body);
+    const model = new AtributoFuncionalVariedadValor(req.body);
 
     // Guardar en BD
     await model.save();
@@ -29,24 +46,6 @@ const post = async (req, res = response) => {
     });
 }
 
-const postDescripcion = async (req = request, res = response) => {
-    const model_all = await Zona.findAll({
-        where: {
-            estado: 1,
-            descripcion: Sequelize.where(
-                Sequelize.fn('LOWER', Sequelize.col('descripcion')),
-                'LIKE',
-                `%${req.body.descripcion.toLowerCase()}%`
-            )
-        }
-    })
-
-    res.json({
-        data: model_all,
-        state: 1,
-        message: ''
-    });
-}
 
 const put = async (req, res = response) => {
 
@@ -54,7 +53,7 @@ const put = async (req, res = response) => {
 
     delete req.body.id;
 
-    const model = await Zona.update(req.body, {
+    const model = await AtributoFuncionalVariedadValor.update(req.body, {
         where: {
             id: id,
         }
@@ -69,14 +68,14 @@ const put = async (req, res = response) => {
 
 const patch = (req, res = response) => {
     res.json({
-        msg: 'patch API - zonaPatch'
+        msg: 'patch API - AtributoFuncionalVariedadValorPatch'
     });
 }
 
 const deleted = async (req, res = response) => {
     const { id } = req.params;
 
-    const model = await Zona.update({
+    const model = await AtributoFuncionalVariedadValor.update({
         estado: false,
     }, {
         where: {
@@ -93,8 +92,8 @@ const deleted = async (req, res = response) => {
 
 module.exports = {
     get,
+    postIdAtributoFuncionalVariedad,
     post,
-    postDescripcion,
     put,
     patch,
     deleted,

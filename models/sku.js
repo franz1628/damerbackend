@@ -23,10 +23,10 @@ const Sku = db.define('Sku', {
 });
 
 
-// Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
-Sku.belongsTo(Canasta, { foreignKey: 'idCanasta',defaultValue:0 })
-Sku.belongsTo(MegaCategoria, { foreignKey: 'idMegaCategoria',defaultValue:0 })
-Sku.belongsTo(Categoria, { foreignKey: 'idCategoria',defaultValue:0 })
+
+Sku.belongsTo(Canasta, { foreignKey: 'idCanasta',as:'Canasta',targetKey:'id'})
+Sku.belongsTo(MegaCategoria, { foreignKey: 'idMegaCategoria',as:'MegaCategoria',targetKey:'id'})
+Sku.belongsTo(Categoria, { foreignKey: 'idCategoria',as:'Categoria',targetKey:'id'})
 
 module.exports = {
     Sku,
