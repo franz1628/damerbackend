@@ -5,6 +5,7 @@ const { where } = require('sequelize');
 const { AgrupacionZonasDetalle } = require('../models/agrupacionZonasDetalle');
 const { Controller } = require('./controller');
 const { AgrupacionZonas } = require('../models/agrupacionZonas');
+const { Zona } = require('../models/zona');
 
 const control = Controller(AgrupacionZonasDetalle);
 
@@ -19,6 +20,10 @@ control.postIdAgrupacionZonas = async (req = request, res = response) => {
                 {
                     model:AgrupacionZonas,
                     as:'AgrupacionZonas'
+                },
+                {
+                    model:Zona,
+                    as:'Zona'
                 }
             ]
         });
