@@ -19,7 +19,7 @@ const AtributoFuncionalVariedadValor = db.define('AtributoFuncionalVariedadValor
         type : DataTypes.DATE
     }
 },{
-    tableName: 'ATRIBUTOFUNCIONALAVARIEDAD_VALOR'
+    tableName: 'ATRIBUTOFUNCIONALVARIEDAD_VALOR'
 });
 
 

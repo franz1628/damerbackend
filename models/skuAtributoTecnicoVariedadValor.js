@@ -7,7 +7,6 @@ const { AtributoTecnicoVariedad } = require("./atributoTecnicoVariedad");
 
 const SkuAtributoTecnicoVariedadValor = db.define('SkuAtributoTecnicoVariedadValor', {
     idSku: {type: DataTypes.INTEGER},
-    valor: {type: DataTypes.STRING},
     comentario: {type: DataTypes.STRING},
     alias1: {type: DataTypes.STRING},
     alias2: {type: DataTypes.STRING},

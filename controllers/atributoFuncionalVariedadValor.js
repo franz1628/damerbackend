@@ -20,7 +20,7 @@ const get = async (req = request, res = response) => {
 }
 
 const postIdAtributoFuncionalVariedad = async (req = request, res = response) => {
-    const model = await AtributoFuncionalVariedadValor.findAll({
+    const model_all = await AtributoFuncionalVariedadValor.findAll({
         where: {
             estado: 1,
             idAtributoFuncionalVariedad : req.body.idAtributoFuncionalVariedad
@@ -28,10 +28,13 @@ const postIdAtributoFuncionalVariedad = async (req = request, res = response) =>
         include : {model:AtributoFuncionalVariedad,as:'AtributoFuncionalVariedad'}
     })
     
+    res.json({
+        data: model_all,
+        state: 1,
+        message: ''
+    });
 
-    res.json(
-        model
-    );
+   
 }
 
 const post = async (req, res = response) => {

@@ -64,6 +64,7 @@ class Server {
             skuAtributoTecnicoVariedadValor: '/api/skuAtributoTecnicoVariedadValor',
             agrupacionZonas: '/api/agrupacionZonas',
             agrupacionZonasDetalle: '/api/agrupacionZonasDetalle',
+            atributoFuncionalVariedadValor: '/api/atributoFuncionalVariedadValor',
         };
 
         this.conectarDB();
