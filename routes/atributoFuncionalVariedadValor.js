@@ -1,7 +1,7 @@
 
 const { Router } = require('express');
 const { check } = require('express-validator');
-
+ 
 const { validFields } = require('../middlewares/valid-fields');
 const { isValidRole } = require('../helpers/db-validators');
 
@@ -20,7 +20,7 @@ router.get('/', get );
 router.post('/idAtributoFuncionalVariedad',[
     validFields
 ] ,postIdAtributoFuncionalVariedad );
-
+ 
 
 router.put('/:id',[
     validFields
