@@ -17,10 +17,10 @@ const Zona = db.define('Zona', {
 });
 
 
-// Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
+
 Zona.belongsTo(TipoZona, { foreignKey: 'idTipoZona',defaultValue:1 });
 
 module.exports = {
     Zona,
-    // Otros modelos pueden ser exportados aquí si es necesario
+   
 };
