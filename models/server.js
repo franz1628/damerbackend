@@ -65,6 +65,9 @@ class Server {
             agrupacionZonas: '/api/agrupacionZonas',
             agrupacionZonasDetalle: '/api/agrupacionZonasDetalle',
             atributoFuncionalVariedadValor: '/api/atributoFuncionalVariedadValor',
+            clienteFiltro: '/api/clienteFiltro',
+            atributoFuncionalVariedadValorValor: '/api/atributoFuncionalVariedadValorValor',
+            
         };
 
         this.conectarDB();
