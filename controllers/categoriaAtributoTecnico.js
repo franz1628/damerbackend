@@ -2,6 +2,7 @@ const { response, request } = require('express');
 const bcryptjs = require('bcryptjs');
 const { where, Op, Sequelize } = require('sequelize');
 const { CategoriaAtributoTecnico } = require('../models/categoriaAtributoTecnico');
+const { CategoriaAtributoTecnicoValor } = require('../models/categoriaAtributoTecnicoValor');
 const { AtributoTecnicoVariedad } = require('../models/atributoTecnicoVariedad');
 const { AtributoTecnicoVariedadValor } = require('../models/atributoTecnicoVariedadValor');
 
@@ -23,19 +24,26 @@ const postId = async (req = request, res = response) => {
     const model = await CategoriaAtributoTecnico.findAll({
         where: {
             estado: 1,
-            idCategoria : req.body.idCategoria
+            idCategoria: req.body.idCategoria
         },
-        include : [{
-            model:AtributoTecnicoVariedad,
-            as:'AtributoTecnicoVariedad',
-            include:[{
-                model:AtributoTecnicoVariedadValor,
-                as:'AtributoTecnicoVariedadValor'
+        include: [{
+            model: CategoriaAtributoTecnicoValor,
+            as: 'CategoriaAtributoTecnicoValor',
+            include: [{
+                model: AtributoTecnicoVariedadValor,
+                as: 'AtributoTecnicoVariedadValor'
             }]
-          
-        }]
+
+        },
+        {
+            model: AtributoTecnicoVariedad,
+            as: 'AtributoTecnicoVariedad'
+        }
+
+
+        ]
     })
-    
+
 
     res.json(
         model

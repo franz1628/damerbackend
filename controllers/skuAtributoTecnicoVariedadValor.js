@@ -3,6 +3,7 @@ const bcryptjs = require('bcryptjs');
 const { where, Op, Sequelize } = require('sequelize');
 const { CategoriaAtributoTecnico } = require('../models/categoriaAtributoTecnico');
 const { SkuAtributoTecnicoVariedadValor } = require('../models/skuAtributoTecnicoVariedadValor');
+const { Sku } = require('../models/sku');
 
 const get = async (req = request, res = response) => {
     const model_all = await SkuAtributoTecnicoVariedadValor.findAll({
@@ -90,9 +91,47 @@ const deleted = async (req, res = response) => {
     });
 }
 
+const postResultados =  async (req, res = response) => {
+    try {
+        const idAtributoTecnicoVariedadValors = req.body.idAtributoTecnicoVariedadValors
+        const arrayA = idAtributoTecnicoVariedadValors.split(',');
+        
+       
+        const model_all = await SkuAtributoTecnicoVariedadValor.findAll({
+            where: {
+                estado: 1,
+                idAtributoTecnicoVariedadValor: {
+                    [Op.in]: arrayA
+                }
+            },
+            include: [
+                {
+                    model: Sku,
+                    as: 'Sku'
+                }
+            ]
+        })
+
+    
+ 
+        res.status(201).json({
+            data:model_all,
+            state: 1,
+            message: 'Listado correctamente'
+        });
+    } catch (error) {
+     
+        res.status(500).json({
+            state: 0,
+            message: error
+        });
+    }
+}
+
 module.exports = {
     get,
     postIdSku,
+    postResultados,
     post,
     put,
     patch,

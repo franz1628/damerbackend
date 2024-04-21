@@ -4,9 +4,10 @@ const { db } = require("../database/config");
 const { TipoUnidadMedida } = require("./tipoUnidadMedida");
 const { UnidadMedida } = require("./unidadMedida");
 const { AtributoTecnicoVariedad } = require("./atributoTecnicoVariedad");
+const { AtributoTecnicoVariedadValor } = require("./atributoTecnicoVariedadValor");
+const { Sku } = require("./sku");
 
 const SkuAtributoTecnicoVariedadValor = db.define('SkuAtributoTecnicoVariedadValor', {
-    idSku: {type: DataTypes.INTEGER},
     comentario: {type: DataTypes.STRING},
     alias1: {type: DataTypes.STRING},
     alias2: {type: DataTypes.STRING},
@@ -25,6 +26,7 @@ const SkuAtributoTecnicoVariedadValor = db.define('SkuAtributoTecnicoVariedadVal
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
 SkuAtributoTecnicoVariedadValor.belongsTo(AtributoTecnicoVariedad, { foreignKey: 'idAtributoTecnicoVariedad',as:'AtributoTecnicoVariedad',targetKey:'id'})
+SkuAtributoTecnicoVariedadValor.belongsTo(AtributoTecnicoVariedadValor, { foreignKey: 'idAtributoTecnicoVariedadValor',as:'AtributoTecnicoVariedadValor',targetKey:'id'})
 SkuAtributoTecnicoVariedadValor.belongsTo(TipoUnidadMedida, { foreignKey: 'idTipoUnidadMedida',as:'TipoUnidadMedida',targetKey:'id'})
 SkuAtributoTecnicoVariedadValor.belongsTo(UnidadMedida, { foreignKey: 'idUnidadMedida',as:'UnidadMedida',targetKey:'id'})
 

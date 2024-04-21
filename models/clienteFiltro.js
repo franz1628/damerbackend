@@ -3,11 +3,11 @@ const { db } = require("../database/config");
 
 const ClienteFiltro = db.define('ClienteFiltro', {
     idAtributoFuncionalVariedadValor :{type:DataTypes.INTEGER},
-
-    condicion :{type:DataTypes.INTEGER},
-    valor1 :{type:DataTypes.INTEGER},
-    valor2 :{type:DataTypes.INTEGER},
-
+    valor2 :{type:DataTypes.TEXT},
+    idClienteTipoValor: {type: DataTypes.INTEGER, defaultValue: 0}, 
+    idAtributoTecnicoVariedad: {type: DataTypes.INTEGER, defaultValue: 0}, 
+    idCondicion: {type: DataTypes.INTEGER, defaultValue: 0}, 
+    valorCondicion :{type:DataTypes.TEXT},
     estado: {
         type: DataTypes.INTEGER,
         defaultValue: 1,

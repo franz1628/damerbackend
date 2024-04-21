@@ -9,10 +9,9 @@ const { get,
     put,
     postId,
     postIdAtributoFuncionalVariedadValor,
-    postResultados,
     post,
     deleted,
-    patch } = require('../controllers/clienteFiltro');
+    patch } = require('../controllers/clienteConcatenacion');
 
 const router = Router();
 
@@ -37,10 +36,6 @@ router.post('/',[
 router.post('/idAtributoFuncionalVariedadValor',[
     validFields
 ], postIdAtributoFuncionalVariedadValor );
-
-router.post('/postResultados',[
-    validFields
-], postResultados );
 
 
 router.delete('/:id',[

@@ -18,10 +18,15 @@ const CategoriaAtributoTecnicoValor = db.define('CategoriaAtributoTecnicoValor',
     tableName: 'CATEGORIA_ATRIBUTOTECNICOVALOR'
 });
 
-CategoriaAtributoTecnicoValor.belongsTo(CategoriaAtributoTecnico, { foreignKey: 'idCategoriaAtributoTecnico'})
-CategoriaAtributoTecnicoValor.belongsTo(AtributoTecnicoVariedadValor, { foreignKey: 'idAtributoTecnicoVariedadValor'})
-// Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
 
+
+//
+
+CategoriaAtributoTecnicoValor.belongsTo(AtributoTecnicoVariedadValor, { foreignKey: 'idAtributoTecnicoVariedadValor',as:'AtributoTecnicoVariedadValor',targetKey:'id'})
+
+
+// Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
+ 
 module.exports = {
     CategoriaAtributoTecnicoValor,
     // Otros modelos pueden ser exportados aquí si es necesario

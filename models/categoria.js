@@ -7,6 +7,8 @@ const Categoria = db.define('Categoria', {
     descripcion: {type: DataTypes.STRING},
     descripcionResumida: {type: DataTypes.STRING},
     tip: {type: DataTypes.STRING},
+    idMegaCategoria: {type: DataTypes.INTEGER},
+    idCanasta: {type: DataTypes.INTEGER},
     alias1: {type: DataTypes.STRING},
     alias2: {type: DataTypes.STRING},
     alias3: {type: DataTypes.STRING},

@@ -67,6 +67,8 @@ class Server {
             atributoFuncionalVariedadValor: '/api/atributoFuncionalVariedadValor',
             clienteFiltro: '/api/clienteFiltro',
             atributoFuncionalVariedadValorValor: '/api/atributoFuncionalVariedadValorValor',
+            clienteFormula: '/api/clienteFormula',
+            clienteConcatenacion: '/api/clienteConcatenacion',
             
         };
 

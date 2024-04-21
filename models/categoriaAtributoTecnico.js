@@ -1,6 +1,7 @@
 const { DataTypes, Sequelize } = require("sequelize");
 const { db } = require("../database/config");
 const { AtributoTecnicoVariedad } = require("./atributoTecnicoVariedad");
+const { CategoriaAtributoTecnicoValor } = require("./categoriaAtributoTecnicoValor");
 
 const CategoriaAtributoTecnico = db.define('CategoriaAtributoTecnico', {
 	idCategoria : {type:DataTypes.INTEGER},
@@ -20,7 +21,14 @@ const CategoriaAtributoTecnico = db.define('CategoriaAtributoTecnico', {
     tableName: 'CATEGORIA_ATRIBUTOTECNICO'
 });
 
-CategoriaAtributoTecnico.belongsTo(AtributoTecnicoVariedad, { foreignKey: 'idAtributoTecnicoVariedad'})
+
+CategoriaAtributoTecnico.hasMany(CategoriaAtributoTecnicoValor,{foreignKey:'idCategoriaAtributoTecnico',as:'CategoriaAtributoTecnicoValor',targetKey:'id'});
+
+
+CategoriaAtributoTecnico.belongsTo(AtributoTecnicoVariedad, { foreignKey: 'idAtributoTecnicoVariedad',as:'AtributoTecnicoVariedad',targetKey:'id'})
+
+CategoriaAtributoTecnicoValor.belongsTo(CategoriaAtributoTecnico, { foreignKey: 'idCategoriaAtributoTecnico',as:'CategoriaAtributoTecnico',targetKey:'id'})
+
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
 
 module.exports = {

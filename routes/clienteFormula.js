@@ -9,10 +9,10 @@ const { get,
     put,
     postId,
     postIdAtributoFuncionalVariedadValor,
-    postResultados,
+    asignarFormula,
     post,
     deleted,
-    patch } = require('../controllers/clienteFiltro');
+    patch } = require('../controllers/clienteFormula');
 
 const router = Router();
 
@@ -23,6 +23,10 @@ router.post('/id',[
     check('id', 'El id es requerido').not().isEmpty(),
     validFields
 ] ,postId );
+
+router.post('/asignarFormula',[
+    validFields
+] ,asignarFormula );
 
 
 router.put('/:id',[
@@ -37,10 +41,6 @@ router.post('/',[
 router.post('/idAtributoFuncionalVariedadValor',[
     validFields
 ], postIdAtributoFuncionalVariedadValor );
-
-router.post('/postResultados',[
-    validFields
-], postResultados );
 
 
 router.delete('/:id',[

@@ -28,6 +28,7 @@ const postIdCategoriaTecnicoVariedad = async (req = request, res = response) => 
         include: [
             {
                 model: CategoriaAtributoTecnico,
+                as:'CategoriaAtributoTecnico',
                 foreignKey: 'id'
             },
             {
