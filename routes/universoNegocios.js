@@ -8,11 +8,9 @@ const { isValidRole } = require('../helpers/db-validators');
 const { get,
     put,
     postId,
-    postIdAtributoFuncionalVariedadValor,
-    guardarConcatenacion,
     post,
     deleted,
-    patch } = require('../controllers/clienteConcatenacion');
+    patch } = require('../controllers/universoNegocios');
 
 const router = Router();
 
@@ -24,10 +22,6 @@ router.post('/id',[
     validFields
 ] ,postId );
 
-router.post('/guardarConcatenacion',[
-    validFields
-] ,guardarConcatenacion );
-
 
 router.put('/:id',[
     // check('codigo', 'El codigo es requerido').not().isEmpty(),
@@ -37,10 +31,6 @@ router.put('/:id',[
 router.post('/',[
     validFields
 ], post );
-
-router.post('/idAtributoFuncionalVariedadValor',[
-    validFields
-], postIdAtributoFuncionalVariedadValor );
 
 
 router.delete('/:id',[

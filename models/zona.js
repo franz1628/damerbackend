@@ -10,7 +10,8 @@ const Zona = db.define('Zona', {
     estado: { type: DataTypes.INTEGER, defaultValue: 1, },
     alias1: { type: DataTypes.STRING },
     alias2: { type: DataTypes.STRING },
-    alias3: { type: DataTypes.STRING },
+    alias3: { type: DataTypes.STRING }, 
+
     fechaRegistro: { type: DataTypes.DATE }
 }, {
     tableName: 'ZONA'

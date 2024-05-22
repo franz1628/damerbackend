@@ -64,11 +64,18 @@ class Server {
             skuAtributoTecnicoVariedadValor: '/api/skuAtributoTecnicoVariedadValor',
             agrupacionZonas: '/api/agrupacionZonas',
             agrupacionZonasDetalle: '/api/agrupacionZonasDetalle',
+            agrupacionCanals: '/api/agrupacionCanals',
+            agrupacionCanalsDetalle: '/api/agrupacionCanalsDetalle',
             atributoFuncionalVariedadValor: '/api/atributoFuncionalVariedadValor',
             clienteFiltro: '/api/clienteFiltro',
             atributoFuncionalVariedadValorValor: '/api/atributoFuncionalVariedadValorValor',
             clienteFormula: '/api/clienteFormula',
-            clienteConcatenacion: '/api/clienteConcatenacion',
+            clienteConcatenacion: '/api/clienteConcatenacion', 
+            skuHijos: '/api/skuHijos',
+            clienteAgrupacionCategoria: '/api/clienteAgrupacionCategoria',
+            agrupacionCategoriaCategoria: '/api/agrupacionCategoriaCategoria',
+            muestraIdeal: '/api/muestraIdeal',
+            universoNegocios: '/api/universoNegocios',
             
         };
 

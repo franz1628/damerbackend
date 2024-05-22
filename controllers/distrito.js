@@ -2,6 +2,8 @@ const { response, request } = require('express');
 const bcryptjs = require('bcryptjs');
 const { where } = require('sequelize');
 const { Distrito } = require('../models/distrito');
+const { Provincia } = require('../models/provincia');
+const { Departamento } = require('../models/departamento');
 
 const get = async (req = request, res = response) => {
 
@@ -18,6 +20,22 @@ const get = async (req = request, res = response) => {
     });
 }
 
+const getId = async (req = request, res = response) => {
+
+    const model = await Distrito.findOne({
+        where: {
+            estado: 1,
+            id:req.params.id
+        }
+    })
+
+    res.json({
+        data: model,
+        state: 1,
+        message: ''
+    });
+}
+
 const post = async (req, res = response) => {
     delete req.body.id;
     const model = new Distrito(req.body);
@@ -27,6 +45,34 @@ const post = async (req, res = response) => {
 
     res.json({
         model
+    });
+}
+
+const postByZona = async (req, res = response) => {
+    const zona  = req.body.zona
+    const distritos = await Distrito.findAll({
+        where : {
+            estado:1,
+            idZona:zona.id
+        },
+        include:[
+            {
+                model:Provincia,
+                as:'Provincia',
+                include: [
+                    {
+                        model:Departamento,
+                        as:'Departamento'
+                    }
+                ]
+            }
+        ]
+    })
+
+    res.json({
+        data: distritos,
+        state: 1,
+        message: 'Listado'
     });
 }
 
@@ -75,7 +121,9 @@ const deleted = async (req, res = response) => {
 
 module.exports = {
     get,
+    getId,
     post,
+    postByZona,
     put,
     patch,
     deleted,

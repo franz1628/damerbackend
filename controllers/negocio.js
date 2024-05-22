@@ -26,6 +26,7 @@ control.postDescripcion =  async (req = request, res = response) => {
             message: 'Lista'
         });
     } catch (error) {
+        console.log(error);
         res.status(500).json({
             state: 0,
             message: 'Error en el servidor'

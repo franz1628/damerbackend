@@ -10,6 +10,8 @@ const { get,
         post,
         postId,
         postByCategoria,
+        postDescripcionCategoria,
+        postByCategoriaAll,
         postDescripcion,
         deleted,
         patch } = require('../controllers/sku');
@@ -38,9 +40,18 @@ router.post('/descripcion',[
     validFields
 ] ,postDescripcion );
 
+router.post('/postDescripcionCategoria',[
+    check('descripcion', 'El descripcion es requerido').not().isEmpty(),
+    validFields
+] ,postDescripcionCategoria );
+
 router.post('/byCategoria',[
     validFields
 ], postByCategoria );
+
+router.post('/byCategoriaAll',[
+    validFields
+], postByCategoriaAll );
 
 router.delete('/:id',[
     validFields

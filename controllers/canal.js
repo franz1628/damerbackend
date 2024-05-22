@@ -1,6 +1,6 @@
 const { response, request } = require('express');
 const bcryptjs = require('bcryptjs');
-const { where } = require('sequelize');
+const { where, Sequelize } = require('sequelize');
 const { Canal } = require('../models/canal');
 
 const get = async (req = request, res = response) => {
@@ -27,6 +27,25 @@ const post = async (req, res = response) => {
 
     res.json({
         model
+    });
+}
+
+const postDescripcion = async (req = request, res = response) => {
+    const model_all = await Canal.findAll({
+        where: {
+            estado: 1,
+            descripcion: Sequelize.where(
+                Sequelize.fn('LOWER', Sequelize.col('descripcion')),
+                'LIKE',
+                `%${req.body.descripcion.toLowerCase()}%`
+            )
+        }
+    })
+
+    res.json({
+        data: model_all,
+        state: 1,
+        message: ''
     });
 }
 
@@ -76,6 +95,7 @@ const deleted = async (req, res = response) => {
 module.exports = {
     get,
     post,
+    postDescripcion,
     put,
     patch,
     deleted,

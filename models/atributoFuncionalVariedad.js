@@ -1,9 +1,8 @@
 const { DataTypes, Sequelize } = require("sequelize");
 const { db } = require("../database/config");
-const {Cliente} = require("./cliente");
-const {Categoria} = require("./categoria");
 const { TipoUnidadMedida } = require("./tipoUnidadMedida");
 const { UnidadMedida } = require("./unidadMedida");
+const { ClienteAgrupacionCategoria } = require("./clienteAgrupacionCategoria");
  
 const AtributoFuncionalVariedad = db.define('AtributoFuncionalVariedad', {
     descripcion: {type: DataTypes.STRING},
@@ -29,9 +28,9 @@ const AtributoFuncionalVariedad = db.define('AtributoFuncionalVariedad', {
 
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
-//AtributoFuncionalVariedad.belongsTo(Cliente, { foreignKey: 'codCliente'})
-AtributoFuncionalVariedad.belongsTo(Categoria, { foreignKey: 'idCategoria',as:'Categoria',targetKey:'id'})
-AtributoFuncionalVariedad.belongsTo(Cliente, { foreignKey: 'idCliente',as:'Cliente',targetKey:'id'})
+
+// AtributoFuncionalVariedad.belongsTo(Categoria, { foreignKey: 'idCategoria',as:'Categoria',targetKey:'id'})
+AtributoFuncionalVariedad.belongsTo(ClienteAgrupacionCategoria, { foreignKey: 'idClienteAgrupacionCategoria',as:'ClienteAgrupacionCategoria',targetKey:'id'})
 AtributoFuncionalVariedad.belongsTo(TipoUnidadMedida, { foreignKey: 'idTipoUnidadMedida',as:'TipoUnidadMedida',targetKey:'id'})
 AtributoFuncionalVariedad.belongsTo(UnidadMedida, { foreignKey: 'idUnidadMedida',as:'UnidadMedida',targetKey:'id'})
 

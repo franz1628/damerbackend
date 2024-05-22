@@ -6,14 +6,17 @@ const { validFields } = require('../middlewares/valid-fields');
 const { isValidRole, provinciaExists } = require('../helpers/db-validators');
 
 const { get,
+        getId,
         put,
         post,
+        postByZona,
         deleted,
         patch } = require('../controllers/distrito');
 
 const router = Router();
 
 router.get('/', get );
+router.get('/:id', getId );
 
 router.put('/:id',[
     check('codigo', 'El codigo es requerido').not().isEmpty(),
@@ -31,6 +34,11 @@ router.post('/',[
     check('idProvincia').custom(provinciaExists),
     validFields
 ], post );
+
+router.post('/postByZona',[
+
+    validFields
+], postByZona );
 
 router.delete('/:id',[
     validFields

@@ -8,6 +8,7 @@ const { isValidRole } = require('../helpers/db-validators');
 const { get,
         put,
         post,
+        postDescripcion,
         deleted,
         patch } = require('../controllers/canal');
 
@@ -38,6 +39,11 @@ router.post('/',[
     check('tieneExhibidor', 'La tieneExhibidor es requerida').isNumeric(),
     validFields
 ], post );
+
+router.post('/descripcion',[
+    check('descripcion', 'El descripcion es requerido').not().isEmpty(),
+    validFields
+] ,postDescripcion );
 
 router.delete('/:id',[
     validFields

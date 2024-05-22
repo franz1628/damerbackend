@@ -4,6 +4,7 @@ const { where, Op, Sequelize } = require('sequelize');
 const { CategoriaAtributoTecnico } = require('../models/categoriaAtributoTecnico');
 const { SkuAtributoTecnicoVariedadValor } = require('../models/skuAtributoTecnicoVariedadValor');
 const { Sku } = require('../models/sku');
+const { AtributoTecnicoVariedadValor } = require('../models/atributoTecnicoVariedadValor');
 
 const get = async (req = request, res = response) => {
     const model_all = await SkuAtributoTecnicoVariedadValor.findAll({
@@ -107,7 +108,14 @@ const postResultados =  async (req, res = response) => {
             include: [
                 {
                     model: Sku,
-                    as: 'Sku'
+                    as: 'Sku',
+                    where : {
+                        idCategoria:req.body.idCategoria
+                    }
+                },
+                {
+                    model: AtributoTecnicoVariedadValor,
+                    as:'AtributoTecnicoVariedadValor'
                 }
             ]
         })

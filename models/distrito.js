@@ -10,6 +10,8 @@ const Distrito = db.define('Distrito', {
             notEmpty: true,
         },
     },
+    idZona :{ type: DataTypes.INTEGER },
+    idProvincia :{ type: DataTypes.INTEGER },
     descripcion: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -25,7 +27,7 @@ const Distrito = db.define('Distrito', {
     tableName: 'DISTRITO'
 });
 
-Distrito.belongsTo(Provincia,{foreignKey:'idProvincia'});
+Distrito.belongsTo(Provincia, { foreignKey: 'idProvincia',as:'Provincia',targetKey:'id'})
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
 // Usuario.belongsTo(TipoDocumento, { foreignKey: 'idTipoDocumento' });

@@ -4,6 +4,7 @@ const { where } = require('sequelize');
 const { Cliente } = require('../models/cliente');
 const { AtributoFuncionalVariedad } = require('../models/atributoFuncionalVariedad');
 const { Categoria } = require('../models/categoria');
+const { ClienteAgrupacionCategoria } = require('../models/clienteAgrupacionCategoria');
 
 const get = async (req = request, res = response) => {
     const model_all = await AtributoFuncionalVariedad.findAll({
@@ -45,6 +46,27 @@ const getIdClienteIdCategoria = async (req = request, res = response) => {
     });
 }
 
+const getIdClienteAgrupacionCategoria = async (req = request, res = response) => {
+    const model_all = await AtributoFuncionalVariedad.findAll({
+        where: {
+            estado: 1,
+            idClienteAgrupacionCategoria: req.params.idClienteAgrupacionCategoria,
+        },
+        include: [
+            {
+                model: ClienteAgrupacionCategoria,
+                as: 'ClienteAgrupacionCategoria'
+            }
+        ]
+    });
+
+    res.json({
+        data: model_all,
+        state: 1,
+        message: ''
+    });
+}
+
 
 const postIdClienteIdCategoria = async (req = request, res = response) => {
     const model_all = await AtributoFuncionalVariedad.findAll({
@@ -52,6 +74,21 @@ const postIdClienteIdCategoria = async (req = request, res = response) => {
             estado: 1,
             idCliente : req.body.idCliente,
             idCategoria : req.body.idCategoria
+        }
+    })
+
+    res.json({
+        data: model_all,
+        state: 1,
+        message: ''
+    });
+}
+
+const postIdClienteAgrupacionCategoria = async (req = request, res = response) => {
+    const model_all = await AtributoFuncionalVariedad.findAll({
+        where: {
+            estado: 1,
+            idCliente : req.body.idClienteAgrupacionCategoria
         }
     })
 
@@ -121,6 +158,7 @@ const deleted = async (req, res = response) => {
 module.exports = {
     get,
     getIdClienteIdCategoria,
+    getIdClienteAgrupacionCategoria,
     postIdClienteIdCategoria,
     post,
     put,

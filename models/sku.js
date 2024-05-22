@@ -4,9 +4,11 @@ const { Canasta } = require("./canasta");
 const { MegaCategoria } = require("./megaCategoria");
 const { Categoria } = require("./categoria");
 const { SkuAtributoTecnicoVariedadValor } = require("./skuAtributoTecnicoVariedadValor");
+const { SkuHijos } = require("./skuHijos");
 
 const Sku = db.define('Sku', {
     descripcion: {type: DataTypes.STRING},
+    tipoSku: {type: DataTypes.INTEGER},
     descripcionResumida: {type: DataTypes.STRING},
     tip: {type: DataTypes.STRING},
     alias1: {type: DataTypes.STRING},
@@ -31,7 +33,12 @@ Sku.belongsTo(MegaCategoria, { foreignKey: 'idMegaCategoria',as:'MegaCategoria',
 Sku.belongsTo(Categoria, { foreignKey: 'idCategoria',as:'Categoria',targetKey:'id'})
 
 Sku.hasMany(SkuAtributoTecnicoVariedadValor, { foreignKey: 'idSku',as:'SkuAtributoTecnicoVariedadValor',targetKey:'id'})
+Sku.hasMany(SkuHijos, { foreignKey: 'idSkuPadre',as:'SkuHijos',targetKey:'id'})
+
 SkuAtributoTecnicoVariedadValor.belongsTo(Sku, { foreignKey: 'idSku',as:'Sku',targetKey:'id'})
+
+SkuHijos.belongsTo(Sku, { foreignKey: 'idSku',as:'Sku',targetKey:'id'})
+SkuHijos.belongsTo(Sku, { foreignKey: 'idSku',as:'SkuPadre',targetKey:'id'})
 
 module.exports = {
     Sku,

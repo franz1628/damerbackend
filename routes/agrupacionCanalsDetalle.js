@@ -6,13 +6,12 @@ const { validFields } = require('../middlewares/valid-fields');
 const { isValidRole } = require('../helpers/db-validators');
 
 const { get,
-    put,
-    postId,
-    postIdAtributoFuncionalVariedadValor,
-    guardarConcatenacion,
-    post,
-    deleted,
-    patch } = require('../controllers/clienteConcatenacion');
+        postId,
+        postIdAgrupacionCanals,
+        put,
+        post,
+        deleted,
+        patch } = require('../controllers/agrupacionCanalsDetalle');
 
 const router = Router();
 
@@ -24,9 +23,10 @@ router.post('/id',[
     validFields
 ] ,postId );
 
-router.post('/guardarConcatenacion',[
+router.post('/idAgrupacionCanals',[
+    
     validFields
-] ,guardarConcatenacion );
+] ,postIdAgrupacionCanals );
 
 
 router.put('/:id',[
@@ -35,12 +35,9 @@ router.put('/:id',[
 ],put );
 
 router.post('/',[
+
     validFields
 ], post );
-
-router.post('/idAtributoFuncionalVariedadValor',[
-    validFields
-], postIdAtributoFuncionalVariedadValor );
 
 
 router.delete('/:id',[

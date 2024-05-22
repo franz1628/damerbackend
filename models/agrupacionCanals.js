@@ -1,26 +1,22 @@
 const { DataTypes, Sequelize } = require("sequelize");
 const { db } = require("../database/config");
 
-const ClienteConcatenacion = db.define('ClienteConcatenacion', { 
-    idAtributoFuncionalVariedadValor : {type:DataTypes.INTEGER},
-    idAtributoTecnicoVariedads  : {type:DataTypes.STRING},
-    variables  : {type:DataTypes.STRING},
-    separador  : {type:DataTypes.STRING},
-
+ 
+const AgrupacionCanals = db.define('AgrupacionCanals', {
+    descripcion: {type: DataTypes.STRING},
     estado: {
         type: DataTypes.INTEGER,
         defaultValue: 1,
-    }, 
+    },
     fechaRegistro:{
         type : DataTypes.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
 },{
-    tableName: 'CLIENTE_CONCATENACION'
+    tableName: 'AGRUPACIONCANALS'
 });
 
-
 module.exports = {
-    ClienteConcatenacion,
+    AgrupacionCanals,
     // Otros modelos pueden ser exportados aquí si es necesario
 };

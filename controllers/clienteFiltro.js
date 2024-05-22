@@ -76,20 +76,26 @@ control.postResultados =  async (req, res = response) => {
 
         console.log(mywhere);
 
-        const uniqueArray = [...new Set(arr_todos)];
+        let uniqueArray = [];
 
-        const myinclude =  [
-            {
-                model: SkuAtributoTecnicoVariedadValor,
-                as: 'SkuAtributoTecnicoVariedadValor',
-                where : {
-                    idAtributoTecnicoVariedadValor: {
-                        [Sequelize.Op.in]: uniqueArray
+        uniqueArray = [...new Set(arr_todos)];
+
+        let myinclude = []
+
+        if(uniqueArray.length!=0){
+            myinclude =  [
+                {
+                    model: SkuAtributoTecnicoVariedadValor,
+                    as: 'SkuAtributoTecnicoVariedadValor',
+                    where : {
+                        idAtributoTecnicoVariedadValor: {
+                            [Sequelize.Op.in]: uniqueArray
+                        }
                     }
-                }
-            },
-           
-        ]
+                },
+               
+            ]
+        }
 
       
         
