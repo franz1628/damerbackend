@@ -5,6 +5,7 @@ const { TipoUnidadMedida } = require("./tipoUnidadMedida");
 const { UnidadMedida } = require("./unidadMedida");
 const { AtributoTecnicoVariedad } = require("./atributoTecnicoVariedad");
 const { AtributoTecnicoVariedadValor } = require("./atributoTecnicoVariedadValor");
+const { CategoriaAtributoTecnico } = require("./categoriaAtributoTecnico");
 const { Sku } = require("./sku");
 
 const SkuAtributoTecnicoVariedadValor = db.define('SkuAtributoTecnicoVariedadValor', {
@@ -12,6 +13,7 @@ const SkuAtributoTecnicoVariedadValor = db.define('SkuAtributoTecnicoVariedadVal
     alias1: {type: DataTypes.STRING},
     alias2: {type: DataTypes.STRING},
     alias3: {type: DataTypes.STRING},
+    valor: {type: DataTypes.STRING},
     estado: { 
         type: DataTypes.INTEGER,
         defaultValue: 1,
@@ -29,6 +31,7 @@ SkuAtributoTecnicoVariedadValor.belongsTo(AtributoTecnicoVariedad, { foreignKey:
 SkuAtributoTecnicoVariedadValor.belongsTo(AtributoTecnicoVariedadValor, { foreignKey: 'idAtributoTecnicoVariedadValor',as:'AtributoTecnicoVariedadValor',targetKey:'id'})
 SkuAtributoTecnicoVariedadValor.belongsTo(TipoUnidadMedida, { foreignKey: 'idTipoUnidadMedida',as:'TipoUnidadMedida',targetKey:'id'})
 SkuAtributoTecnicoVariedadValor.belongsTo(UnidadMedida, { foreignKey: 'idUnidadMedida',as:'UnidadMedida',targetKey:'id'})
+SkuAtributoTecnicoVariedadValor.belongsTo(CategoriaAtributoTecnico, { foreignKey: 'idCategoriaAtributoTecnico',as:'CategoriaAtributoTecnico',targetKey:'id'})
 
 module.exports = {
     SkuAtributoTecnicoVariedadValor,

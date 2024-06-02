@@ -72,6 +72,22 @@ const postByCategoria = async (req, res = response) => {
                 model:Categoria,
                 as:'Categoria',
             },
+            {
+                model:SkuHijos,
+                as:'SkuHijos',
+                include:[
+                    {
+                        model:Sku,
+                        as:'Sku',
+                        include:[
+                            {
+                                model:Categoria,
+                                as:'Categoria'
+                            }
+                        ]
+                    }
+                ]
+            }
         ]
     })
 
@@ -89,7 +105,7 @@ const postByCategoriaAll = async (req, res = response) => {
     const model_all = await Sku.findAll({
         where: {
             estado: 1,
-            idCategoria:idCategoria,
+           // idCategoria:idCategoria,
         },
         include:[
             {

@@ -5,6 +5,8 @@ const { CategoriaAtributoTecnico } = require('../models/categoriaAtributoTecnico
 const { SkuAtributoTecnicoVariedadValor } = require('../models/skuAtributoTecnicoVariedadValor');
 const { Sku } = require('../models/sku');
 const { AtributoTecnicoVariedadValor } = require('../models/atributoTecnicoVariedadValor');
+const { UnidadMedida } = require('../models/unidadMedida');
+const { TipoUnidadMedida } = require('../models/tipoUnidadMedida');
 
 const get = async (req = request, res = response) => {
     const model_all = await SkuAtributoTecnicoVariedadValor.findAll({
@@ -25,7 +27,21 @@ const postIdSku = async (req = request, res = response) => {
         where: {
             estado: 1,
             idSku : req.body.idSku
-        }
+        },
+        include:[
+            {
+                model:UnidadMedida,
+                as:'UnidadMedida'
+            },
+            {
+                model:TipoUnidadMedida,
+                as:'TipoUnidadMedida'
+            },
+            {
+                model: CategoriaAtributoTecnico,
+                as:'CategoriaAtributoTecnico'
+            }
+        ]
     })
     
     res.json({
@@ -50,6 +66,8 @@ const post = async (req, res = response) => {
 
 
 const put = async (req, res = response) => {
+    
+    req.body.idTipoUnidadMedida = parseInt(req.body.idTipoUnidadMedida)
 
     const { id } = req.params;
 
@@ -110,7 +128,7 @@ const postResultados =  async (req, res = response) => {
                     model: Sku,
                     as: 'Sku',
                     where : {
-                        idCategoria:req.body.idCategoria
+                        //idCategoria:req.body.idCategoria
                     }
                 },
                 {

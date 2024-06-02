@@ -76,6 +76,7 @@ class Server {
             agrupacionCategoriaCategoria: '/api/agrupacionCategoriaCategoria',
             muestraIdeal: '/api/muestraIdeal',
             universoNegocios: '/api/universoNegocios',
+            factorPenetracion: '/api/factorPenetracion',
             
         };
 

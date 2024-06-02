@@ -24,7 +24,41 @@ const postId = async (req = request, res = response) => {
     const model = await CategoriaAtributoTecnico.findAll({
         where: {
             estado: 1,
-            idCategoria: req.body.idCategoria
+            //idCategoria: req.body.idCategoria
+        },
+        include: [{
+            model: CategoriaAtributoTecnicoValor,
+            as: 'CategoriaAtributoTecnicoValor',
+            include: [{
+                model: AtributoTecnicoVariedadValor,
+                as: 'AtributoTecnicoVariedadValor'
+            }]
+
+        },
+        {
+            model: AtributoTecnicoVariedad,
+            as: 'AtributoTecnicoVariedad'
+        }
+
+
+        ]
+    })
+
+    
+    res.json({
+        data: model,
+        state: 1,
+        message: ''
+    });
+
+  
+}
+
+const postIdAgrupacionCategoria = async (req = request, res = response) => {
+    const model = await CategoriaAtributoTecnico.findAll({
+        where: {
+            estado: 1,
+            idAgrupacionCategoria: req.body.idAgrupacionCategoria
         },
         include: [{
             model: CategoriaAtributoTecnicoValor,
@@ -49,6 +83,7 @@ const postId = async (req = request, res = response) => {
         model
     );
 }
+
 
 const post = async (req, res = response) => {
     delete req.body.id;
@@ -109,6 +144,7 @@ const deleted = async (req, res = response) => {
 module.exports = {
     get,
     postId,
+    postIdAgrupacionCategoria,
     post,
     put,
     patch,

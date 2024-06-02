@@ -74,7 +74,7 @@ control.postResultados =  async (req, res = response) => {
             
         }
 
-        console.log(mywhere);
+ 
 
         let uniqueArray = [];
 

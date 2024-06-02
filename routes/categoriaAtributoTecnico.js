@@ -17,18 +17,18 @@ const router = Router();
 router.get('/', get );
 
 router.post('/idCategoria',[
-    check('idCategoria', 'El idCategoria es requerido').not().isEmpty(),
+  
     validFields
 ] ,postId );
 
 
 router.put('/:id',[
-    check('idCategoria', 'El idCategoria es requerido').not().isEmpty(),
+
     validFields
 ],put );
 
 router.post('/',[
-    check('idCategoria', 'El idCategoria es requerido').not().isEmpty(),
+
     validFields
 ], post );
 

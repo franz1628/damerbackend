@@ -84,11 +84,12 @@ const postIdClienteIdCategoria = async (req = request, res = response) => {
     });
 }
 
+
 const postIdClienteAgrupacionCategoria = async (req = request, res = response) => {
     const model_all = await AtributoFuncionalVariedad.findAll({
         where: {
             estado: 1,
-            idCliente : req.body.idClienteAgrupacionCategoria
+            idClienteAgrupacionCategoria : req.body.idClienteAgrupacionCategoria
         }
     })
 
@@ -160,6 +161,7 @@ module.exports = {
     getIdClienteIdCategoria,
     getIdClienteAgrupacionCategoria,
     postIdClienteIdCategoria,
+    postIdClienteAgrupacionCategoria,
     post,
     put,
     patch,

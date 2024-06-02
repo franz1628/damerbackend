@@ -38,6 +38,53 @@ const usuarioPost = async(req, res = response) => {
     });
 }
 
+
+const usuarioLogin = async(req, res = response) => {
+    const { email, password } = req.body;
+
+    try {
+        // Buscar el usuario por email
+        const usuario = await Usuario.findOne({
+            where: {
+                email: email
+            }
+        });
+
+        if (usuario) {
+            // Comparar la contraseña proporcionada con la contraseña hash almacenada
+            const validPassword = bcryptjs.compareSync(password, usuario.password);
+            
+            if (validPassword) {
+                res.json({
+                    data: usuario,
+                    state: 1,
+                    message: ''
+                });
+            } else {
+                res.json({
+                    data: [],
+                    state: 0,
+                    message: 'Email y/o contraseña incorrectos'
+                });
+            }
+        } else {
+            res.json({
+                data: [],
+                state: 0,
+                message: 'Email y/o contraseña incorrectos'
+            });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            data: [],
+            state: 0,
+            message: 'Error del servidor'
+        });
+    }
+
+}
+
 const usuarioPut = async(req, res = response) => {
 
     const { id } = req.params;
@@ -76,6 +123,7 @@ const usuarioDelete = async(req, res = response) => {
 module.exports = {
     usuarioGet,
     usuarioPost,
+    usuarioLogin,
     usuarioPut,
     usuarioPatch,
     usuarioDelete,

@@ -18,7 +18,7 @@ const get = async (req = request, res = response) => {
 }
 
 const post = async (req, res = response) => {
-    console.log('etjej');
+  
     delete req.body.id;
     const model = new Canal(req.body);
 

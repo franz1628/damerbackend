@@ -9,6 +9,7 @@ const { isValidRole, emailExists, usuarioExists } = require('../helpers/db-valid
 const { usuarioGet,
         usuarioPut,
         usuarioPost,
+        usuarioLogin,
         usuarioDelete,
         usuarioPatch } = require('../controllers/usuario');
 
@@ -23,6 +24,10 @@ router.put('/:id',[
     check('role').custom( isValidRole ), 
     validFields
 ],usuarioPut );
+
+router.post('/login',[
+    validFields
+], usuarioLogin );
 
 router.post('/',[
     check('nombres', 'Los nombres son requeridos').not().isEmpty(),
