@@ -22,7 +22,7 @@ const MegaCategoria = db.define('MegaCategoria', {
 
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
-MegaCategoria.belongsTo(Canasta, { foreignKey: 'idCanasta',defaultValue:0 });
+MegaCategoria.belongsTo(Canasta, { foreignKey: 'idCanasta',as:'Canasta',targetKey:'id'})
 
 module.exports = {
     MegaCategoria,

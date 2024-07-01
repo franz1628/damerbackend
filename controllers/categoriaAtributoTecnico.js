@@ -5,6 +5,8 @@ const { CategoriaAtributoTecnico } = require('../models/categoriaAtributoTecnico
 const { CategoriaAtributoTecnicoValor } = require('../models/categoriaAtributoTecnicoValor');
 const { AtributoTecnicoVariedad } = require('../models/atributoTecnicoVariedad');
 const { AtributoTecnicoVariedadValor } = require('../models/atributoTecnicoVariedadValor');
+const { AgrupacionCategoriaCategoria } = require('../models/agrupacionCategoriaCategoria');
+const { Categoria } = require('../models/categoria');
 
 const get = async (req = request, res = response) => {
     const model_all = await CategoriaAtributoTecnico.findAll({
@@ -21,10 +23,68 @@ const get = async (req = request, res = response) => {
 }
 
 const postId = async (req = request, res = response) => {
+    const idClienteAgrupacionCategoria = req.body.idClienteAgrupacionCategoria;
+
+    const agrupacionCategoriaCategorias = await AgrupacionCategoriaCategoria.findAll({
+        where : {
+            idClienteAgrupacionCategoria : idClienteAgrupacionCategoria
+        },include : [
+            {
+                model:Categoria,
+                as:'Categoria'
+            }
+        ]
+    })
+
+    let categorias = [];
+
+    agrupacionCategoriaCategorias.map(x=>{
+        categorias.push(x.Categoria.id);
+    })
+    
+    categorias = [...new Set(categorias)];
+
     const model = await CategoriaAtributoTecnico.findAll({
         where: {
             estado: 1,
-            //idCategoria: req.body.idCategoria
+            idCategoria : {
+                [Op.in] : categorias
+            }
+        },
+        include: [{
+            model: CategoriaAtributoTecnicoValor,
+            as: 'CategoriaAtributoTecnicoValor',
+            include: [{
+                model: AtributoTecnicoVariedadValor,
+                as: 'AtributoTecnicoVariedadValor'
+            }]
+
+        },
+        {
+            model: AtributoTecnicoVariedad,
+            as: 'AtributoTecnicoVariedad'
+        }
+
+
+        ]
+    })
+
+    
+    res.json({
+        data: model,
+        state: 1,
+        message: ''
+    });
+
+  
+}
+
+const byIdCategoria = async (req = request, res = response) => {
+   
+    const model = await CategoriaAtributoTecnico.findAll({
+        where: {
+            estado: 1,
+            idCategoria : req.body.idCategoria
         },
         include: [{
             model: CategoriaAtributoTecnicoValor,
@@ -144,6 +204,7 @@ const deleted = async (req, res = response) => {
 module.exports = {
     get,
     postId,
+    byIdCategoria,
     postIdAgrupacionCategoria,
     post,
     put,

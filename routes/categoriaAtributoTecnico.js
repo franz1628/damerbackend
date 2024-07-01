@@ -7,6 +7,7 @@ const { isValidRole } = require('../helpers/db-validators');
 
 const { get,
         postId,
+        byIdCategoria,
         put,
         post,
         deleted,
@@ -20,6 +21,11 @@ router.post('/idCategoria',[
   
     validFields
 ] ,postId );
+
+router.post('/byIdCategoria',[
+  
+    validFields
+] ,byIdCategoria );
 
 
 router.put('/:id',[

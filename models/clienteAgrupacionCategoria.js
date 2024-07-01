@@ -4,6 +4,7 @@ const {AgrupacionCategoriaCategoria} = require("../models/agrupacionCategoriaCat
 
 const ClienteAgrupacionCategoria = db.define('ClienteAgrupacionCategoria', {
     idCliente: {type: DataTypes.INTEGER},
+    nombre: {type: DataTypes.STRING},
     estado: {
         type: DataTypes.INTEGER,
         defaultValue: 1,

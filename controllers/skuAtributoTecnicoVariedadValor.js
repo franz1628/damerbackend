@@ -7,6 +7,8 @@ const { Sku } = require('../models/sku');
 const { AtributoTecnicoVariedadValor } = require('../models/atributoTecnicoVariedadValor');
 const { UnidadMedida } = require('../models/unidadMedida');
 const { TipoUnidadMedida } = require('../models/tipoUnidadMedida');
+const { AgrupacionCategoriaCategoria } = require('../models/agrupacionCategoriaCategoria');
+const { Categoria } = require('../models/categoria');
 
 const get = async (req = request, res = response) => {
     const model_all = await SkuAtributoTecnicoVariedadValor.findAll({
@@ -115,6 +117,24 @@ const postResultados =  async (req, res = response) => {
         const idAtributoTecnicoVariedadValors = req.body.idAtributoTecnicoVariedadValors
         const arrayA = idAtributoTecnicoVariedadValors.split(',');
         
+
+        const idClienteAgrupacionCategoria = req.body.idClienteAgrupacionCategoria;
+
+        const agrupacionCategoriaCategorias = await AgrupacionCategoriaCategoria.findAll({
+            where : {
+                idClienteAgrupacionCategoria : idClienteAgrupacionCategoria
+            },include : [
+                {
+                    model:Categoria,
+                    as:'Categoria'
+                }
+            ]
+        })
+    
+        let categorias = [];
+        agrupacionCategoriaCategorias.map(x=>{
+            categorias.push(x.Categoria.id);
+        })
        
         const model_all = await SkuAtributoTecnicoVariedadValor.findAll({
             where: {
@@ -127,9 +147,11 @@ const postResultados =  async (req, res = response) => {
                 {
                     model: Sku,
                     as: 'Sku',
-                    where : {
-                        //idCategoria:req.body.idCategoria
-                    }
+                    where: {
+                        idCategoria : {
+                            [Op.in] : categorias
+                        }
+                    },
                 },
                 {
                     model: AtributoTecnicoVariedadValor,
@@ -146,7 +168,7 @@ const postResultados =  async (req, res = response) => {
             message: 'Listado correctamente'
         });
     } catch (error) {
-     
+        
         res.status(500).json({
             state: 0,
             message: error

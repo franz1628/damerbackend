@@ -33,7 +33,7 @@ control.postIdAtributoFuncionalVariedadValor =  async (req, res = response) => {
 
 control.guardarConcatenacion =  async (req, res = response) => {
     try {
-        console.log(req.body);
+       
         const model = await ClienteConcatenacion.findOne({
             where: {
                 estado: 1,
@@ -71,7 +71,7 @@ control.guardarConcatenacion =  async (req, res = response) => {
             message: 'Guardado correctamente'
         });
     } catch (error) {
-        console.log(error);
+       
         res.status(500).json({
             state: 0,
             message: error

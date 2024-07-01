@@ -20,6 +20,7 @@ control.postPack = async (req = request, res = response) => {
             idCategoria:req.body.skuPadre.idCategoria,
             idMegaCategoria:req.body.skuPadre.idMegaCategoria,
             idCanasta:req.body.skuPadre.idCanasta,
+            medicion:req.body.skuPadre.medicion
         });
     
         const nuevo = await skuPadre.save();
@@ -38,7 +39,7 @@ control.postPack = async (req = request, res = response) => {
             message: 'Sku Pack agregado correctamente'
         });
     } catch (error) {
-        console.log(error);
+        
         res.status(500).js0on({
             data:[],
             state: 0,
@@ -83,7 +84,7 @@ control.updatePack = async (req = request, res = response) => {
             message: 'Sku Pack agregado correctamente'
         });
     } catch (error) {
-        console.log(error);
+        
         res.status(500).json({
             data:[],
             state: 0,
@@ -129,7 +130,7 @@ control.postCombo = async (req = request, res = response) => {
             message: 'Sku Combo agregado correctamente'
         });
     } catch (error) {
-        console.log(error);
+        
         res.status(500).json({
             data:[],
             state: 0,
@@ -185,7 +186,7 @@ control.updateCombo = async (req = request, res = response) => {
             message: 'Sku Combo agregado correctamente'
         });
     } catch (error) {
-        console.log(error);
+        
         res.status(500).json({
             data:[],
             state: 0,

@@ -14,7 +14,8 @@ const { get,
         postByCategoriaAll,
         postDescripcion,
         deleted,
-        patch } = require('../controllers/sku');
+        patch, 
+        suspender} = require('../controllers/sku');
 
 const router = Router();
 
@@ -52,6 +53,10 @@ router.post('/byCategoria',[
 router.post('/byCategoriaAll',[
     validFields
 ], postByCategoriaAll );
+
+router.post('/suspender',[
+    validFields
+], suspender );
 
 router.delete('/:id',[
     validFields

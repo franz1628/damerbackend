@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const { db } = require('../database/config');
 const path = require('path');
@@ -77,8 +78,12 @@ class Server {
             muestraIdeal: '/api/muestraIdeal',
             universoNegocios: '/api/universoNegocios',
             factorPenetracion: '/api/factorPenetracion',
+            upload: '/api/upload',
             
         };
+        this.app.use(express.json());
+        this.app.use(express.urlencoded({ extended: true }));
+        this.app.use(bodyParser.json());
 
         this.conectarDB();
 
@@ -101,7 +106,9 @@ class Server {
     middlewares() {
         this.app.use(cors());
 
-        this.app.use(express.json());
+       
+
+       
 
         this.app.use(express.static('public'));
 

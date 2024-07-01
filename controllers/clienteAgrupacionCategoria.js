@@ -41,7 +41,8 @@ control.addCategoriasNuevo = async (req = request, res = response) => {
     const categorias = req.body.categoriasAgrupacion
 
     const model = new ClienteAgrupacionCategoria({
-        idCliente : req.body.idCliente
+        idCliente : req.body.idCliente,
+        nombre:req.body.nombreAgrupacionCategoria
     });
         
     await model.save();
@@ -66,6 +67,15 @@ control.addCategoriasNuevo = async (req = request, res = response) => {
 control.editCategorias = async (req = request, res = response) => {
     const categorias = req.body.categoriasAgrupacion
     const idClienteAgrupacionCategoria = req.body.idClienteAgrupacionCategoria
+    
+    await ClienteAgrupacionCategoria.update(
+        {
+            nombre:req.body.nombreAgrupacionCategoria
+        }, {
+        where: {
+            id: req.body.idClienteAgrupacionCategoria,
+        }
+    });
 
     await AgrupacionCategoriaCategoria.destroy({
         where : {

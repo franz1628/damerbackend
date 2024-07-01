@@ -2,12 +2,19 @@ const { response, request } = require('express');
 const bcryptjs = require('bcryptjs');
 const { where } = require('sequelize');
 const { MegaCategoria } = require('../models/megaCategoria');
+const { Canasta } = require('../models/canasta');
 
 const get = async (req = request, res = response) => {
     const model_all = await MegaCategoria.findAll({
         where: {
             estado: 1
-        }
+        },
+        include : [
+            {
+                model:Canasta,
+                as:'Canasta'
+            }
+        ]
     })
 
     res.json({
@@ -23,7 +30,13 @@ const getId = async (req = request, res = response) => {
         where: {
             estado: 1,
             idCanasta:id
-        }
+        },
+        include : [
+            {
+                model:Canasta,
+                as:'Canasta'
+            }
+        ]
     })
 
     res.json({

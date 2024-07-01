@@ -35,7 +35,7 @@ const departamentoPut = async (req, res = response) => {
     const { id } = req.params;
 
     delete req.body.id;
-    console.log(req.body);
+  
 
     const departamento = await Departamento.update(req.body, {
         where: {

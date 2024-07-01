@@ -65,7 +65,7 @@ control.post = async (req, res = response) => {
             message: 'Model creada correctamente'
         });
     } catch (error) {
-        console.log(error);
+
         res.status(500).json({
             state: 0,
             message: error

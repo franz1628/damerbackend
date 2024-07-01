@@ -66,7 +66,7 @@ const postCanastaMegaCategoria = async (req, res = response) => {
     const model_all = await Categoria.findAll({
         where: {
             estado: 1,
-            idCanasta:idCanasta,
+
             idMegaCategoria:idMegaCategoria,
         }
     })

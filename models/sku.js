@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, Sequelize } = require("sequelize");
 const { db } = require("../database/config");
 const { Canasta } = require("./canasta");
 const { MegaCategoria } = require("./megaCategoria");
@@ -11,16 +11,23 @@ const Sku = db.define('Sku', {
     tipoSku: {type: DataTypes.INTEGER},
     descripcionResumida: {type: DataTypes.STRING},
     tip: {type: DataTypes.STRING},
+    refrigeracion: {type: DataTypes.INTEGER},
+    barras: {type: DataTypes.STRING},
     alias1: {type: DataTypes.STRING},
     alias2: {type: DataTypes.STRING},
     alias3: {type: DataTypes.STRING},
+    medicion: {type: DataTypes.INTEGER},
+    image: {type: DataTypes.STRING},
     estado: {
         type: DataTypes.INTEGER,
         defaultValue: 1,
     },
     fechaRegistro:{
-        type : DataTypes.DATE
-    }
+        type : DataTypes.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    fechaModificacion:{type : DataTypes.DATE}
+    
 },{
     tableName: 'SKU'
 });

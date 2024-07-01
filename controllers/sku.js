@@ -1,6 +1,6 @@
 const { response, request } = require('express');
 const bcryptjs = require('bcryptjs');
-const { where, Sequelize } = require('sequelize');
+const { where, Sequelize, Op } = require('sequelize');
 const { Sku } = require('../models/sku');
 const { Canasta } = require('../models/canasta');
 const { MegaCategoria } = require('../models/megaCategoria');
@@ -8,12 +8,13 @@ const { Categoria } = require('../models/categoria');
 const { SkuAtributoTecnicoVariedadValor } = require('../models/skuAtributoTecnicoVariedadValor');
 const { AtributoTecnicoVariedad } = require('../models/atributoTecnicoVariedad');
 const { AtributoTecnicoVariedadValor } = require('../models/atributoTecnicoVariedadValor');
+const { AgrupacionCategoriaCategoria } = require('../models/agrupacionCategoriaCategoria');
 const { SkuHijos } = require('../models/skuHijos');
 
 const get = async (req = request, res = response) => {
     const model_all = await Sku.findAll({
         where: {
-            estado: 1
+           
         },
         include:[
             {
@@ -42,11 +43,14 @@ const post = async (req, res = response) => {
     delete req.body.id;
     const model = new Sku(req.body);
 
+
     // Guardar en BD
     await model.save();
 
     res.json({
-        model
+        data: model,
+        state: 1,
+        message: ''
     });
 }
 
@@ -56,7 +60,9 @@ const postByCategoria = async (req, res = response) => {
 
     const model_all = await Sku.findAll({
         where: {
-            estado: 1,
+            estado: {
+                [Op.or]: [1, 2]
+            },
             idCategoria:idCategoria,
         },
         include:[
@@ -100,12 +106,34 @@ const postByCategoria = async (req, res = response) => {
 
 const postByCategoriaAll = async (req, res = response) => {
 
-    const {idCategoria } = req.body;
+    const {idClienteAgrupacionCategoria } = req.body;
+
+    
+
+    const agrupacionCategoriaCategorias = await AgrupacionCategoriaCategoria.findAll({
+        where : {
+            idClienteAgrupacionCategoria : idClienteAgrupacionCategoria
+        },include : [
+            {
+                model:Categoria,
+                as:'Categoria'
+            }
+        ]
+    })
+
+    let categorias = [];
+    agrupacionCategoriaCategorias.map(x=>{
+        categorias.push(x.Categoria.id);
+    })
 
     const model_all = await Sku.findAll({
         where: {
-            estado: 1,
-           // idCategoria:idCategoria,
+            estado: {
+                [Op.or]: [0, 1]
+            },
+            idCategoria : {
+                [Op.in] : categorias
+            }
         },
         include:[
             {
@@ -286,7 +314,23 @@ const deleted = async (req, res = response) => {
     res.json({
         data: [],
         state: 1,
-        message: 'Borrado correctamente'
+        message: 'Eliminado correctamente'
+    });
+}
+
+const suspender = async (req, res = response) => {
+    const model = await Sku.update({
+        estado: 2,//Suspendido
+    }, {
+        where: {
+            id: req.body.model.id,
+        }
+    });
+   
+    res.json({
+        data: [],
+        state: 1,
+        message: 'Suspendido correctamente'
     });
 }
 
@@ -301,4 +345,5 @@ module.exports = {
     put,
     patch,
     deleted,
+    suspender,
 }
