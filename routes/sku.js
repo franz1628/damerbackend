@@ -14,6 +14,7 @@ const { get,
         postByCategoriaAll,
         postDescripcion,
         deleted,
+        deleteImage,
         patch, 
         suspender} = require('../controllers/sku');
 
@@ -40,6 +41,11 @@ router.post('/descripcion',[
     check('descripcion', 'El descripcion es requerido').not().isEmpty(),
     validFields
 ] ,postDescripcion );
+
+router.post('/deleteImage',[
+
+    validFields
+] ,deleteImage );
 
 router.post('/postDescripcionCategoria',[
     check('descripcion', 'El descripcion es requerido').not().isEmpty(),

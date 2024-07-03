@@ -10,24 +10,26 @@ const { AtributoTecnicoVariedad } = require('../models/atributoTecnicoVariedad')
 const { AtributoTecnicoVariedadValor } = require('../models/atributoTecnicoVariedadValor');
 const { AgrupacionCategoriaCategoria } = require('../models/agrupacionCategoriaCategoria');
 const { SkuHijos } = require('../models/skuHijos');
+const path = require('path');
+const fs = require('fs');
 
 const get = async (req = request, res = response) => {
     const model_all = await Sku.findAll({
         where: {
-           
+
         },
-        include:[
+        include: [
             {
-                model:Canasta,
-                as:'Canasta',
+                model: Canasta,
+                as: 'Canasta',
             },
             {
-                model:MegaCategoria,
-                as:'MegaCategoria',
+                model: MegaCategoria,
+                as: 'MegaCategoria',
             },
             {
-                model:Categoria,
-                as:'Categoria',
+                model: Categoria,
+                as: 'Categoria',
             },
         ]
     })
@@ -56,39 +58,39 @@ const post = async (req, res = response) => {
 
 const postByCategoria = async (req, res = response) => {
 
-    const {idCategoria } = req.body;
+    const { idCategoria } = req.body;
 
     const model_all = await Sku.findAll({
         where: {
             estado: {
                 [Op.or]: [1, 2]
             },
-            idCategoria:idCategoria,
+            idCategoria: idCategoria,
         },
-        include:[
+        include: [
             {
-                model:Canasta,
-                as:'Canasta',
+                model: Canasta,
+                as: 'Canasta',
             },
             {
-                model:MegaCategoria,
-                as:'MegaCategoria',
+                model: MegaCategoria,
+                as: 'MegaCategoria',
             },
             {
-                model:Categoria,
-                as:'Categoria',
+                model: Categoria,
+                as: 'Categoria',
             },
             {
-                model:SkuHijos,
-                as:'SkuHijos',
-                include:[
+                model: SkuHijos,
+                as: 'SkuHijos',
+                include: [
                     {
-                        model:Sku,
-                        as:'Sku',
-                        include:[
+                        model: Sku,
+                        as: 'Sku',
+                        include: [
                             {
-                                model:Categoria,
-                                as:'Categoria'
+                                model: Categoria,
+                                as: 'Categoria'
                             }
                         ]
                     }
@@ -106,23 +108,23 @@ const postByCategoria = async (req, res = response) => {
 
 const postByCategoriaAll = async (req, res = response) => {
 
-    const {idClienteAgrupacionCategoria } = req.body;
+    const { idClienteAgrupacionCategoria } = req.body;
 
-    
+
 
     const agrupacionCategoriaCategorias = await AgrupacionCategoriaCategoria.findAll({
-        where : {
-            idClienteAgrupacionCategoria : idClienteAgrupacionCategoria
-        },include : [
+        where: {
+            idClienteAgrupacionCategoria: idClienteAgrupacionCategoria
+        }, include: [
             {
-                model:Categoria,
-                as:'Categoria'
+                model: Categoria,
+                as: 'Categoria'
             }
         ]
     })
 
     let categorias = [];
-    agrupacionCategoriaCategorias.map(x=>{
+    agrupacionCategoriaCategorias.map(x => {
         categorias.push(x.Categoria.id);
     })
 
@@ -131,26 +133,26 @@ const postByCategoriaAll = async (req, res = response) => {
             estado: {
                 [Op.or]: [0, 1]
             },
-            idCategoria : {
-                [Op.in] : categorias
+            idCategoria: {
+                [Op.in]: categorias
             }
         },
-        include:[
+        include: [
             {
-                model:Categoria,
-                as:'Categoria',
+                model: Categoria,
+                as: 'Categoria',
             },
             {
-                model:SkuAtributoTecnicoVariedadValor,
-                as:'SkuAtributoTecnicoVariedadValor',
-                include:[
+                model: SkuAtributoTecnicoVariedadValor,
+                as: 'SkuAtributoTecnicoVariedadValor',
+                include: [
                     {
-                        model:AtributoTecnicoVariedad,
-                        as:'AtributoTecnicoVariedad'
+                        model: AtributoTecnicoVariedad,
+                        as: 'AtributoTecnicoVariedad'
                     },
                     {
-                        model:AtributoTecnicoVariedadValor,
-                        as:'AtributoTecnicoVariedadValor'
+                        model: AtributoTecnicoVariedadValor,
+                        as: 'AtributoTecnicoVariedadValor'
                     },
                 ]
             }
@@ -168,20 +170,20 @@ const postId = async (req = request, res = response) => {
     const model = await Sku.findOne({
         where: {
             estado: 1,
-            id : req.body.id
+            id: req.body.id
         },
-        include:[
+        include: [
             {
-                model:Canasta,
-                as:'Canasta',
+                model: Canasta,
+                as: 'Canasta',
             },
             {
-                model:MegaCategoria,
-                as:'MegaCategoria',
+                model: MegaCategoria,
+                as: 'MegaCategoria',
             },
             {
-                model:Categoria,
-                as:'Categoria',
+                model: Categoria,
+                as: 'Categoria',
             },
         ]
     })
@@ -201,26 +203,26 @@ const postDescripcion = async (req = request, res = response) => {
                 `%${req.body.descripcion.toLowerCase()}%`
             )
         },
-        include:[
+        include: [
             {
-                model:Canasta,
-                as:'Canasta',
+                model: Canasta,
+                as: 'Canasta',
             },
             {
-                model:MegaCategoria,
-                as:'MegaCategoria',
+                model: MegaCategoria,
+                as: 'MegaCategoria',
             },
             {
-                model:Categoria,
-                as:'Categoria',
+                model: Categoria,
+                as: 'Categoria',
             },
             {
-                model:SkuHijos,
-                as:'SkuHijos',
-                include:[
+                model: SkuHijos,
+                as: 'SkuHijos',
+                include: [
                     {
-                        model:Sku,
-                        as:'Sku'
+                        model: Sku,
+                        as: 'Sku'
                     }
                 ]
             }
@@ -241,29 +243,29 @@ const postDescripcionCategoria = async (req = request, res = response) => {
                 'LIKE',
                 `%${req.body.descripcion.toLowerCase()}%`
             ),
-            idCategoria:req.body.idCategoria,
-            tipoSku:1
+            idCategoria: req.body.idCategoria,
+            tipoSku: 1
         },
-        include:[
+        include: [
             {
-                model:Canasta,
-                as:'Canasta',
+                model: Canasta,
+                as: 'Canasta',
             },
             {
-                model:MegaCategoria,
-                as:'MegaCategoria',
+                model: MegaCategoria,
+                as: 'MegaCategoria',
             },
             {
-                model:Categoria,
-                as:'Categoria',
+                model: Categoria,
+                as: 'Categoria',
             },
             {
-                model:SkuHijos,
-                as:'SkuHijos',
-                include:[
+                model: SkuHijos,
+                as: 'SkuHijos',
+                include: [
                     {
-                        model:Sku,
-                        as:'Sku'
+                        model: Sku,
+                        as: 'Sku'
                     }
                 ]
             }
@@ -280,19 +282,89 @@ const put = async (req, res = response) => {
     const { id } = req.params;
 
     delete req.body.id;
+    delete req.body.image;
 
-    const model = await Sku.update(req.body, {
+
+    try {
+
+        await Sku.update(req.body, {
+            where: {
+                id: id,
+            }
+        });
+
+      
+        const updatedModel = await Sku.findOne({
+            where: {
+                id: id,
+            },
+            include: [
+                {
+                    model: Canasta,
+                    as: 'Canasta',
+                },
+                {
+                    model: MegaCategoria,
+                    as: 'MegaCategoria',
+                },
+                {
+                    model: Categoria,
+                    as: 'Categoria',
+                },
+            ]
+        });
+
+        return res.json({
+            data: updatedModel,
+            state: 1,
+            message: 'Actualizado correctamente'
+        });
+    } catch (error) {
+        return res.status(500).json({
+            data: null,
+            state: 0,
+            message: 'Error al actualizar el modelo',
+            error: error.message
+        });
+    }
+}
+
+
+const deleteImage = async (req, res = response) => {
+    const miPath = path.join('public/uploads/sku', req.body.image);
+
+    // Verificar si el archivo existe
+    fs.access(miPath, fs.constants.F_OK, (err) => {
+        if (err) {
+
+        } else {
+            fs.unlink(miPath, (err) => {
+
+            });
+        }
+
+
+
+    });
+
+    const id = req.body.id;
+    delete req.body.id;
+
+    const model = await Sku.update({ image: '' }, {
         where: {
             id: id,
         }
     });
 
-    res.json({
+
+    return res.json({
         data: [model],
         state: 1,
-        message: 'Actualizado correctamente'
+        message: 'Imagen Eliminada correctamente'
     });
 }
+
+
 
 const patch = (req, res = response) => {
     res.json({
@@ -326,7 +398,7 @@ const suspender = async (req, res = response) => {
             id: req.body.model.id,
         }
     });
-   
+
     res.json({
         data: [],
         state: 1,
@@ -345,5 +417,6 @@ module.exports = {
     put,
     patch,
     deleted,
+    deleteImage,
     suspender,
 }

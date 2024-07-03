@@ -32,7 +32,7 @@ const uploadImage = async (req = request, res = response) => {
     // Maneja la subida de la imagen
     upload.single('image')(req, res, async (err) => {
       if (err) {
-        console.log(err);
+       
         return res.status(500).json({ error: 'Error en la subida 1' });
       }
 
@@ -53,17 +53,11 @@ const uploadImage = async (req = request, res = response) => {
         }
       });
 
-      // Convierte req.body a un objeto normal
-      const body = Object.assign({}, req.body);
-
-      // Parse the other fields from the request body
-  
-      // Obtén el path de la imagen subida
-      const imagePath = req.file.filename;
-
+      console.log(newFilename);
+      console.log(id);
       // Actualiza el registro en la base de datos
       const updatedSku = await Sku.update(
-        { ...rest, image: newFilename },
+        { image: newFilename },
         { where: { id: id } }
       );
 
@@ -75,14 +69,14 @@ const uploadImage = async (req = request, res = response) => {
         });
       }
 
-      res.json({
+      return res.json({
         data: updatedSku,
         state: 1,
         message: 'Subida correctamente'
       });
     });
   } catch (error) {
-    console.error(error);
+   
     res.status(500).json({ error: error.message });
   }
 };
