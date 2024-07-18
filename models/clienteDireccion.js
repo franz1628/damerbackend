@@ -4,8 +4,9 @@ const {Cliente} = require("../models/cliente");
 
 const ClienteDireccion = db.define('ClienteDireccion', {
     idTipoDireccion: {type: DataTypes.INTEGER},
-    codDistrito: {type: DataTypes.INTEGER},
-    codUrbanizacion: {type: DataTypes.INTEGER},
+    idCliente: { type: DataTypes.INTEGER },
+    idDistrito: { type: DataTypes.INTEGER },
+    idUrbanizacion: { type: DataTypes.INTEGER },
     codVia: {type: DataTypes.INTEGER},
     numDomicilio: {type: DataTypes.INTEGER},
     interior: {type: DataTypes.INTEGER},

@@ -79,6 +79,7 @@ class Server {
             universoNegocios: '/api/universoNegocios',
             factorPenetracion: '/api/factorPenetracion',
             upload: '/api/upload',
+            tipoDireccion: '/api/tipoDireccion',
             
         };
         this.app.use(express.json());

@@ -18,11 +18,11 @@ const get = async (req = request, res = response) => {
     });
 }
 
-const getCodCliente = async (req = request, res = response) => {
+const getIdCliente = async (req = request, res = response) => {
     const model_all = await ClienteDireccion.findAll({
         where: {
             estado: 1,
-            codCliente:req.params.codCliente
+            idCliente:req.params.idCliente
         },
         include : {model:Cliente,foreignKey:'codigo'}
     })
@@ -105,7 +105,7 @@ const deleted = async (req, res = response) => {
 
 module.exports = {
     get,
-    getCodCliente,
+    getIdCliente,
     postCodigo,
     post,
     put,

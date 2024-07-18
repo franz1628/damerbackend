@@ -30,12 +30,12 @@ router.post('/idCliente',[
 ] ,postIdCliente );
 
 router.put('/:id',[
-    check('codCliente', 'El codigo es requerido').not().isEmpty(),
+    // check('codCliente', 'El codigo es requerido').not().isEmpty(),
     validFields
 ],put );
 
 router.post('/',[
-    check('codCliente', 'El codigo es requerido').not().isEmpty(),
+    // check('codCliente', 'El codigo es requerido').not().isEmpty(),
     validFields
 ], post );
 
