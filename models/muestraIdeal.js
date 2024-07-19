@@ -22,7 +22,6 @@ const MuestraIdeal = db.define('MuestraIdeal', {
 
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
-//MuestraIdeal.belongsTo(Cliente, { foreignKey: 'codCliente'})
 MuestraIdeal.belongsTo(Canal, { foreignKey: 'idCanal',as:'Canal',targetKey:'id'})
 MuestraIdeal.belongsTo(Categoria, { foreignKey: 'idCategoria',as:'Categoria',targetKey:'id'})
 

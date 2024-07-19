@@ -21,7 +21,7 @@ const ClienteCanal = db.define('ClienteCanal', {
 
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
-//ClienteCanal.belongsTo(Cliente, { foreignKey: 'codCliente'})
+
 ClienteCanal.belongsTo(Canal, { foreignKey: 'idCanal',as:'Canal',targetKey:'id'})
 ClienteCanal.belongsTo(Cliente, { foreignKey: 'idCliente',as:'Cliente',targetKey:'id'})
 

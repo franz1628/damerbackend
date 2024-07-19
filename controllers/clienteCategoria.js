@@ -19,11 +19,11 @@ const get = async (req = request, res = response) => {
     });
 }
 
-const getCodCliente = async (req = request, res = response) => {
+const getIdCliente = async (req = request, res = response) => {
     const model_all = await ClienteCategoria.findAll({
         where: {
             estado: 1,
-            codCliente: req.params.codCliente
+            idCliente: req.params.idCliente
         },
         include: [
             {
@@ -143,7 +143,7 @@ const deleted = async (req, res = response) => {
 module.exports = {
     get,
     postIdCliente,
-    getCodCliente,
+    getIdCliente,
     postCodigo,
     post,
     put,

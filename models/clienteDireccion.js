@@ -1,6 +1,8 @@
 const { DataTypes, Sequelize } = require("sequelize");
 const { db } = require("../database/config");
 const {Cliente} = require("../models/cliente");
+const {TipoDireccion} = require("../models/tipoDireccion");
+const {Distrito} = require("../models/distrito");
 
 const ClienteDireccion = db.define('ClienteDireccion', {
     idTipoDireccion: {type: DataTypes.INTEGER},
@@ -27,7 +29,9 @@ const ClienteDireccion = db.define('ClienteDireccion', {
 
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
-ClienteDireccion.belongsTo(Cliente, { foreignKey: 'codCliente'})
+ClienteDireccion.belongsTo(TipoDireccion, { foreignKey: 'idTipoDireccion',as:'TipoDireccion',targetKey:'id'})
+ClienteDireccion.belongsTo(Distrito, { foreignKey: 'idDistrito',as:'Distrito',targetKey:'id'})
+ClienteDireccion.belongsTo(Cliente, { foreignKey: 'idCliente'})
 
 module.exports = {
     ClienteDireccion,

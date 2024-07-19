@@ -20,9 +20,6 @@ const AgrupacionCategoriaCategoria = db.define('AgrupacionCategoriaCategoria', {
 AgrupacionCategoriaCategoria.belongsTo(Categoria,{foreignKey:'idCategoria',as:'Categoria',targetKey:'id'});
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
-//ClienteAgrupacionCategoria.belongsTo(Cliente, { foreignKey: 'codCliente'})
-//ClienteAgrupacionCategoria.belongsTo(Categoria, { foreignKey: 'idCategoria',as:'Categoria',targetKey:'id'})
-//ClienteAgrupacionCategoria.belongsTo(Cliente, { foreignKey: 'idCliente',as:'Cliente',targetKey:'id'})
 
 module.exports = {
     AgrupacionCategoriaCategoria,

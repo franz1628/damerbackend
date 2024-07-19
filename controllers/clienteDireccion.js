@@ -3,12 +3,23 @@ const bcryptjs = require('bcryptjs');
 const { where } = require('sequelize');
 const { ClienteDireccion } = require('../models/clienteDireccion');
 const { Cliente } = require('../models/cliente');
+const { TipoDireccion } = require('../models/tipoDireccion');
+const { Distrito } = require('../models/distrito');
+const { Provincia } = require('../models/provincia');
+const { Departamento } = require('../models/departamento');
 
 const get = async (req = request, res = response) => {
     const model_all = await ClienteDireccion.findAll({
         where: {
             estado: 1
-        }
+        },
+        include : [
+            {
+                model:TipoDireccion,
+                as:'TipoDireccion',
+                foreignKey : 'id'
+            }
+        ]
     })
 
     res.json({
@@ -24,7 +35,36 @@ const getIdCliente = async (req = request, res = response) => {
             estado: 1,
             idCliente:req.params.idCliente
         },
-        include : {model:Cliente,foreignKey:'codigo'}
+        include : [
+            {
+                model:Cliente,
+                as:'Cliente',
+                foreignKey:'id'
+            },
+            {
+                model:TipoDireccion,
+                as:'TipoDireccion',
+                foreignKey : 'id'
+            },
+            {
+                model:Distrito,
+                as:'Distrito',
+                foreignKey : 'id',
+                include: {
+                    model:Provincia,
+                    as:'Provincia',
+                    foreignKey:'id',
+                    include:{
+                        model:Departamento,
+                        as:'Departamento',
+                        foreignKey:'id'
+                    }
+                }
+            }
+            
+        ]
+
+        
     })
 
     res.json({

@@ -4,7 +4,7 @@ const {Cliente} = require("../models/cliente");
 const {Categoria} = require("../models/categoria");
 
 const ClienteCategoria = db.define('ClienteCategoria', {
-    codCliente: {type: DataTypes.INTEGER},
+    idCliente: {type: DataTypes.INTEGER},
     codCategoria: {type: DataTypes.INTEGER},
     nombreAgrupacion: {type: DataTypes.STRING},
     estado: {
@@ -21,7 +21,7 @@ const ClienteCategoria = db.define('ClienteCategoria', {
 
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
-//ClienteCategoria.belongsTo(Cliente, { foreignKey: 'codCliente'})
+
 ClienteCategoria.belongsTo(Categoria, { foreignKey: 'idCategoria',as:'Categoria',targetKey:'id'})
 ClienteCategoria.belongsTo(Cliente, { foreignKey: 'idCliente',as:'Cliente',targetKey:'id'})
 

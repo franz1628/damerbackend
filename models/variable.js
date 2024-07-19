@@ -9,7 +9,7 @@ const Variable = db.define('Variable', {
     descripcionResumida: { type: DataTypes.STRING },
     tip: { type: DataTypes.STRING },
     codAtributoTecnicoVariedad: { type: DataTypes.INTEGER },
-    codCliente: { type: DataTypes.INTEGER },
+    idCliente: { type: DataTypes.INTEGER },
     indicadorFotografia: { type: DataTypes.INTEGER },
     numFotos: { type: DataTypes.INTEGER },
     idInputClasificado: { type: DataTypes.INTEGER },

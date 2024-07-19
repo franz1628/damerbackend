@@ -26,7 +26,7 @@ const UnidadVenta = db.define('UnidadVenta', {
 
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
-//UnidadVenta.belongsTo(Cliente, { foreignKey: 'codCliente'})
+
 UnidadVenta.belongsTo(TipoUnidadMedida, { foreignKey: 'idTipoUnidadMedida',as:'TipoUnidadMedida',targetKey:'id'})
 UnidadVenta.belongsTo(UnidadMedida, { foreignKey: 'idUnidadMedida',as:'UnidadMedida',targetKey:'id'})
 

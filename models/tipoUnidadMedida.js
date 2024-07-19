@@ -21,9 +21,6 @@ const TipoUnidadMedida = db.define('TipoUnidadMedida', {
 
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
-//TipoUnidadMedida.belongsTo(Cliente, { foreignKey: 'codCliente'})
-// TipoUnidadMedida.belongsTo(Canal, { foreignKey: 'codCanal',as:'Canal',targetKey:'codigo'})
-// TipoUnidadMedida.belongsTo(Cliente, { foreignKey: 'codCliente',as:'Cliente',targetKey:'codigo'})
 
 module.exports = {
     TipoUnidadMedida,
