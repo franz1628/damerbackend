@@ -4,7 +4,7 @@ const { db } = require("../database/config");
 const ClienteContacto = db.define('ClienteContacto', {
     idCliente: {type: DataTypes.INTEGER},
     nombreCompleto: {type: DataTypes.INTEGER},
-    cargo: {type: DataTypes.INTEGER},
+    cargo: {type: DataTypes.STRING},
     correo: {type: DataTypes.INTEGER},
     estado: {
         type: DataTypes.INTEGER,
