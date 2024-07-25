@@ -17,7 +17,7 @@ const { get,
 const router = Router();
 
 router.get('/', get );
-router.get('/idCliente/:idCliente/:idCategoria', getIdClienteIdCategoria );
+router.get('/idCliente/:idCliente/:idClienteAgrupacionCategoria', getIdClienteIdCategoria );
 
 
 router.post('/idClienteidCategoria',[
@@ -30,12 +30,12 @@ router.post('/idClienteAgrupacionCategoria',[
 
 
 router.put('/:id',[
-    check('idCliente', 'El idCliente es requerido').not().isEmpty(),
+    //check('idCliente', 'El idCliente es requerido').not().isEmpty(),
     validFields
 ],put );
 
 router.post('/',[
-    check('idCliente', 'El idCliente es requerido').not().isEmpty(),
+   // check('idCliente', 'El idCliente es requerido').not().isEmpty(),
     validFields
 ], post );
 

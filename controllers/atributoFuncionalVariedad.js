@@ -24,17 +24,12 @@ const getIdClienteIdCategoria = async (req = request, res = response) => {
     const model_all = await AtributoFuncionalVariedad.findAll({
         where: {
             estado: 1,
-            idCliente: req.params.idCliente,
-            idCategoria: req.params.idCategoria,
+            idClienteAgrupacionCategoria: req.params.idClienteAgrupacionCategoria,
         },
         include: [
             {
-                model: Categoria,
-                as: 'Categoria'
-            },
-            {
-                model: Cliente,
-                as: 'Cliente'
+                model: ClienteAgrupacionCategoria,
+                as: 'ClienteAgrupacionCategoria'
             }
         ]
     });
