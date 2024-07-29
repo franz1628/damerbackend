@@ -1,5 +1,7 @@
 const { DataTypes, Sequelize } = require("sequelize");
 const { db } = require("../database/config");
+const {Moneda} = require("../models/moneda");
+const {TipoTipoCambio} = require("../models/tipoTipoCambio");
 
 const TipoCambio = db.define('TipoCambio', {
     idMoneda: {type: DataTypes.INTEGER},
@@ -20,7 +22,9 @@ const TipoCambio = db.define('TipoCambio', {
 
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
-//TipoCambio.belongsTo(Pais, { foreignKey: 'codPais',defaultValue:1 });
+
+TipoCambio.belongsTo(Moneda, { foreignKey: 'idMoneda',as:'Moneda',targetKey:'id'})
+TipoCambio.belongsTo(TipoTipoCambio, { foreignKey: 'idTipoTipoCambio',as:'TipoTipoCambio',targetKey:'id'})
 
 module.exports = {
     TipoCambio,

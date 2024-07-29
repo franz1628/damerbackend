@@ -2,12 +2,26 @@ const { response, request } = require('express');
 const bcryptjs = require('bcryptjs');
 const { where } = require('sequelize');
 const { TipoCambio } = require('../models/tipoCambio');
+const { TipoTipoCambio } = require('../models/tipoTipoCambio');
+const { Moneda } = require('../models/moneda');
 
 const get = async (req = request, res = response) => {
     const model_all = await TipoCambio.findAll({
         where: {
             estado: 1
-        }
+        },
+        include : [
+            {
+                model:TipoTipoCambio,
+                as : 'TipoTipoCambio',
+                foreignKey:'id'
+            },
+            {
+                model:Moneda,
+                as : 'Moneda',
+                foreignKey:'id'
+            }
+        ]
     })
 
     res.json({

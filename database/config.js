@@ -19,7 +19,7 @@ const db = new Sequelize('Damer', 'sa', '1234', {
   dialect: 'mssql',
   
   define: {
-    timestamps: false, // Desactivar la creación automática de campos de fecha
+    timestamps: false, 
   },
 });
 
