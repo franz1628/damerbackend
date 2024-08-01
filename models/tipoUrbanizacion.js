@@ -22,7 +22,20 @@ const TipoUrbanizacion = db.define('TipoUrbanizacion', {
         defaultValue: 1,
     }
 },{
-    tableName: 'TIPOURBANIZACION'
+    tableName: 'TIPOURBANIZACION',
+    hooks: {
+        beforeCreate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        },
+        beforeUpdate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        }
+
+    }
 });
 
 

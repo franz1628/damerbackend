@@ -14,7 +14,20 @@ const Pais = db.define('Pais', {
         defaultValue: 1,
     }
 },{
-    tableName: 'PAIS'
+    tableName: 'PAIS',
+    hooks: {
+        beforeCreate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        },
+        beforeUpdate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        }
+
+    }
 });
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)

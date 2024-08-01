@@ -15,7 +15,20 @@ const ClienteContacto = db.define('ClienteContacto', {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
 },{
-    tableName: 'CLIENTE_CONTACTO'
+    tableName: 'CLIENTE_CONTACTO',
+    hooks: {
+        beforeCreate: (model) => {
+            if (model.nombreCompleto) {
+                model.nombreCompleto = model.nombreCompleto.toUpperCase();
+            }
+        },
+        beforeUpdate: (model) => {
+            if (model.nombreCompleto) {
+                model.nombreCompleto = model.nombreCompleto.toUpperCase();
+            }
+        }
+
+    }
 });
 
 

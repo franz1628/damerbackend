@@ -117,7 +117,8 @@ const put = async (req, res = response) => {
     const model = await AtributoFuncionalVariedad.update(req.body, {
         where: {
             id: id,
-        }
+        },
+        individualHooks: true
     });
 
     res.json({

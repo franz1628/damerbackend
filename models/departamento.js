@@ -15,7 +15,20 @@ const Departamento = db.define('Departamento', {
         defaultValue: 1,
     }
 },{
-    tableName: 'DEPARTAMENTO'
+    tableName: 'DEPARTAMENTO',
+    hooks: {
+        beforeCreate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        },
+        beforeUpdate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        }
+
+    }
 });
 
 Departamento.belongsTo(Pais,{foreignKey:'idPais'});

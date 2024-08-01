@@ -18,7 +18,20 @@ const SkuHijos = db.define('SkuHijos', {
         type : DataTypes.DATE
     }
 },{
-    tableName: 'SKU_HIJOS'
+    tableName: 'SKU_HIJOS',
+    hooks: {
+        beforeCreate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        },
+        beforeUpdate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        }
+
+    }
 });
 
 

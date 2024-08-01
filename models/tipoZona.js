@@ -7,7 +7,20 @@ const TipoZona = db.define('TipoZona', {
     estado: { type: DataTypes.INTEGER, defaultValue: 1, },
     fechaRegistro: { type: DataTypes.DATE }
 }, {
-    tableName: 'TIPOZONA'
+    tableName: 'TIPOZONA',
+    hooks: {
+        beforeCreate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        },
+        beforeUpdate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        }
+
+    }
 });
 
 

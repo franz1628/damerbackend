@@ -12,7 +12,20 @@ const ClasificadoReferencia = db.define('ClasificadoReferencia', {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
 },{
-    tableName: 'CLASIFICADOREFERENCIA'
+    tableName: 'CLASIFICADOREFERENCIA',
+    hooks: {
+        beforeCreate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        },
+        beforeUpdate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        }
+
+    }
 });
 
 module.exports = {

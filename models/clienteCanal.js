@@ -16,7 +16,20 @@ const ClienteCanal = db.define('ClienteCanal', {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
 },{
-    tableName: 'CLIENTE_CANAL'
+    tableName: 'CLIENTE_CANAL',
+    hooks: {
+        beforeCreate: (model) => {
+            if (model.nombreAgrupacion) {
+                model.nombreAgrupacion = model.nombreAgrupacion.toUpperCase();
+            }
+        },
+        beforeUpdate: (model) => {
+            if (model.nombreAgrupacion) {
+                model.nombreAgrupacion = model.nombreAgrupacion.toUpperCase();
+            }
+        }
+
+    }
 });
 
 

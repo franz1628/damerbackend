@@ -12,7 +12,20 @@ const TipoTipoCambio = db.define('TipoTipoCambio', {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
 },{
-    tableName: 'TIPOTIPOCAMBIO'
+    tableName: 'TIPOTIPOCAMBIO',
+    hooks: {
+        beforeCreate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        },
+        beforeUpdate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        }
+
+    }
 });
 
 

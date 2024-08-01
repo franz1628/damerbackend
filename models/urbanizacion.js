@@ -11,7 +11,20 @@ const Urbanizacion = db.define('Urbanizacion', {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
 }, {
-    tableName: 'URBANIZACION'
+    tableName: 'URBANIZACION',
+    hooks: {
+        beforeCreate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        },
+        beforeUpdate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        }
+
+    }
 });
 
 

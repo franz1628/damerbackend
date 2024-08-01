@@ -16,7 +16,20 @@ const ClienteZona = db.define('ClienteZona', {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
 },{
-    tableName: 'CLIENTE_ZONA'
+    tableName: 'CLIENTE_ZONA',
+    hooks: {
+        beforeCreate: (model) => {
+            if (model.nombreAgrupacion) {
+                model.nombreAgrupacion = model.nombreAgrupacion.toUpperCase();
+            }
+        },
+        beforeUpdate: (model) => {
+            if (model.nombreAgrupacion) {
+                model.nombreAgrupacion = model.nombreAgrupacion.toUpperCase();
+            }
+        }
+
+    }
 });
 
 

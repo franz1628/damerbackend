@@ -29,7 +29,20 @@ const Sku = db.define('Sku', {
     fechaModificacion:{type : DataTypes.DATE}
     
 },{
-    tableName: 'SKU'
+    tableName: 'SKU',
+    hooks: {
+        beforeCreate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        },
+        beforeUpdate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        }
+
+    }
 });
 
 

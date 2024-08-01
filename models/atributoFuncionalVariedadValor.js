@@ -19,7 +19,20 @@ const AtributoFuncionalVariedadValor = db.define('AtributoFuncionalVariedadValor
         type : DataTypes.DATE
     }
 },{
-    tableName: 'ATRIBUTOFUNCIONALVARIEDAD_VALOR'
+    tableName: 'ATRIBUTOFUNCIONALVARIEDAD_VALOR',
+    hooks: {
+        beforeCreate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        },
+        beforeUpdate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        }
+
+    }
 });
 
 

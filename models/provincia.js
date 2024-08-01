@@ -15,7 +15,20 @@ const Provincia = db.define('Provincia', {
         defaultValue: 1,
     }
 },{
-    tableName: 'PROVINCIA'
+    tableName: 'PROVINCIA',
+    hooks: {
+        beforeCreate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        },
+        beforeUpdate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        }
+
+    }
 });
 
 Provincia.belongsTo(Departamento,{foreignKey:'idDepartamento'});

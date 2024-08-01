@@ -23,7 +23,20 @@ const AtributoFuncionalVariedad = db.define('AtributoFuncionalVariedad', {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
 },{
-    tableName: 'ATRIBUTOFUNCIONALVARIEDAD'
+    tableName: 'ATRIBUTOFUNCIONALVARIEDAD',
+    hooks: {
+        beforeCreate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        },
+        beforeUpdate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        }
+
+    }
 });
 
 

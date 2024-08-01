@@ -31,7 +31,20 @@ const Negocio = db.define('Negocio', {
     manzana: { type: DataTypes.STRING },
     lote: { type: DataTypes.STRING },
 }, {
-    tableName: 'NEGOCIO'
+    tableName: 'NEGOCIO',
+    hooks: {
+        beforeCreate: (model) => {
+            if (model.nombreComercial) {
+                model.nombreComercial = model.nombreComercial.toUpperCase();
+            }
+        },
+        beforeUpdate: (model) => {
+            if (model.nombreComercial) {
+                model.nombreComercial = model.nombreComercial.toUpperCase();
+            }
+        }
+
+    }
 });
 
 //Negocio.belongsTo(Distrito, { foreignKey: 'codDistrito',targetKey:'codigo' });

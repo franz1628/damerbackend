@@ -14,7 +14,20 @@ const TipoRelevamiento = db.define('tipoRelevamiento', {
         defaultValue: 1,
     }
 },{
-    tableName: 'TIPORELEVAMIENTO'
+    tableName: 'TIPORELEVAMIENTO',
+    hooks: {
+        beforeCreate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        },
+        beforeUpdate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        }
+
+    }
 });
 
 

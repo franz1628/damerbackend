@@ -50,7 +50,20 @@ const Parametro = db.define('Parametro', {
 
    
 },{
-    tableName: 'PARAMETRO'
+    tableName: 'PARAMETRO',
+    hooks: {
+        beforeCreate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        },
+        beforeUpdate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        }
+
+    }
 });
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)

@@ -18,7 +18,20 @@ const CategoriaAtributoTecnico = db.define('CategoriaAtributoTecnico', {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
 },{
-    tableName: 'CATEGORIA_ATRIBUTOTECNICO'
+    tableName: 'CATEGORIA_ATRIBUTOTECNICO',
+    hooks: {
+        beforeCreate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        },
+        beforeUpdate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        }
+
+    }
 });
 
 

@@ -14,7 +14,20 @@ const Zona = db.define('Zona', {
 
     fechaRegistro: { type: DataTypes.DATE }
 }, {
-    tableName: 'ZONA'
+    tableName: 'ZONA',
+    hooks: {
+        beforeCreate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        },
+        beforeUpdate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        }
+
+    }
 });
 
 

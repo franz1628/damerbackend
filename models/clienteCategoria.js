@@ -16,7 +16,20 @@ const ClienteCategoria = db.define('ClienteCategoria', {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
 },{
-    tableName: 'CLIENTE_CATEGORIA'
+    tableName: 'CLIENTE_CATEGORIA',
+    hooks: {
+        beforeCreate: (model) => {
+            if (model.nombreAgrupacion) {
+                model.nombreAgrupacion = model.nombreAgrupacion.toUpperCase();
+            }
+        },
+        beforeUpdate: (model) => {
+            if (model.nombreAgrupacion) {
+                model.nombreAgrupacion = model.nombreAgrupacion.toUpperCase();
+            }
+        }
+
+    }
 });
 
 

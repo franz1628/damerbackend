@@ -20,7 +20,20 @@ const AtributoTecnicoNegocio = db.define('AtributoTecnicoNegocio', {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
 },{
-    tableName: 'ATRIBUTOTECNICONEGOCIO'
+    tableName: 'ATRIBUTOTECNICONEGOCIO',
+    hooks: {
+        beforeCreate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        },
+        beforeUpdate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        }
+
+    }
 });
 
 

@@ -14,7 +14,20 @@ const ClienteAgrupacionCategoria = db.define('ClienteAgrupacionCategoria', {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
 },{
-    tableName: 'CLIENTE_AGRUPACIONCATEGORIA'
+    tableName: 'CLIENTE_AGRUPACIONCATEGORIA',
+    hooks: {
+        beforeCreate: (model) => {
+            if (model.nombre) {
+                model.nombre = model.nombre.toUpperCase();
+            }
+        },
+        beforeUpdate: (model) => {
+            if (model.nombre) {
+                model.nombre = model.nombre.toUpperCase();
+            }
+        }
+
+    }
 });
 
 ClienteAgrupacionCategoria.hasMany(AgrupacionCategoriaCategoria,{foreignKey:'idClienteAgrupacionCategoria',as:'AgrupacionCategoriaCategoria',targetKey:'id'});

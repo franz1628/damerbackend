@@ -24,7 +24,20 @@ const Distrito = db.define('Distrito', {
         defaultValue: 1,
     }
 },{
-    tableName: 'DISTRITO'
+    tableName: 'DISTRITO',
+    hooks: {
+        beforeCreate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        },
+        beforeUpdate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        }
+
+    }
 });
 
 Distrito.belongsTo(Provincia, { foreignKey: 'idProvincia',as:'Provincia',targetKey:'id'})

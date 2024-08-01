@@ -16,7 +16,20 @@ const AtributoTecnicoVariedadValor = db.define('AtributoTecnicoVariedadValor', {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
 },{
-    tableName: 'ATRIBUTOTECNICOVARIEDAD_VALOR'
+    tableName: 'ATRIBUTOTECNICOVARIEDAD_VALOR',
+    hooks: {
+        beforeCreate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        },
+        beforeUpdate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        }
+
+    }
 });
 
 AtributoTecnicoVariedadValor.belongsTo(AtributoTecnicoVariedad, { foreignKey: 'idAtributoTecnicoVariedad'})

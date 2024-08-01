@@ -27,7 +27,20 @@ const Cliente = db.define('Cliente', {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
 },{
-    tableName: 'CLIENTE'
+    tableName: 'CLIENTE',
+    hooks: {
+        beforeCreate: (model) => {
+            if (model.razonSocial) {
+                model.razonSocial = model.razonSocial.toUpperCase();
+            }
+        },
+        beforeUpdate: (model) => {
+            if (model.razonSocial) {
+                model.razonSocial = model.razonSocial.toUpperCase();
+            }
+        }
+
+    }
 });
 
 

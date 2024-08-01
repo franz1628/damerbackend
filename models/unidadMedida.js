@@ -17,7 +17,20 @@ const UnidadMedida = db.define('UnidadMedida', {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
 }, {
-    tableName: 'UNIDADMEDIDA'
+    tableName: 'UNIDADMEDIDA',
+    hooks: {
+        beforeCreate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        },
+        beforeUpdate: (model) => {
+            if (model.descripcion) {
+                model.descripcion = model.descripcion.toUpperCase();
+            }
+        }
+
+    }
 });
 
 
