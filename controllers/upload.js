@@ -53,8 +53,6 @@ const uploadImage = async (req = request, res = response) => {
         }
       });
 
-      console.log(newFilename);
-      console.log(id);
       // Actualiza el registro en la base de datos
       const updatedSku = await Sku.update(
         { image: newFilename },
