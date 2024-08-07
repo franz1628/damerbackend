@@ -5,6 +5,7 @@ const { Cliente } = require('../models/cliente');
 const { AtributoFuncionalVariedad } = require('../models/atributoFuncionalVariedad');
 const { Categoria } = require('../models/categoria');
 const { ClienteAgrupacionCategoria } = require('../models/clienteAgrupacionCategoria');
+const { AgrupacionCategoriaCategoria } = require('../models/agrupacionCategoriaCategoria');
 
 const get = async (req = request, res = response) => {
     const model_all = await AtributoFuncionalVariedad.findAll({
@@ -67,9 +68,25 @@ const postIdClienteIdCategoria = async (req = request, res = response) => {
     const model_all = await AtributoFuncionalVariedad.findAll({
         where: {
             estado: 1,
-            idCliente : req.body.idCliente,
-            idCategoria : req.body.idCategoria
-        }
+        },
+        include : [
+            {
+                model:ClienteAgrupacionCategoria,
+                as: 'ClienteAgrupacionCategoria',
+                where:{
+                    idCliente : req.body.idCliente
+                },
+                include : [
+                    {
+                        model:AgrupacionCategoriaCategoria,
+                        as: 'AgrupacionCategoriaCategoria',
+                        where:{
+                            idCategoria:req.body.idCategoria
+                        }
+                    }
+                ]
+            }
+        ]
     })
 
     res.json({
