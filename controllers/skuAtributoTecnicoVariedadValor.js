@@ -78,7 +78,8 @@ const put = async (req, res = response) => {
     const model = await SkuAtributoTecnicoVariedadValor.update(req.body, {
         where: {
             id: id,
-        }
+        },
+        individualHooks: true
     });
 
     res.json({

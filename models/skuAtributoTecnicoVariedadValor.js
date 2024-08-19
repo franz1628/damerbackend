@@ -20,9 +20,17 @@ const SkuAtributoTecnicoVariedadValor = db.define('SkuAtributoTecnicoVariedadVal
     },
     fechaRegistro:{
         type : DataTypes.DATE
+    },
+    fechaModificacion: {
+        type: DataTypes.DATE,
     }
 },{
-    tableName: 'SKU_ATRIBUTOTECNICOVARIEDADVALOR'
+    tableName: 'SKU_ATRIBUTOTECNICOVARIEDADVALOR',
+    hooks: {
+        beforeUpdate: (skuAtributoTecnicoVariedadValor, options) => {
+            skuAtributoTecnicoVariedadValor.fechaModificacion = new Date();
+        }
+    }
 });
 
 
