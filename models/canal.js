@@ -4,18 +4,10 @@ const { TipoRelevamiento } = require("./tipoRelevamiento");
 
 const Canal = db.define('canal', {
     descripcion: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-        },
+        type: DataTypes.STRING
     },
     descripcionResumida: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-        },
+        type: DataTypes.STRING
     },
     tip: {type: DataTypes.NUMBER},
     factorRecargo: {type: DataTypes.NUMBER,defaultValue:1},
