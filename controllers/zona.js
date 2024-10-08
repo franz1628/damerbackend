@@ -2,6 +2,7 @@ const { response, request } = require('express');
 const bcryptjs = require('bcryptjs');
 const { where, Sequelize } = require('sequelize');
 const { Zona } = require('../models/zona');
+const { TipoZona } = require('../models/tipoZona');
 
 const get = async (req = request, res = response) => {
     const model_all = await Zona.findAll({
@@ -10,6 +11,12 @@ const get = async (req = request, res = response) => {
         },
         order: [
             ['descripcion', 'ASC']
+        ],
+        include : [
+            {
+                model:TipoZona,
+                as:'TipoZona'
+            }
         ]
     })
 
@@ -60,7 +67,8 @@ const put = async (req, res = response) => {
     const model = await Zona.update(req.body, {
         where: {
             id: id,
-        }
+        },
+        individualHooks:true
     });
 
     res.json({

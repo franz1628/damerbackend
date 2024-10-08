@@ -47,7 +47,10 @@ const Parametro = db.define('Parametro', {
         type: DataTypes.INTEGER,
         defaultValue:1
     },
-
+    
+    fechaModificacion: {
+        type: DataTypes.DATE,
+    }
    
 },{
     tableName: 'PARAMETRO',
@@ -58,6 +61,8 @@ const Parametro = db.define('Parametro', {
             }
         },
         beforeUpdate: (model) => {
+            model.fechaModificacion = new Date();
+            
             if (model.descripcion) {
                 model.descripcion = model.descripcion.toUpperCase();
             }

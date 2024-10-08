@@ -39,7 +39,8 @@ const put = async (req, res = response) => {
     const model = await TipoUrbanizacion.update(req.body, {
         where: {
             id: id,
-        }
+        },
+        individualHooks:true
     });
 
     res.json({

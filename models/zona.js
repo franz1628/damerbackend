@@ -12,7 +12,10 @@ const Zona = db.define('Zona', {
     alias2: { type: DataTypes.STRING },
     alias3: { type: DataTypes.STRING }, 
 
-    fechaRegistro: { type: DataTypes.DATE }
+    fechaRegistro: { type: DataTypes.DATE },
+    fechaModificacion: {
+        type: DataTypes.DATE,
+    }
 }, {
     tableName: 'ZONA',
     hooks: {
@@ -22,6 +25,7 @@ const Zona = db.define('Zona', {
             }
         },
         beforeUpdate: (model) => {
+            model.fechaModificacion = new Date()
             if (model.descripcion) {
                 model.descripcion = model.descripcion.toUpperCase();
             }

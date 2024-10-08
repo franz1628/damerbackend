@@ -20,6 +20,9 @@ const TipoUrbanizacion = db.define('TipoUrbanizacion', {
     estado: {
         type: DataTypes.INTEGER,
         defaultValue: 1,
+    },
+    fechaModificacion: {
+        type: DataTypes.DATE,
     }
 },{
     tableName: 'TIPOURBANIZACION',
@@ -30,6 +33,7 @@ const TipoUrbanizacion = db.define('TipoUrbanizacion', {
             }
         },
         beforeUpdate: (model) => {
+            model.fechaModificacion = new Date()
             if (model.descripcion) {
                 model.descripcion = model.descripcion.toUpperCase();
             }

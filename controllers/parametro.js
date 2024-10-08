@@ -53,7 +53,8 @@ const parametroPut = async (req, res = response) => {
     const parametro = await Parametro.update(req.body, {
         where: {
             id: id,
-        }
+        },
+        individualHooks: true
     });
 
     res.json({

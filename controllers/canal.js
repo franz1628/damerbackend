@@ -61,7 +61,8 @@ const put = async (req, res = response) => {
     const model = await Canal.update(req.body, {
         where: {
             id: id,
-        }
+        },
+        individualHooks:true
     });
 
     res.json({

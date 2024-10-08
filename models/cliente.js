@@ -25,6 +25,9 @@ const Cliente = db.define('Cliente', {
     fechaRegistro:{
         type : DataTypes.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    fechaModificacion: {
+        type: DataTypes.DATE,
     }
 },{
     tableName: 'CLIENTE',
@@ -35,6 +38,7 @@ const Cliente = db.define('Cliente', {
             }
         },
         beforeUpdate: (model) => {
+            model.fechaModificacion = new Date();
             if (model.razonSocial) {
                 model.razonSocial = model.razonSocial.toUpperCase();
             }

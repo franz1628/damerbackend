@@ -2,13 +2,20 @@ const { response, request } = require('express');
 const bcryptjs = require('bcryptjs');
 const { where } = require('sequelize');
 const { Provincia } = require('../models/provincia');
+const { Departamento } = require('../models/departamento');
 
 const provinciaGet = async (req = request, res = response) => {
 
     const provincia_all = await Provincia.findAll({
         where: {
             estado: 1
-        }
+        },
+        include : [
+            {
+                model:Departamento,
+                as:'Departamento'
+            }
+        ]
     })
 
     res.json({

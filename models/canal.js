@@ -24,6 +24,9 @@ const Canal = db.define('canal', {
     fechaRegistro:{
         type : DataTypes.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    fechaModificacion: {
+        type: DataTypes.DATE,
     }
 },{
     tableName: 'CANAL',
@@ -34,6 +37,7 @@ const Canal = db.define('canal', {
             }
         },
         beforeUpdate: (model) => {
+            model.fechaModificacion=new Date();
             if (model.descripcion) {
                 model.descripcion = model.descripcion.toUpperCase();
             }

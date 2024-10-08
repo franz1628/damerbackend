@@ -52,7 +52,8 @@ const put = async (req, res = response) => {
     const model = await Variable.update(req.body, {
         where: {
             id: id,
-        }
+        },
+        individualHooks: true
     });
 
     res.json({

@@ -44,6 +44,9 @@ const Variable = db.define('Variable', {
     fechaRegistro: {
         type: DataTypes.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    fechaModificacion: {
+        type: DataTypes.DATE,
     }
 }, {
     tableName: 'VARIABLE',
@@ -54,6 +57,7 @@ const Variable = db.define('Variable', {
             }
         },
         beforeUpdate: (model) => {
+            model.fechaModificacion = new Date();
             if (model.descripcion) {
                 model.descripcion = model.descripcion.toUpperCase();
             }

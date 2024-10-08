@@ -82,6 +82,7 @@ control.put =  async (req, res = response) => {
             where: {
                 id:id
             }
+            
         })
 
         if(model.codigo!=req.body.codigo){
@@ -103,6 +104,7 @@ control.put =  async (req, res = response) => {
             where: {
                 id: id,
             },
+            individualHooks : true,
             returning: true,
         });
 
