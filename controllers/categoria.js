@@ -54,12 +54,31 @@ const post = async (req, res = response) => {
     delete req.body.id;
     const model = new Categoria(req.body);
 
-    // Guardar en BD
-    await model.save();
+    const busquedaCategoria = await Categoria.findOne({
+        where:{
+            descripcion: Sequelize.where(
+                Sequelize.fn('LOWER', Sequelize.col('descripcion')),
+                `${req.body.descripcion.toLowerCase()}`
+            ),
+            estado:1
+        }
+    })
 
-    res.json({
-        model
-    });
+    if(busquedaCategoria){
+        res.json({
+            data: null,
+            state: 0,
+            message: 'Categoria ya existe'
+        });
+    }else{
+         // Guardar en BD
+        await model.save();
+        res.json({
+            data: model,
+            state: 1,
+            message: 'Guardado exitosamente'
+        });
+    }
 }
 
 const postCanastaMegaCategoria = async (req, res = response) => {

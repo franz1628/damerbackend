@@ -4,6 +4,7 @@ const { where } = require('sequelize');
 const { Distrito } = require('../models/distrito');
 const { Provincia } = require('../models/provincia');
 const { Departamento } = require('../models/departamento');
+const { Zona } = require('../models/zona');
 
 const get = async (req = request, res = response) => {
 
@@ -11,6 +12,16 @@ const get = async (req = request, res = response) => {
         where: {
             estado: 1
         },
+        include : [
+            {
+                model:Provincia,
+                as:'Provincia'
+            },
+            {
+                model:Zona,
+                as:'Zona'
+            }
+        ],
         order: [
             ['descripcion', 'ASC']
         ]
@@ -88,7 +99,8 @@ const put = async (req, res = response) => {
     const model = await Distrito.update(req.body, {
         where: {
             id: id,
-        }
+        },
+        individualHooks : true
     });
 
     res.json({

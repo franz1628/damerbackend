@@ -9,6 +9,7 @@ const { get,
     getId,
     put,
     post,
+    negocioXZona,
     postDescripcion,
     deleted,
     patch } = require('../controllers/negocio');
@@ -33,6 +34,10 @@ router.post('/postDescripcion', [
     check('descripcion', 'La descripcion es requerido').not().isEmpty(),
     validFields
 ], postDescripcion);
+
+router.post('/negocioXZona', [
+    validFields
+], negocioXZona);
 
 
 router.delete('/:id', [

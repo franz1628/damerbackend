@@ -1,6 +1,7 @@
 const { DataTypes } = require("sequelize");
 const { db } = require("../database/config");
 const { Provincia } = require("./provincia");
+const { Zona } = require("./zona");
 
 const Distrito = db.define('Distrito', {
     codigo: {
@@ -41,6 +42,7 @@ const Distrito = db.define('Distrito', {
 });
 
 Distrito.belongsTo(Provincia, { foreignKey: 'idProvincia',as:'Provincia',targetKey:'id'})
+Distrito.belongsTo(Zona, { foreignKey: 'idZona',as:'Zona',targetKey:'id'})
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
 // Usuario.belongsTo(TipoDocumento, { foreignKey: 'idTipoDocumento' });

@@ -28,6 +28,7 @@ const AtributoTecnicoVariedad = db.define('AtributoTecnicoVariedad', {
     tableName: 'ATRIBUTOTECNICOVARIEDAD',
     hooks: {
         beforeCreate: (model) => {
+            model.fechaModificacion = new Date();
             if (model.descripcion) {
                 model.descripcion = model.descripcion.toUpperCase();
             }

@@ -2,8 +2,48 @@
 const { Sequelize } = require('sequelize');
 const { Negocio } = require('../models/negocio');
 const { Controller } = require('./controller');
+const { Distrito } = require('../models/distrito');
+const { Zona } = require('../models/zona');
 
 const control = Controller(Negocio);
+
+control.negocioXZona  =  async (req = request, res = response) => {
+
+    try {
+        const idZona = req.body.idZona;
+        const negocios = await Negocio.findAll({
+          include:[
+            {
+                model:Distrito,
+                as:'Distrito',
+                where: {
+                    idZona : idZona
+                },
+                include : [
+                    {
+                        model:Zona,
+                        as:'Zona'
+                    }
+                ]
+            }
+          ]
+        });
+
+        res.status(201).json({
+            data:negocios,
+            state: 1,
+            message: 'Lista'
+        });
+    } catch (error) {
+       
+        res.status(500).json({
+            state: 0,
+            message: 'Error en el servidor'
+        });
+    }
+
+  
+};
 
 control.postDescripcion =  async (req = request, res = response) => {
   
@@ -11,13 +51,25 @@ control.postDescripcion =  async (req = request, res = response) => {
     try {
         const model_all = await Negocio.findAll({
             where: {
-                estado: 1,
+         
                 nombreComercial: Sequelize.where(
                     Sequelize.fn('LOWER', Sequelize.col('nombreComercial')),
                     'LIKE',
                     `%${req.body.descripcion.toLowerCase()}%`
                 )
-            }
+            },
+            include : [
+                {
+                    model:Distrito,
+                    as:'Distrito',
+                    include: [
+                        {
+                            model:Zona,
+                            as:'Zona'
+                        }
+                    ]
+                }
+            ]
         });
 
         res.status(201).json({
