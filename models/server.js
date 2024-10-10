@@ -80,6 +80,7 @@ class Server {
             factorPenetracion: '/api/factorPenetracion',
             upload: '/api/upload',
             tipoDireccion: '/api/tipoDireccion',
+            via: '/api/via',
             
         };
         this.app.use(express.json());
