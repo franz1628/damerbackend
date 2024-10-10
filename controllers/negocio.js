@@ -4,6 +4,8 @@ const { Negocio } = require('../models/negocio');
 const { Controller } = require('./controller');
 const { Distrito } = require('../models/distrito');
 const { Zona } = require('../models/zona');
+const { Provincia } = require('../models/provincia');
+const { Departamento } = require('../models/departamento');
 
 const control = Controller(Negocio);
 
@@ -23,6 +25,16 @@ control.negocioXZona  =  async (req = request, res = response) => {
                     {
                         model:Zona,
                         as:'Zona'
+                    },
+                    {
+                        model:Provincia,
+                        as : 'Provincia',
+                        include:[
+                            {
+                                model:Departamento,
+                                as:'Departamento'
+                            }
+                        ]
                     }
                 ]
             }
@@ -66,6 +78,16 @@ control.postDescripcion =  async (req = request, res = response) => {
                         {
                             model:Zona,
                             as:'Zona'
+                        },
+                        {
+                            model:Provincia,
+                            as : 'Provincia',
+                            include:[
+                                {
+                                    model:Departamento,
+                                    as:'Departamento'
+                                }
+                            ]
                         }
                     ]
                 }
