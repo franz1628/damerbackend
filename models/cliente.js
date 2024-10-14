@@ -33,6 +33,9 @@ const Cliente = db.define('Cliente', {
     tableName: 'CLIENTE',
     hooks: {
         beforeCreate: (model) => {
+            if(!model.fechaModificacion){
+                model.fechaModificacion = new Date();
+            }
             if (model.razonSocial) {
                 model.razonSocial = model.razonSocial.toUpperCase();
             }

@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, Sequelize } = require("sequelize");
 const { db } = require("../database/config");
 const { Provincia } = require("./provincia");
 const { Distrito } = require("./distrito");
@@ -31,21 +31,30 @@ const Negocio = db.define('Negocio', {
     interior: { type: DataTypes.STRING },
     manzana: { type: DataTypes.STRING },
     lote: { type: DataTypes.STRING },
+    fechaRegistro:{
+        type : DataTypes.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    fechaModificacion: {type: DataTypes.DATE},
 }, {
     tableName: 'NEGOCIO',
     hooks: {
         beforeCreate: (model) => {
+            if(!model.fechaModificacion){
+                model.fechaModificacion = new Date();
+            }
             if (model.nombreComercial) {
                 model.nombreComercial = model.nombreComercial.toUpperCase();
             }
         },
         beforeUpdate: (model) => {
+            model.fechaModificacion = new Date();
             if (model.nombreComercial) {
                 model.nombreComercial = model.nombreComercial.toUpperCase();
             }
         }
 
-    }
+    } 
 });
 
 Negocio.belongsTo(Distrito, { foreignKey: 'idDistrito',as:'Distrito',targetKey:'id'})

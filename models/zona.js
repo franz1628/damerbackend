@@ -20,6 +20,9 @@ const Zona = db.define('Zona', {
     tableName: 'ZONA',
     hooks: {
         beforeCreate: (model) => {
+            if(!model.fechaModificacion){
+                model.fechaModificacion = new Date();
+            }
             if (model.descripcion) {
                 model.descripcion = model.descripcion.toUpperCase();
             }
