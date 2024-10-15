@@ -391,8 +391,17 @@ const deleted = async (req, res = response) => {
 }
 
 const suspender = async (req, res = response) => {
+
+    const sku = await Sku.findOne({
+        where : {
+            id:req.body.model.id
+        }
+    })
+
+    let newestado = sku.estado==2?1:2
+
     const model = await Sku.update({
-        estado: 2,//Suspendido
+        estado: newestado
     }, {
         where: {
             id: req.body.model.id,

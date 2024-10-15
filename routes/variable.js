@@ -17,17 +17,14 @@ const router = Router();
 router.get('/', get );
 
 router.post('/codigo',[
-    check('codigo', 'El codigo es requerido').not().isEmpty(),
     validFields
 ] ,postCodigo );
 
 router.put('/:id',[
-    check('codigo', 'El codigo es requerido').not().isEmpty(),
     validFields
 ],put );
 
 router.post('/',[
-    check('codigo', 'El codigo es requerido').not().isEmpty(),
     validFields
 ], post );
 

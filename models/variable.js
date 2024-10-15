@@ -2,7 +2,6 @@ const { DataTypes, Sequelize } = require("sequelize");
 const { db } = require("../database/config");
 
 const Variable = db.define('Variable', {
-    codigo: { type: DataTypes.INTEGER },
     idTipoVariable: { type: DataTypes.INTEGER },
     idGrupoVariable: { type: DataTypes.INTEGER },
     descripcion: { type: DataTypes.STRING },
@@ -52,6 +51,9 @@ const Variable = db.define('Variable', {
     tableName: 'VARIABLE',
     hooks: {
         beforeCreate: (model) => {
+            if(!model.fechaModificacion){
+                model.fechaModificacion = new Date();
+            }
             if (model.descripcion) {
                 model.descripcion = model.descripcion.toUpperCase();
             }

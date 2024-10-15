@@ -19,16 +19,21 @@ const Categoria = db.define('Categoria', {
     fechaRegistro:{
         type : DataTypes.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
-    }
+    },
+    fechaModificacion: {type: DataTypes.DATE},
 },{
     tableName: 'CATEGORIA',
     hooks: {
         beforeCreate: (model) => {
+            if(!model.fechaModificacion){
+                model.fechaModificacion = new Date();
+            }
             if (model.descripcion) {
                 model.descripcion = model.descripcion.toUpperCase();
             }
         },
         beforeUpdate: (model) => {
+            model.fechaModificacion = new Date();
             if (model.descripcion) {
                 model.descripcion = model.descripcion.toUpperCase();
             }

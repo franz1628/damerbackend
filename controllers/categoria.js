@@ -36,7 +36,7 @@ const postId = async (req = request, res = response) => {
 const postDescripcion = async (req = request, res = response) => {
     const model = await Categoria.findAll({
         where: {
-            estado: 1,
+       
             descripcion: Sequelize.where(
                 Sequelize.fn('LOWER', Sequelize.col('descripcion')),
                 'LIKE',
@@ -109,7 +109,8 @@ const put = async (req, res = response) => {
     const model = await Categoria.update(req.body, {
         where: {
             id: id,
-        }
+        },
+        individualHooks:true
     });
 
     res.json({
