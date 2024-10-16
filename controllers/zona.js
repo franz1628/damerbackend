@@ -7,7 +7,7 @@ const { TipoZona } = require('../models/tipoZona');
 const get = async (req = request, res = response) => {
     const model_all = await Zona.findAll({
         where: {
-            estado: 1
+        
         },
         order: [
             ['descripcion', 'ASC']

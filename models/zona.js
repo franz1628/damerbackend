@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, Sequelize } = require("sequelize");
 const { db } = require("../database/config");
 const { TipoRelevamiento } = require("./tipoRelevamiento");
 const { TipoZona } = require("./tipoZona");
@@ -12,7 +12,10 @@ const Zona = db.define('Zona', {
     alias2: { type: DataTypes.STRING },
     alias3: { type: DataTypes.STRING }, 
 
-    fechaRegistro: { type: DataTypes.DATE },
+    fechaRegistro:{
+        type : DataTypes.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+    },
     fechaModificacion: {
         type: DataTypes.DATE,
     }

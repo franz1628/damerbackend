@@ -5,6 +5,8 @@ const { MegaCategoria } = require("./megaCategoria");
 const { Categoria } = require("./categoria");
 const { SkuAtributoTecnicoVariedadValor } = require("./skuAtributoTecnicoVariedadValor");
 const { SkuHijos } = require("./skuHijos");
+const { TipoUnidadMedida } = require("./tipoUnidadMedida");
+const { UnidadMedida } = require("./unidadMedida");
 
 const Sku = db.define('Sku', {
     descripcion: {type: DataTypes.STRING},
@@ -12,7 +14,7 @@ const Sku = db.define('Sku', {
     descripcionResumida: {type: DataTypes.STRING},
     tip: {type: DataTypes.STRING},
     refrigeracion: {type: DataTypes.INTEGER},
-    barras: {type: DataTypes.STRING},
+    barras: {type: DataTypes.STRING,defaultValue:''},
     alias1: {type: DataTypes.STRING},
     alias2: {type: DataTypes.STRING},
     alias3: {type: DataTypes.STRING},
@@ -51,6 +53,8 @@ const Sku = db.define('Sku', {
 Sku.belongsTo(Canasta, { foreignKey: 'idCanasta',as:'Canasta',targetKey:'id'})
 Sku.belongsTo(MegaCategoria, { foreignKey: 'idMegaCategoria',as:'MegaCategoria',targetKey:'id'})
 Sku.belongsTo(Categoria, { foreignKey: 'idCategoria',as:'Categoria',targetKey:'id'})
+//Sku.belongsTo(TipoUnidadMedida, { foreignKey: 'idTipoUnidadMedida',as:'TipoUnidadMedida',targetKey:'id'})
+//Sku.belongsTo(UnidadMedida, { foreignKey: 'idUnidadMedida',as:'UnidadMedida',targetKey:'id'})
 
 Sku.hasMany(SkuAtributoTecnicoVariedadValor, { foreignKey: 'idSku',as:'SkuAtributoTecnicoVariedadValor',targetKey:'id'})
 Sku.hasMany(SkuHijos, { foreignKey: 'idSkuPadre',as:'SkuHijos',targetKey:'id'})

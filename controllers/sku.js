@@ -12,6 +12,8 @@ const { AgrupacionCategoriaCategoria } = require('../models/agrupacionCategoriaC
 const { SkuHijos } = require('../models/skuHijos');
 const path = require('path');
 const fs = require('fs');
+const { TipoUnidadMedida } = require('../models/tipoUnidadMedida');
+const { UnidadMedida } = require('../models/unidadMedida');
 
 const get = async (req = request, res = response) => {
     const model_all = await Sku.findAll({
@@ -79,6 +81,37 @@ const postByCategoria = async (req, res = response) => {
             {
                 model: Categoria,
                 as: 'Categoria',
+            },
+           /* {
+                model:TipoUnidadMedida,
+                as:'TipoUnidadMedida'
+            },
+            {
+                model:UnidadMedida,
+                as:'UnidadMedida'
+            }
+            ,*/
+            {
+                model: SkuAtributoTecnicoVariedadValor,
+                as: 'SkuAtributoTecnicoVariedadValor',
+                include: [
+                    {
+                        model: AtributoTecnicoVariedad,
+                        as: 'AtributoTecnicoVariedad'
+                    },
+                    {
+                        model: AtributoTecnicoVariedadValor,
+                        as: 'AtributoTecnicoVariedadValor'
+                    },
+                    {
+                        model:TipoUnidadMedida,
+                        as:'TipoUnidadMedida'
+                    },
+                    {
+                        model:UnidadMedida,
+                        as:'UnidadMedida'
+                    }
+                ]
             },
             {
                 model: SkuHijos,

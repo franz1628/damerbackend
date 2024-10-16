@@ -2,6 +2,7 @@ const { DataTypes, Sequelize } = require("sequelize");
 const { db } = require("../database/config");
 
 const Cliente = db.define('Cliente', {
+    area: {type: DataTypes.STRING},
     codigo: {type: DataTypes.INTEGER},
     idPais: {type: DataTypes.INTEGER},
     razonSocial: {type: DataTypes.STRING},
