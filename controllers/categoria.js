@@ -2,6 +2,7 @@ const { response, request } = require('express');
 const bcryptjs = require('bcryptjs');
 const { where, Op, Sequelize } = require('sequelize');
 const { Categoria } = require('../models/categoria');
+const { Sku } = require('../models/sku');
 
 const get = async (req = request, res = response) => {
     const model_all = await Categoria.findAll({
@@ -106,6 +107,20 @@ const put = async (req, res = response) => {
 
     delete req.body.id;
 
+    const skus = await Sku.findAll({
+        where:{
+            idCategoria : id
+        }
+    })
+
+    if(skus.length>0){
+        return res.json({
+            data: null,
+            state: 0,
+            message: 'No se puede actualizar la descripcion si la categoria tiene skus'
+        });
+    }
+
     const model = await Categoria.update(req.body, {
         where: {
             id: id,
@@ -114,7 +129,7 @@ const put = async (req, res = response) => {
     });
 
     res.json({
-        data: [model],
+        data: model,
         state: 1,
         message: 'Actualizado correctamente'
     });
@@ -128,6 +143,20 @@ const patch = (req, res = response) => {
 
 const deleted = async (req, res = response) => {
     const { id } = req.params;
+
+    const skus = await Sku.findAll({
+        where:{
+            idCategoria : id
+        }
+    })
+
+    if(skus.length>0){
+        return res.json({
+            data: null,
+            state: 0,
+            message: 'No se puede eliminar si la categoria tiene skus asociados'
+        });
+    }
 
     const model = await Categoria.update({
         estado: false,
