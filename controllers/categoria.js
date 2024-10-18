@@ -149,7 +149,8 @@ const deleted = async (req, res = response) => {
             idCategoria : id
         }
     })
-
+  
+    
     if(skus.length>0){
         return res.json({
             data: null,

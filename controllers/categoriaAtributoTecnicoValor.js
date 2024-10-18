@@ -4,6 +4,7 @@ const { where, Op, Sequelize } = require('sequelize');
 const { CategoriaAtributoTecnicoValor } = require('../models/categoriaAtributoTecnicoValor');
 const { CategoriaAtributoTecnico } = require('../models/categoriaAtributoTecnico');
 const { AtributoTecnicoVariedadValor } = require('../models/atributoTecnicoVariedadValor');
+const { SkuAtributoTecnicoVariedadValor } = require('../models/skuAtributoTecnicoVariedadValor');
 
 const get = async (req = request, res = response) => {
     const model_all = await CategoriaAtributoTecnicoValor.findAll({
@@ -84,6 +85,33 @@ const patch = (req, res = response) => {
 
 const deleted = async (req, res = response) => {
     const { id } = req.params;
+
+    const categoriaAtributoTecnicoValor = await CategoriaAtributoTecnicoValor.findOne({
+        where:{
+            id : id
+        }
+    })
+    
+    const idAtributoTecnicoVariedadValor = categoriaAtributoTecnicoValor.idAtributoTecnicoVariedadValor;
+    const idCategoriaAtributoTecnico = categoriaAtributoTecnicoValor.idCategoriaAtributoTecnico;
+    
+    const skus = await SkuAtributoTecnicoVariedadValor.findAll({
+        where : {
+            idAtributoTecnicoVariedadValor : idAtributoTecnicoVariedadValor,
+            idCategoriaAtributoTecnico : idCategoriaAtributoTecnico
+        }
+    })
+
+    if(skus.length>0){
+        
+        return res.json({
+            data: null,
+            state: 0,
+            message: 'No se puede borrar tiene skus asociados'
+        });
+    }
+
+    console.log(skus);
 
     const model = await CategoriaAtributoTecnicoValor.update({
         estado: false,

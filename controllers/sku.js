@@ -69,6 +69,7 @@ const postByCategoria = async (req, res = response) => {
             },
             idCategoria: idCategoria,
         },
+
         include: [
             {
                 model: Canasta,
@@ -82,15 +83,6 @@ const postByCategoria = async (req, res = response) => {
                 model: Categoria,
                 as: 'Categoria',
             },
-           /* {
-                model:TipoUnidadMedida,
-                as:'TipoUnidadMedida'
-            },
-            {
-                model:UnidadMedida,
-                as:'UnidadMedida'
-            }
-            ,*/
             {
                 model: SkuAtributoTecnicoVariedadValor,
                 as: 'SkuAtributoTecnicoVariedadValor',
@@ -323,7 +315,8 @@ const put = async (req, res = response) => {
         await Sku.update(req.body, {
             where: {
                 id: id,
-            }
+            },
+            individualHooks:true
         });
 
       
@@ -386,7 +379,8 @@ const deleteImage = async (req, res = response) => {
     const model = await Sku.update({ image: '' }, {
         where: {
             id: id,
-        }
+        },
+        individualHooks:true
     });
 
 
@@ -413,7 +407,8 @@ const deleted = async (req, res = response) => {
     }, {
         where: {
             id: id,
-        }
+        },
+        individualHooks:true
     });
 
     res.json({
@@ -438,7 +433,8 @@ const suspender = async (req, res = response) => {
     }, {
         where: {
             id: req.body.model.id,
-        }
+        },
+        individualHooks:true
     });
 
     res.json({

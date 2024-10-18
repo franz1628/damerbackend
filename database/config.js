@@ -21,6 +21,7 @@ const db = new Sequelize('Damer', 'sa', '1234', {
   define: {
     timestamps: false, 
   },
+  logging: console.log
 });
 
 /*const dbConnection = async () => {

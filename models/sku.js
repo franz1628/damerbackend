@@ -34,11 +34,15 @@ const Sku = db.define('Sku', {
     tableName: 'SKU',
     hooks: {
         beforeCreate: (model) => {
+            if(!model.fechaModificacion){
+                model.fechaModificacion = new Date();
+            }
             if (model.descripcion) {
                 model.descripcion = model.descripcion.toUpperCase();
             }
         },
         beforeUpdate: (model) => {
+            model.fechaModificacion = new Date();
             if (model.descripcion) {
                 model.descripcion = model.descripcion.toUpperCase();
             }
