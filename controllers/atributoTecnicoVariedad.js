@@ -2,6 +2,7 @@ const { response, request } = require('express');
 const bcryptjs = require('bcryptjs');
 const { where } = require('sequelize');
 const { AtributoTecnicoVariedad } = require('../models/atributoTecnicoVariedad');
+const { SkuAtributoTecnicoVariedadValor } = require('../models/skuAtributoTecnicoVariedadValor');
 
 const get = async (req = request, res = response) => {
     const model_all = await AtributoTecnicoVariedad.findAll({
@@ -58,6 +59,20 @@ const patch = (req, res = response) => {
 
 const deleted = async (req, res = response) => {
     const { id } = req.params;
+
+    const sku_atributo = await SkuAtributoTecnicoVariedadValor.findAll({
+        where : {
+            idAtributoTecnicoVariedad : id
+        }
+    }) 
+
+    if(sku_atributo.length>0){
+        return res.json({
+            data: [],
+            state: 0,
+            message: 'No se puede eliminar porque tiene skus asociados'
+        });
+    }
 
     const model = await AtributoTecnicoVariedad.update({
         estado: false,

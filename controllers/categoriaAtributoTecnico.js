@@ -7,6 +7,8 @@ const { AtributoTecnicoVariedad } = require('../models/atributoTecnicoVariedad')
 const { AtributoTecnicoVariedadValor } = require('../models/atributoTecnicoVariedadValor');
 const { AgrupacionCategoriaCategoria } = require('../models/agrupacionCategoriaCategoria');
 const { Categoria } = require('../models/categoria');
+const { SkuAtributoTecnicoVariedadValor } = require('../models/skuAtributoTecnicoVariedadValor');
+const { SkuHijos } = require('../models/skuHijos');
 
 const get = async (req = request, res = response) => {
     const model_all = await CategoriaAtributoTecnico.findAll({
@@ -185,6 +187,30 @@ const patch = (req, res = response) => {
 
 const deleted = async (req, res = response) => {
     const { id } = req.params;
+
+    const categoria_atributo = await CategoriaAtributoTecnico.findOne({
+        where : {
+            id:id
+        }
+    })
+
+    const sku_atributo = await SkuAtributoTecnicoVariedadValor.findAll({
+        where : {
+            idAtributoTecnicoVariedad : categoria_atributo.idAtributoTecnicoVariedad,
+            estado:1
+        }
+    }) 
+
+   
+    
+
+    if(sku_atributo.length>0){
+        return res.json({
+            data: [],
+            state: 0,
+            message: 'No se puede eliminar porque tiene skus asociados - codSku: ' + sku_atributo[0].idSku
+        });
+    }
 
     const model = await CategoriaAtributoTecnico.update({
         estado: false,

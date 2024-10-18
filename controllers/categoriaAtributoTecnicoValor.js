@@ -98,7 +98,8 @@ const deleted = async (req, res = response) => {
     const skus = await SkuAtributoTecnicoVariedadValor.findAll({
         where : {
             idAtributoTecnicoVariedadValor : idAtributoTecnicoVariedadValor,
-            idCategoriaAtributoTecnico : idCategoriaAtributoTecnico
+            idCategoriaAtributoTecnico : idCategoriaAtributoTecnico,
+            estado:1
         }
     })
 
@@ -110,8 +111,6 @@ const deleted = async (req, res = response) => {
             message: 'No se puede borrar tiene skus asociados'
         });
     }
-
-    console.log(skus);
 
     const model = await CategoriaAtributoTecnicoValor.update({
         estado: false,

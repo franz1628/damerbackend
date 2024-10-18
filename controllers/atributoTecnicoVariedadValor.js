@@ -3,6 +3,7 @@ const bcryptjs = require('bcryptjs');
 const { where, Op, Sequelize } = require('sequelize');
 const { AtributoTecnicoVariedadValor } = require('../models/atributoTecnicoVariedadValor');
 const { AtributoTecnicoVariedad } = require('../models/atributoTecnicoVariedad');
+const { SkuAtributoTecnicoVariedadValor } = require('../models/skuAtributoTecnicoVariedadValor');
 
 const get = async (req = request, res = response) => {
     const model_all = await AtributoTecnicoVariedadValor.findAll({
@@ -73,6 +74,21 @@ const patch = (req, res = response) => {
 
 const deleted = async (req, res = response) => {
     const { id } = req.params;
+
+    const skus = await SkuAtributoTecnicoVariedadValor.findAll({
+        where : {
+            idAtributoTecnicoVariedadValor : id
+        }
+    })
+
+    if(skus.length>0){
+        
+        return res.json({
+            data: null,
+            state: 0,
+            message: 'No se puede borrar tiene skus asociados'
+        });
+    }
 
     const model = await AtributoTecnicoVariedadValor.update({
         estado: false,
