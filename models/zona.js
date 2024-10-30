@@ -11,6 +11,7 @@ const Zona = db.define('Zona', {
     alias1: { type: DataTypes.STRING },
     alias2: { type: DataTypes.STRING },
     alias3: { type: DataTypes.STRING }, 
+    planificadorRuta: { type: DataTypes.INTEGER }, 
 
     fechaRegistro:{
         type : DataTypes.DATE,
@@ -43,6 +44,7 @@ const Zona = db.define('Zona', {
 
 
 Zona.belongsTo(TipoZona, { foreignKey: 'idTipoZona',defaultValue:1 });
+Zona.belongsTo(Zona, { foreignKey: 'idZona',as:'ZonaPrincipal',targetKey:'id'})
 
 module.exports = {
     Zona,

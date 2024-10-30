@@ -16,9 +16,36 @@ const get = async (req = request, res = response) => {
             {
                 model:TipoZona,
                 as:'TipoZona'
+            },
+            {
+                model: Zona,
+                as:'ZonaPrincipal'
             }
         ]
     })
+
+    res.json({
+        data: model_all,
+        state: 1,
+        message: ''
+    });
+}
+
+const getPrincipales = async (req = request, res = response) => {
+    const model_all = await Zona.findAll({
+        where: {
+            id: { [Sequelize.Op.ne]: 0 } 
+        },
+        order: [
+            ['descripcion', 'ASC']
+        ],
+        include: [
+            {
+                model: TipoZona,
+                as: 'TipoZona'
+            }
+        ]
+    });
 
     res.json({
         data: model_all,
@@ -43,6 +70,26 @@ const postDescripcion = async (req = request, res = response) => {
     const model_all = await Zona.findAll({
         where: {
             estado: 1,
+            descripcion: Sequelize.where(
+                Sequelize.fn('LOWER', Sequelize.col('descripcion')),
+                'LIKE',
+                `%${req.body.descripcion.toLowerCase()}%`
+            )
+        }
+    })
+
+    res.json({
+        data: model_all,
+        state: 1,
+        message: ''
+    });
+}
+
+const postDescripcionPrincipal = async (req = request, res = response) => {
+    const model_all = await Zona.findAll({
+        where: {
+            estado: 1,
+            id: { [Sequelize.Op.ne]: 0 } ,
             descripcion: Sequelize.where(
                 Sequelize.fn('LOWER', Sequelize.col('descripcion')),
                 'LIKE',
@@ -104,8 +151,10 @@ const deleted = async (req, res = response) => {
 
 module.exports = {
     get,
+    getPrincipales,
     post,
     postDescripcion,
+    postDescripcionPrincipal,
     put,
     patch,
     deleted,

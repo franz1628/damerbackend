@@ -6,15 +6,18 @@ const { validFields } = require('../middlewares/valid-fields');
 const { isValidRole } = require('../helpers/db-validators');
 
 const { get,
+        getPrincipales,
         put,
         post,
         postDescripcion,
+        postDescripcionPrincipal,
         deleted,
         patch } = require('../controllers/zona');
 
 const router = Router();
 
 router.get('/', get );
+router.get('/getPrincipales', getPrincipales );
 
 router.put('/:id',[
 
@@ -32,6 +35,11 @@ router.post('/descripcion',[
     check('descripcion', 'El descripcion es requerido').not().isEmpty(),
     validFields
 ] ,postDescripcion );
+
+router.post('/descripcionPrincipal',[
+    check('descripcion', 'El descripcion es requerido').not().isEmpty(),
+    validFields
+] ,postDescripcionPrincipal );
 
 router.delete('/:id',[
     validFields
