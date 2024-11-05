@@ -3,6 +3,7 @@ const { db } = require("../database/config");
 const {Categoria} = require("../models/categoria");
 const {Canal} = require("../models/canal");
 const {Zona} = require("../models/zona");
+const {Medicion} = require("../models/medicion");
 
 const FactorPenetracion = db.define('FactorPenetracion', {
     idZona: {type: DataTypes.INTEGER},
@@ -27,6 +28,7 @@ const FactorPenetracion = db.define('FactorPenetracion', {
 FactorPenetracion.belongsTo(Zona, { foreignKey: 'idZona',as:'Zona',targetKey:'id'})
 FactorPenetracion.belongsTo(Canal, { foreignKey: 'idCanal',as:'Canal',targetKey:'id'})
 FactorPenetracion.belongsTo(Categoria, { foreignKey: 'idCategoria',as:'Categoria',targetKey:'id'})
+FactorPenetracion.belongsTo(Medicion, { foreignKey: 'idMedicion',as:'Medicion',targetKey:'id'})
 
 module.exports = {
     FactorPenetracion,

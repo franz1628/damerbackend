@@ -7,6 +7,7 @@ const { EstadoContrato } = require('../models/estadoContrato');
 const { Frecuencia } = require('../models/frecuencia');
 const { Sequelize } = require('sequelize');
 const { DateTime } = require('luxon');
+const { Usuario } = require('../models/usuario');
 
 const control = Controller(Contrato);
 
@@ -39,6 +40,12 @@ control.getContratos = async (req = request, res = response) => {
                 model: Frecuencia,
                 as: 'Frecuencia',
                 foreignKey: 'idFrecuencia',
+                targetKey: 'id',
+            },
+            {
+                model: Usuario,
+                as: 'Usuario',
+                foreignKey: 'idUsuario',
                 targetKey: 'id',
             }
         ]

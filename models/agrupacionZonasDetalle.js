@@ -11,11 +11,25 @@ const AgrupacionZonasDetalle = db.define('AgrupacionZonasDetalle', {
         defaultValue: 1,
     },
     fechaRegistro:{
-        type : DataTypes.DATE,
+        type : DataTypes.STRING,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    fechaModificacion: {
+        type: DataTypes.STRING,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        
     }
 },{
-    tableName: 'AGRUPACIONZONAS_DETALLE'
+    tableName: 'AGRUPACIONZONAS_DETALLE',
+    hooks: {
+        beforeCreate: (model) => {
+
+        },
+        beforeUpdate: (model) => {
+            model.fechaModificacion = Sequelize.literal('CURRENT_TIMESTAMP');
+        }
+
+    }
 });
 
 AgrupacionZonasDetalle.belongsTo(Zona, { foreignKey: 'idZona',as:'Zona',targetKey:'id'})

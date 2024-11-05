@@ -54,6 +54,29 @@ const getPrincipales = async (req = request, res = response) => {
     });
 }
 
+const getProyectada = async (req = request, res = response) => {
+    const model_all = await Zona.findAll({
+        where: {
+            idTipoZona: 3 // Zona Proyectada
+        },
+        order: [
+            ['descripcion', 'ASC']
+        ],
+        include: [
+            {
+                model: TipoZona,
+                as: 'TipoZona'
+            }
+        ]
+    });
+
+    res.json({
+        data: model_all,
+        state: 1,
+        message: ''
+    });
+}
+
 const post = async (req, res = response) => {
     delete req.body.id;
     const model = new Zona(req.body);
@@ -152,6 +175,7 @@ const deleted = async (req, res = response) => {
 module.exports = {
     get,
     getPrincipales,
+    getProyectada,
     post,
     postDescripcion,
     postDescripcionPrincipal,

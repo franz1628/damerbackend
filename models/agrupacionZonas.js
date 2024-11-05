@@ -17,8 +17,12 @@ const AgrupacionZonas = db.define('AgrupacionZonas', {
         defaultValue: 1,
     },
     fechaRegistro:{
-        type : DataTypes.DATE,
+        type : DataTypes.STRING,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    fechaModificacion: {
+        type: DataTypes.STRING,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
     }
 },{
     tableName: 'AGRUPACIONZONAS',
@@ -28,7 +32,8 @@ const AgrupacionZonas = db.define('AgrupacionZonas', {
                 model.descripcion = model.descripcion.toUpperCase();
             }
         },
-        beforeUpdate: (model) => {
+        beforeUpdate: (model) => {  
+            model.fechaModificacion = Sequelize.literal('CURRENT_TIMESTAMP');
             if (model.descripcion) {
                 model.descripcion = model.descripcion.toUpperCase();
             }

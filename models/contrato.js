@@ -4,11 +4,13 @@ const {Cliente} = require("./cliente");
 const {Categoria} = require("./categoria");
 const { EstadoContrato } = require("./estadoContrato");
 const { Frecuencia } = require("./frecuencia");
+const { Usuario } = require("./usuario");
 const { DateTime } = require("luxon");
 
 const Contrato = db.define('Contrato', {
     idCliente: {type: DataTypes.INTEGER},
     idCategoria: {type: DataTypes.INTEGER},
+    idUsuario: {type: DataTypes.INTEGER},
     fechaInicio: {type: DataTypes.DATE},
     fechaFin: {type: DataTypes.DATE},
     diaEntrega: {type: DataTypes.STRING},
@@ -17,6 +19,7 @@ const Contrato = db.define('Contrato', {
     version: {type: DataTypes.INTEGER},
     fechaAprobacion: {type: DataTypes.DATE},
     fechaModificacion: {type: DataTypes.DATE},
+
     estado: {
         type: DataTypes.INTEGER,
         defaultValue: 1,
@@ -26,7 +29,20 @@ const Contrato = db.define('Contrato', {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
 },{
-    tableName: 'CONTRATO'
+    tableName: 'CONTRATO',
+    hooks: {
+        beforeCreate: (model) => {
+            if(!model.fechaModificacion){
+                model.fechaModificacion = new Date();
+            }
+            
+        },
+        beforeUpdate: (model) => {
+            model.fechaModificacion = new Date()
+          
+        }
+
+    }
 });
 
 
@@ -34,6 +50,7 @@ Contrato.belongsTo(Categoria, { foreignKey: 'idCategoria',as:'Categoria',targetK
 Contrato.belongsTo(Cliente, { foreignKey: 'idCliente',as:'Cliente',targetKey:'id'})
 Contrato.belongsTo(EstadoContrato, { foreignKey: 'idEstadoContrato',as:'EstadoContrato',targetKey:'id'})
 Contrato.belongsTo(Frecuencia, { foreignKey: 'idFrecuencia',as:'Frecuencia',targetKey:'id'})
+Contrato.belongsTo(Usuario, { foreignKey: 'idUsuario',as:'Usuario',targetKey:'id'})
 
 
 module.exports = {
