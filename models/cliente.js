@@ -1,10 +1,12 @@
 const { DataTypes, Sequelize } = require("sequelize");
 const { db } = require("../database/config");
+const { Usuario } = require("./usuario");
 
 const Cliente = db.define('Cliente', {
     area: {type: DataTypes.STRING},
     codigo: {type: DataTypes.INTEGER},
     idPais: {type: DataTypes.INTEGER},
+    idUsuario: {type: DataTypes.INTEGER},
     razonSocial: {type: DataTypes.STRING},
     razonSocialAbreviada: {type: DataTypes.STRING},
     razonSocialTip: {type: DataTypes.STRING},
@@ -51,6 +53,7 @@ const Cliente = db.define('Cliente', {
     }
 });
 
+Cliente.belongsTo(Usuario, { foreignKey: 'idUsuario',as:'Usuario',targetKey:'id'})
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
 // Cliente.belongsTo(MegaCliente, { foreignKey: 'codMegaCliente',defaultValue:0 })
