@@ -11,11 +11,7 @@ const TipoUrbanizacion = db.define('TipoUrbanizacion', {
         },
     },
     descripcionResumida: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-        },
+        type: DataTypes.STRING
     },
     estado: {
         type: DataTypes.INTEGER,
@@ -28,6 +24,9 @@ const TipoUrbanizacion = db.define('TipoUrbanizacion', {
     tableName: 'TIPOURBANIZACION',
     hooks: {
         beforeCreate: (model) => {
+            if(!model.fechaModificacion){
+                model.fechaModificacion = new Date();
+            }
             if (model.descripcion) {
                 model.descripcion = model.descripcion.toUpperCase();
             }
