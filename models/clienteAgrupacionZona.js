@@ -1,9 +1,10 @@
 const { DataTypes, Sequelize } = require("sequelize");
 const { db } = require("../database/config");
-const {AgrupacionZonaZona} = require("../models/agrupacionZonaZona")
+const {AgrupacionZonas} = require("../models/agrupacionZonas")
 
 const ClienteAgrupacionZona = db.define('ClienteAgrupacionZona', {
     idCliente: {type: DataTypes.INTEGER},
+    idAgrupacionZona: {type: DataTypes.INTEGER},
     nombre: {type: DataTypes.STRING},
     estado: {
         type: DataTypes.INTEGER,
@@ -30,7 +31,7 @@ const ClienteAgrupacionZona = db.define('ClienteAgrupacionZona', {
     }
 });
 
-ClienteAgrupacionZona.hasMany(AgrupacionZonaZona,{foreignKey:'idClienteAgrupacionZona',as:'AgrupacionZonaZona',targetKey:'id'});
+ClienteAgrupacionZona.belongsTo(AgrupacionZonas, { foreignKey: 'idAgrupacionZona',as:'AgrupacionZonas',targetKey:'id'})
 
 
 module.exports = {

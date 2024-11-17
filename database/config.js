@@ -13,15 +13,15 @@
 
 const { Sequelize } = require('sequelize');
 
-const db = new Sequelize('Damer', 'sa', '1234', {
- host: '25.6.206.8',
-  //  host: '127.0.0.1',
+const db = new Sequelize('damer', 'sa', '1234', {
+ //host: '25.6.206.8',
+    host: '127.0.0.1',
   dialect: 'mssql',
   
   define: {
     timestamps: false, 
   },
-  logging: console.log
+  //logging: console.log
 });
 
 /*const dbConnection = async () => {

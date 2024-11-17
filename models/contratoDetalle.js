@@ -4,8 +4,8 @@ const { db } = require("../database/config");
 const ContratoDetalle = db.define('ContratoDetalle', {
     idContrato: {type: DataTypes.INTEGER},
     idTipoEstudio: {type: DataTypes.INTEGER},
-    idZona: {type: DataTypes.INTEGER},
-    idCanal: {type: DataTypes.INTEGER},
+    idAgrupacionZona: {type: DataTypes.INTEGER},
+    idAgrupacionCanal: {type: DataTypes.INTEGER},
     idTipoInforme: {type: DataTypes.INTEGER},
     idAtributoFuncionalVariedad: {type: DataTypes.INTEGER},
     valor: {type: DataTypes.INTEGER},

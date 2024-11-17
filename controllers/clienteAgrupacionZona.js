@@ -9,6 +9,7 @@ const { AgrupacionCategoriaCategoria } = require('../models/agrupacionCategoriaC
 const { AgrupacionZonaZona } = require('../models/agrupacionZonaZona');
 const { ClienteAgrupacionZona } = require('../models/clienteAgrupacionZona');
 const { Zona } = require('../models/zona');
+const { AgrupacionZonas } = require('../models/agrupacionZonas');
 
 const control = Controller(ClienteAgrupacionZona);
 
@@ -20,14 +21,8 @@ control.postIdCliente = async (req = request, res = response) => {
         },
         include: [
            {
-            model:AgrupacionZonaZona,
-            as:'AgrupacionZonaZona',
-            include : [
-                {
-                    model:Zona,
-                    as:'Zona'
-                }
-            ]
+            model:AgrupacionZonas,
+            as:'AgrupacionZonas',
            }
         ]
     });

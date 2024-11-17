@@ -18,8 +18,7 @@ const Contrato = db.define('Contrato', {
     extension: {type: DataTypes.INTEGER},
     version: {type: DataTypes.INTEGER},
     fechaAprobacion:{
-        type : DataTypes.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+        type : DataTypes.STRING
     },
     fechaModificacion:{
         type : DataTypes.DATE,

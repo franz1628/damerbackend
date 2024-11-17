@@ -10,6 +10,7 @@ const { AgrupacionZonaZona } = require('../models/agrupacionZonaZona');
 const { ClienteAgrupacionCanal } = require('../models/clienteAgrupacionCanal');
 const { AgrupacionCanalCanal } = require('../models/agrupacionCanalCanal');
 const { Canal } = require('../models/canal');
+const { AgrupacionCanals } = require('../models/agrupacionCanals');
 
 const control = Controller(ClienteAgrupacionCanal);
 
@@ -21,14 +22,8 @@ control.postIdCliente = async (req = request, res = response) => {
         },
         include: [
            {
-            model:AgrupacionCanalCanal,
-            as:'AgrupacionCanalCanal',
-            include : [
-                {
-                    model:Canal,
-                    as:'Canal'
-                }
-            ]
+            model:AgrupacionCanals,
+            as:'AgrupacionCanals'
            }
         ]
     });
