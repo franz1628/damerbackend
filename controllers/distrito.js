@@ -1,6 +1,6 @@
 const { response, request } = require('express');
 const bcryptjs = require('bcryptjs');
-const { where } = require('sequelize');
+const { where, Op } = require('sequelize');
 const { Distrito } = require('../models/distrito');
 const { Provincia } = require('../models/provincia');
 const { Departamento } = require('../models/departamento');
@@ -40,7 +40,20 @@ const getId = async (req = request, res = response) => {
         where: {
             estado: 1,
             id:req.params.id
-        }
+        },
+        include : [
+            {
+                model:Provincia,
+                as:'Provincia'
+            },
+            {
+                model:Zona,
+                as:'Zona'
+            }
+        ],
+        order: [
+            ['descripcion', 'ASC']
+        ]
     })
 
     res.json({
@@ -83,8 +96,35 @@ const postByZona = async (req, res = response) => {
         ]
     })
 
+    const distritoSubZonas = await Distrito.findAll({
+        where: {
+            [Op.or]: [
+                { idSubZonas: { [Op.like]: `${zona.id},%` } }, // Al principio
+                { idSubZonas: { [Op.like]: `%,${zona.id},%` } }, // En el medio
+                { idSubZonas: { [Op.like]: `%,${zona.id}` } }, // Al final
+                { idSubZonas: `${zona.id}`} // Exacta coincidencia
+            ]
+        },
+        include:[
+            {
+                model:Provincia,
+                as:'Provincia',
+                include: [
+                    {
+                        model:Departamento,
+                        as:'Departamento'
+                    }
+                ]
+            }
+        ]
+    })
+
+    const allDistritos = [...new Map(
+        [...distritos, ...distritoSubZonas].map(item => [item.id, item])
+    ).values()];
+
     res.json({
-        data: distritos,
+        data: allDistritos,
         state: 1,
         message: 'Listado'
     });
@@ -95,18 +135,113 @@ const put = async (req, res = response) => {
     const { id } = req.params;
 
     delete req.body.id;
-
-    const model = await Distrito.update(req.body, {
-        where: {
-            id: id,
-        },
-        individualHooks : true
+    
+    const zona = await Zona.findOne({
+        where : {
+            id : req.body.idZona
+        }
     });
 
+    const distrito = await Distrito.findOne({
+        where : {
+            id : id
+        },
+        include:[{
+            model:Zona,
+            as:'Zona'
+        }]
+    })
+
+    if(zona && distrito.Zona && zona.id != distrito.idZona){
+        if(distrito.Zona && zona.planificadorRuta==1 && distrito.Zona.planificadorRuta==1){
+            return res.json({
+                data: [],
+                state: 0,
+                message: 'Este distrito ya tiene una Zona con planificador de ruta'
+            });
+        }
+    }
+
+    if(zona.planificadorRuta==0){
+        const miSubzonas = distrito.idSubZonas;
+
+        let arr = [];
+        if(miSubzonas){
+            arr = miSubzonas.split(',');
+        }
+
+        arr.push(req.body.idZona)
+        const newSubZonas = arr.join(',');
+
+        const model = await Distrito.update({idSubZonas:newSubZonas}, {
+            where: {
+                id: id,
+            },
+            individualHooks : true
+        });
+        res.json({
+            data: [model],
+            state: 1,
+            message: 'Actualizado correctamente'
+        });
+
+    }else{
+        const { idSubZonas, ...miDistrito } = req.body;
+        const model = await Distrito.update(miDistrito, {
+            where: {
+                id: id,
+            },
+            individualHooks : true
+        });
+    
+        res.json({
+            data: [model],
+            state: 1,
+            message: 'Actualizado correctamente'
+        });
+    }
+
+   
+}
+
+const postQuitarZona = async (req, res = response) => {
+
+    const { id } = req.params;
+    const idZona = req.body.idZona;
+
+    delete req.body.id;
+
+    const distrito = await Distrito.findOne({
+        where : {
+            id : id
+        }
+    })
+
+    if(distrito.idZona == idZona){// se esta quitando un distrito de una zona con ruta
+        await Distrito.update({
+            idZona:0
+        },{
+            where : {
+                id:id
+            }
+        })
+    }else{ // quitando distrito de una zona sin ruta o subzona
+        const idSubZonas = distrito.idSubZonas;
+        const arr = idSubZonas.split(',') 
+        const newArray = arr.filter(item => item != idZona);
+        await Distrito.update({
+            idSubZonas:newArray.join(',')
+        },{
+            where : {
+                id:id
+            }
+        })
+    }   
+
     res.json({
-        data: [model],
+        data: [],
         state: 1,
-        message: 'Actualizado correctamente'
+        message: 'Borrado correctamente'
     });
 }
 
@@ -139,6 +274,7 @@ module.exports = {
     getId,
     post,
     postByZona,
+    postQuitarZona,
     put,
     patch,
     deleted,

@@ -17,7 +17,12 @@ const db = new Sequelize('damer', 'sa', '1234', {
  //host: '25.6.206.8',
     host: '127.0.0.1',
   dialect: 'mssql',
-  
+  pool: {
+    max: 5, // Número máximo de conexiones activas
+    min: 0, // Número mínimo de conexiones activas
+    acquire: 30000, // Tiempo máximo de espera para obtener una conexión (ms)
+    idle: 10000 // Tiempo antes de cerrar conexiones inactivas (ms)
+  },
   define: {
     timestamps: false, 
   },

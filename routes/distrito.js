@@ -10,6 +10,7 @@ const { get,
         put,
         post,
         postByZona,
+        postQuitarZona,
         deleted,
         patch } = require('../controllers/distrito');
 
@@ -39,6 +40,10 @@ router.post('/postByZona',[
 
     validFields
 ], postByZona );
+
+router.put('/postQuitarZOna/:id',[
+    validFields
+], postQuitarZona );
 
 router.delete('/:id',[
     validFields

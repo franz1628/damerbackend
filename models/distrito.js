@@ -12,6 +12,7 @@ const Distrito = db.define('Distrito', {
         },
     },
     idZona :{ type: DataTypes.INTEGER },
+    idSubZonas :{ type: DataTypes.STRING },
     idProvincia :{ type: DataTypes.INTEGER },
     descripcion: {
         type: DataTypes.STRING,
