@@ -11,7 +11,7 @@ const { get,
         put,
         post,
         deleted,
-        patch } = require('../controllers/tipoEstudio');
+        patch } = require('../controllers/tipoMoneda');
 
 const router = Router();
 

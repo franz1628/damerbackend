@@ -85,6 +85,8 @@ class Server {
             upload: '/api/upload',
             tipoDireccion: '/api/tipoDireccion',
             via: '/api/via',
+            tipoPresentacion: '/api/tipoPresentacion',
+            tipoMoneda: '/api/tipoMoneda',
             
         };
         this.app.use(express.json());
