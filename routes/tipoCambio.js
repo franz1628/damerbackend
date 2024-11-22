@@ -16,19 +16,13 @@ const router = Router();
 router.get('/', get );
 
 router.put('/:id',[
-    check('idMoneda', 'El codigo es requerido').not().isEmpty(),
-    check('idTipoTipoCambio', 'El codigo es requerido').not().isEmpty(),
-    check('valor', 'El codigo es requerido').not().isEmpty(),
-    check('fecha', 'El codigo es requerido').not().isEmpty(),
+
 
     validFields
 ],put );
 
 router.post('/',[
-    check('idMoneda', 'El codigo es requerido').not().isEmpty(),
-    check('idTipoTipoCambio', 'El codigo es requerido').not().isEmpty(),
-    check('valor', 'El codigo es requerido').not().isEmpty(),
-    check('fecha', 'El codigo es requerido').not().isEmpty(),
+
     validFields
 ], post );
 

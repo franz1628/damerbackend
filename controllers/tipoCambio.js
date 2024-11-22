@@ -4,6 +4,7 @@ const { where } = require('sequelize');
 const { TipoCambio } = require('../models/tipoCambio');
 const { TipoTipoCambio } = require('../models/tipoTipoCambio');
 const { Moneda } = require('../models/moneda');
+const { TipoMoneda } = require('../models/tipoMoneda');
 
 const get = async (req = request, res = response) => {
     const model_all = await TipoCambio.findAll({
@@ -17,8 +18,8 @@ const get = async (req = request, res = response) => {
                 foreignKey:'id'
             },
             {
-                model:Moneda,
-                as : 'Moneda',
+                model:TipoMoneda,
+                as : 'TipoMoneda',
                 foreignKey:'id'
             }
         ]
