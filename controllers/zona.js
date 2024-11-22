@@ -77,6 +77,29 @@ const getProyectada = async (req = request, res = response) => {
     });
 }
 
+const getPlanificador = async (req = request, res = response) => {
+    const model_all = await Zona.findAll({
+        where: {
+            planificadorRuta : 1
+        },
+        order: [
+            ['descripcion', 'ASC']
+        ],
+        include: [
+            {
+                model: TipoZona,
+                as: 'TipoZona'
+            }
+        ]
+    });
+
+    res.json({
+        data: model_all,
+        state: 1,
+        message: ''
+    });
+}
+
 const post = async (req, res = response) => {
     delete req.body.id;
     const model = new Zona(req.body);
@@ -176,6 +199,7 @@ module.exports = {
     get,
     getPrincipales,
     getProyectada,
+    getPlanificador,
     post,
     postDescripcion,
     postDescripcionPrincipal,

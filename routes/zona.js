@@ -8,6 +8,7 @@ const { isValidRole } = require('../helpers/db-validators');
 const { get,
         getPrincipales,
         getProyectada,
+        getPlanificador,
         put,
         post,
         postDescripcion,
@@ -20,6 +21,7 @@ const router = Router();
 router.get('/', get );
 router.get('/getPrincipales', getPrincipales );
 router.get('/getProyectada', getProyectada );
+router.get('/getPlanificador', getPlanificador );
 
 router.put('/:id',[
 
