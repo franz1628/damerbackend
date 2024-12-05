@@ -44,6 +44,22 @@ control.addCategoriasNuevo = async (req = request, res = response) => {
         idCliente : req.body.idCliente,
         nombre:req.body.nombreAgrupacionCategoria
     });
+
+    const clienteAgrupacionCategoria = await ClienteAgrupacionCategoria.findOne({
+        where : {
+            nombre : req.body.nombreAgrupacionCategoria,
+            estado : 1,
+            idCliente : req.body.idCliente
+        }
+    });
+
+    if(clienteAgrupacionCategoria){
+        return res.json({
+            data: [],
+            state: 0,
+            message: 'Ya existe una agrupacion con ese nombre'
+        });
+    }
         
     await model.save();
 
@@ -67,6 +83,31 @@ control.addCategoriasNuevo = async (req = request, res = response) => {
 control.editCategorias = async (req = request, res = response) => {
     const categorias = req.body.categoriasAgrupacion
     const idClienteAgrupacionCategoria = req.body.idClienteAgrupacionCategoria
+
+    const clienteAgrupacionCategoria = await ClienteAgrupacionCategoria.findOne({
+        where : {
+            id : req.body.idClienteAgrupacionCategoria
+        }
+    });
+
+    if(clienteAgrupacionCategoria.nombre != req.body.nombreAgrupacionCategoria){
+        const clienteAgrupacionCategoriaBusca = await ClienteAgrupacionCategoria.findOne({
+            where : {
+                nombre : req.body.nombreAgrupacionCategoria,
+                estado : 1,
+                idCliente : clienteAgrupacionCategoria.idCliente
+            }
+        });
+    
+        if(clienteAgrupacionCategoriaBusca){
+            return res.json({
+                data: [],
+                state: 0,
+                message: 'Ya existe una agrupacion con ese nombre'
+            });
+        }
+    }
+
     
     await ClienteAgrupacionCategoria.update(
         {

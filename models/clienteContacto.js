@@ -6,6 +6,7 @@ const ClienteContacto = db.define('ClienteContacto', {
     nombreCompleto: {type: DataTypes.INTEGER},
     cargo: {type: DataTypes.STRING},
     correo: {type: DataTypes.INTEGER},
+    telefono: {type: DataTypes.INTEGER},
     estado: {
         type: DataTypes.INTEGER,
         defaultValue: 1,

@@ -3,6 +3,7 @@ const bcryptjs = require('bcryptjs');
 const { where } = require('sequelize');
 const { Cliente } = require('../models/cliente');
 const { AtributoFuncionalVariedad } = require('../models/atributoFuncionalVariedad');
+const { AtributoFuncionalVariedadValor } = require('../models/atributoFuncionalVariedadValor');
 const { Categoria } = require('../models/categoria');
 const { ClienteAgrupacionCategoria } = require('../models/clienteAgrupacionCategoria');
 const { AgrupacionCategoriaCategoria } = require('../models/agrupacionCategoriaCategoria');
@@ -116,8 +117,24 @@ const post = async (req, res = response) => {
     delete req.body.id;
     const model = new AtributoFuncionalVariedad(req.body);
 
+   
+
+
     // Guardar en BD
     await model.save();
+
+     //al guardar un nuevo atributo funcional se debe crear su resto por defecto
+     const valor = new AtributoFuncionalVariedadValor({
+        "idAtributoFuncionalVariedad": model.id,
+        "descripcion": "RESTO",
+        "alerta": 0,
+        "idTipoAtributoFuncionalVariedadValor": 4,
+        "condicion": "",
+        "formula": "",
+        "nSkus": 0
+    })
+
+    await valor.save();
 
     res.json({
         model
