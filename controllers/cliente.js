@@ -1,4 +1,5 @@
 
+const { Sequelize } = require('sequelize');
 const { Cliente } = require('../models/cliente');
 const { Usuario } = require('../models/usuario');
 const { Controller } = require('./controller');
@@ -30,9 +31,10 @@ control.post = async (req, res = response) => {
         delete req.body.id;
         const model = new Cliente(req.body);
         const findModel = await Cliente.findOne({
-            where : {
-                razonSocial: req.body.razonSocial
-            }
+            where: Sequelize.where(
+                Sequelize.fn('LOWER', Sequelize.col('razonSocial')),
+                Sequelize.fn('LOWER', req.body.razonSocial)
+            )
         })
 
         if(findModel){
@@ -71,9 +73,10 @@ control.put = async (req, res = response) => {
 
         if(miModelDb.razonSocial!=req.body.razonSocial){
             const findModel = await Cliente.findOne({
-                where : {
-                    razonSocial: req.body.razonSocial
-                }
+                where: Sequelize.where(
+                    Sequelize.fn('LOWER', Sequelize.col('razonSocial')),
+                    Sequelize.fn('LOWER', req.body.razonSocial)
+                )
             })
     
             if(findModel){
