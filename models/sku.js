@@ -26,7 +26,7 @@ const Sku = db.define('Sku', {
     },
     fechaRegistro:{
         type : DataTypes.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+        //defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     },
     fechaModificacion:{type : DataTypes.DATE}
     
@@ -35,6 +35,7 @@ const Sku = db.define('Sku', {
     hooks: {
         beforeCreate: (model) => {
             if(!model.fechaModificacion){
+                model.fechaRegistro = new Date();
                 model.fechaModificacion = new Date();
             }
             if (model.descripcion) {

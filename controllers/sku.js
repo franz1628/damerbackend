@@ -179,6 +179,13 @@ const postByCategoriaAll = async (req, res = response) => {
                         model: AtributoTecnicoVariedadValor,
                         as: 'AtributoTecnicoVariedadValor'
                     },
+                    {
+                        model: TipoUnidadMedida,
+                        as: 'TipoUnidadMedida'
+                    },{
+                        model: UnidadMedida,
+                        as: 'UnidadMedida'
+                    },
                 ]
             }
         ]
