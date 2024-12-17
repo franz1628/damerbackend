@@ -156,7 +156,7 @@ const postByCategoriaAll = async (req, res = response) => {
     const model_all = await Sku.findAll({
         where: {
             estado: {
-                [Op.or]: [0, 1]
+                [Op.or]: [0, 1,2]
             },
             idCategoria: {
                 [Op.in]: categorias
