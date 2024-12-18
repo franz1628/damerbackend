@@ -53,19 +53,24 @@ const postId = async (req = request, res = response) => {
                 [Op.in] : categorias
             }
         },
-        include: [{
-            model: CategoriaAtributoTecnicoValor,
-            as: 'CategoriaAtributoTecnicoValor',
-            include: [{
-                model: AtributoTecnicoVariedadValor,
-                as: 'AtributoTecnicoVariedadValor'
-            }]
+        include: [
+            {
+                model: CategoriaAtributoTecnicoValor,
+                as: 'CategoriaAtributoTecnicoValor',
+                include: [{
+                    model: AtributoTecnicoVariedadValor,
+                    as: 'AtributoTecnicoVariedadValor'
+                }]
 
-        },
-        {
-            model: AtributoTecnicoVariedad,
-            as: 'AtributoTecnicoVariedad'
-        }
+            },
+            {
+                model: AtributoTecnicoVariedad,
+                as: 'AtributoTecnicoVariedad'
+            },
+            {
+                model:Categoria,
+                as:'Categoria'
+            }
 
 
         ]

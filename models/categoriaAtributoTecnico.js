@@ -2,6 +2,7 @@ const { DataTypes, Sequelize } = require("sequelize");
 const { db } = require("../database/config");
 const { AtributoTecnicoVariedad } = require("./atributoTecnicoVariedad");
 const { CategoriaAtributoTecnicoValor } = require("./categoriaAtributoTecnicoValor");
+const { Categoria } = require("./categoria");
 
 const CategoriaAtributoTecnico = db.define('CategoriaAtributoTecnico', {
 	idCategoria : {type:DataTypes.INTEGER},
@@ -41,6 +42,7 @@ CategoriaAtributoTecnico.hasMany(CategoriaAtributoTecnicoValor,{foreignKey:'idCa
 CategoriaAtributoTecnico.belongsTo(AtributoTecnicoVariedad, { foreignKey: 'idAtributoTecnicoVariedad',as:'AtributoTecnicoVariedad',targetKey:'id'})
 
 CategoriaAtributoTecnicoValor.belongsTo(CategoriaAtributoTecnico, { foreignKey: 'idCategoriaAtributoTecnico',as:'CategoriaAtributoTecnico',targetKey:'id'})
+CategoriaAtributoTecnico.belongsTo(Categoria, { foreignKey: 'idCategoria',as:'Categoria',targetKey:'id'})
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
 
