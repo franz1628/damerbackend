@@ -4,13 +4,6 @@ const { Provincia } = require("./provincia");
 const { Zona } = require("./zona");
 
 const Distrito = db.define('Distrito', {
-    codigo: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-        },
-    },
     idZona :{ type: DataTypes.INTEGER },
     idSubZonas :{ type: DataTypes.STRING },
     idProvincia :{ type: DataTypes.INTEGER },
