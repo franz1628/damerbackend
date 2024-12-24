@@ -1,4 +1,5 @@
 
+
 const { Router } = require('express');
 const { check } = require('express-validator');
 
@@ -20,7 +21,7 @@ router.get('/', get );
 router.get('/:id', getId );
 
 router.put('/:id',[
-    check('codigo', 'El codigo es requerido').not().isEmpty(),
+
     check('descripcion', 'La descripcion es requerida').not().isEmpty(),
     check('idProvincia','IdProvincia es requerido').not().isEmpty(),
     check('idProvincia').not().isEmpty(),
@@ -29,7 +30,7 @@ router.put('/:id',[
 ],put );
 
 router.post('/',[
-    check('codigo', 'El codigo es requerido').not().isEmpty(),
+
     check('descripcion', 'La descripcion es requerida').not().isEmpty(),
     check('idProvincia','IdProvincia es requerido').not().isEmpty(),
     check('idProvincia').custom(provinciaExists),
