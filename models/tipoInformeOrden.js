@@ -3,7 +3,6 @@ const { db } = require("../database/config");
 const { TipoEstudio } = require("./tipoEstudio");
 
 const TipoInformeOrden = db.define('TipoInformeOrden', {
-    codigo: {type: DataTypes.INTEGER},
     descripcion: {type: DataTypes.STRING},
     descripcionResumida: {type: DataTypes.STRING},
     tip: {type: DataTypes.STRING},

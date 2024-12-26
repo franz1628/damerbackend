@@ -2,7 +2,6 @@ const { DataTypes, Sequelize } = require("sequelize");
 const { db } = require("../database/config");
 
 const TipoUnidadMedida = db.define('TipoUnidadMedida', {
-    codigo: { type: DataTypes.INTEGER },
     descripcion: { type: DataTypes.STRING },
     descripcionResumida: { type: DataTypes.STRING },
     tip: { type: DataTypes.STRING },

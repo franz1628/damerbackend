@@ -19,12 +19,10 @@ router.get('/', get );
 router.get('/:id', getById );
 
 router.put('/:id',[
-    check('codigo', 'El codigo es requerido').not().isEmpty(),
     validFields
 ],put );
 
 router.post('/',[
-    check('codigo', 'El codigo es requerido').not().isEmpty(),
     validFields
 ], post );
 

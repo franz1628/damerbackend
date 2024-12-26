@@ -14,9 +14,25 @@ const Medicion = db.define('Medicion', {
     fechaRegistro:{
         type : DataTypes.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    fechaModificacion: {
+        type: DataTypes.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
 },{
-    tableName: 'MEDICION'
+    tableName: 'MEDICION',
+    hooks: {
+        beforeCreate: (model) => {
+            
+            if(!model.fechaModificacion){
+                model.fechaModificacion = new Date();
+            }
+        },
+        beforeUpdate: (model) => {
+            model.fechaModificacion = new Date();
+        }
+
+    }
 });
 
 

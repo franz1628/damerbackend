@@ -67,11 +67,28 @@ const post = async (req, res = response) => {
     delete req.body.id;
     const model = new Distrito(req.body);
 
+    const buscaDistrito = await Distrito.findOne({
+        where : {
+            descripcion : model.descripcion,
+            idProvincia : model.idProvincia
+        }
+    })
+
+    if(buscaDistrito){
+        return res.json({
+            data: [],
+            state: 0,
+            message: 'Ya existe ese distrito en esa provincia'
+        });
+    }
+
     // Guardar en BD
     await model.save();
 
     res.json({
-        model
+        data: [],
+        state: 1,
+        message: 'Guardado exitosamente'
     });
 }
 
@@ -162,7 +179,7 @@ const put = async (req, res = response) => {
         }
     }
 
-    if(zona.planificadorRuta==0){
+    if(zona && zona.planificadorRuta==0){
         const miSubzonas = distrito.idSubZonas;
 
         let arr = [];
