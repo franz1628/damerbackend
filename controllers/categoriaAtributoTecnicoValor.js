@@ -45,6 +45,8 @@ const postIdCategoriaTecnicoVariedad = async (req = request, res = response) => 
     );
 }
 
+
+
 const post = async (req, res = response) => {
     delete req.body.id;
     const model = new CategoriaAtributoTecnicoValor(req.body);
