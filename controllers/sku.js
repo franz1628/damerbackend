@@ -47,8 +47,21 @@ const post = async (req, res = response) => {
     delete req.body.id;
     const model = new Sku(req.body);
 
+    const skuEn = await Sku.findOne({
+        where: Sequelize.where(
+            Sequelize.fn('LOWER', Sequelize.fn('TRIM', Sequelize.col('descripcion'))),
+            Sequelize.fn('LOWER', Sequelize.fn('TRIM', req.body.descripcion))
+        )
+    });
 
-    // Guardar en BD
+    if(skuEn){
+        return res.json({
+            data: [],
+            state: 0,
+            message: 'Ya existe un SKU con esa descripcion'
+        });
+    }
+
     await model.save();
 
     res.json({
@@ -316,6 +329,35 @@ const put = async (req, res = response) => {
     delete req.body.id;
     delete req.body.image;
 
+    console.log(req.body);
+    
+    const skuEn = await Sku.findOne({
+        where: {
+            [Op.and]: [
+                Sequelize.where(
+                    Sequelize.fn('LOWER', Sequelize.fn('TRIM', Sequelize.col('descripcion'))),
+                    Sequelize.fn('LOWER', Sequelize.fn('TRIM', req.body.descripcion))
+                ),
+                {
+                    id: {
+                        [Op.ne]: id
+                    }
+                }
+            ]
+        }
+    });
+
+    console.log(skuEn);
+    
+
+    if(skuEn){
+        return res.json({
+            data: [],
+            state: 0,
+            message: 'Ya existe un SKU con esa descripcion'
+        });
+    }
+
 
     try {
 
@@ -350,7 +392,7 @@ const put = async (req, res = response) => {
         return res.json({
             data: updatedModel,
             state: 1,
-            message: 'Actualizado correctamente'
+            message: 'Actualizado correctamentes'
         });
     } catch (error) {
         return res.status(500).json({
