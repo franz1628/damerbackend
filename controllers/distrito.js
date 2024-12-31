@@ -70,7 +70,8 @@ const post = async (req, res = response) => {
     const buscaDistrito = await Distrito.findOne({
         where : {
             descripcion : model.descripcion,
-            idProvincia : model.idProvincia
+            idProvincia : model.idProvincia,
+            estado:1
         }
     })
 
@@ -152,6 +153,28 @@ const put = async (req, res = response) => {
     const { id } = req.params;
 
     delete req.body.id;
+
+    const model = new Distrito(req.body);
+
+    const buscaDistrito = await Distrito.findOne({
+        where : {
+            id: {
+                [Op.ne] : id
+            },
+            descripcion : model.descripcion,
+            idProvincia : model.idProvincia,
+            estado:1
+        }
+    })
+
+    if(buscaDistrito){
+        return res.json({
+            data: [],
+            state: 0,
+            message: 'Ya existe ese distrito en esa provincia'
+        });
+    }
+
     
     const zona = await Zona.findOne({
         where : {

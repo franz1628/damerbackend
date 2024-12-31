@@ -4,6 +4,7 @@ const { Negocio } = require('../models/negocio');
 const { Controller } = require('./controller');
 const { Distrito } = require('../models/distrito');
 const { Zona } = require('../models/zona');
+const { Canal } = require('../models/canal');
 const { Provincia } = require('../models/provincia');
 const { Departamento } = require('../models/departamento');
 
@@ -35,9 +36,14 @@ control.negocioXZona  =  async (req = request, res = response) => {
                                 as:'Departamento'
                             }
                         ]
-                    }
+                    },
+                  
                 ]
-            }
+            },
+            {
+                model:Canal,
+                as:'Canal'
+            },
           ]
         });
 
@@ -50,7 +56,7 @@ control.negocioXZona  =  async (req = request, res = response) => {
        
         res.status(500).json({
             state: 0,
-            message: 'Error en el servidor'
+            message: error
         });
     }
 

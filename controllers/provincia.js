@@ -1,6 +1,6 @@
 const { response, request } = require('express');
 const bcryptjs = require('bcryptjs');
-const { where } = require('sequelize');
+const { where, Op } = require('sequelize');
 const { Provincia } = require('../models/provincia');
 const { Departamento } = require('../models/departamento');
 
@@ -29,7 +29,23 @@ const provinciaPost = async (req, res = response) => {
     delete req.body.id;
     const provincia = new Provincia(req.body);
 
-    // Guardar en BD
+    const buscaProvin = await Provincia.findOne({
+        where : {
+            idDepartamento:req.body.idDepartamento,
+            descripcion:req.body.descripcion,
+            estado:1
+        }
+    })    
+
+
+    if(buscaProvin){
+        return res.json({
+            data: [],
+            state: 0,
+            message: 'Ya existe esa provincia en ese departamento'
+        });
+    }
+
     await provincia.save();
 
     res.json({
@@ -44,6 +60,25 @@ const provinciaPut = async (req, res = response) => {
     const { id } = req.params;
 
     delete req.body.id;
+
+    const buscaProvin = await Provincia.findOne({
+        where : {
+            id: {
+                [Op.ne]: id 
+            },
+            idDepartamento:req.body.idDepartamento,
+            descripcion:req.body.descripcion,
+            estado:1
+        }
+    })    
+
+    if(buscaProvin){
+        return res.json({
+            data: [],
+            state: 0,
+            message: 'Ya existe esa provincia en ese departamento'
+        });
+    }
 
     const provincia = await Provincia.update(req.body, {
         where: {
