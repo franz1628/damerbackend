@@ -1,4 +1,5 @@
 
+const { Op, fn, col, Sequelize } = require('sequelize');
 const { TipoEstudio } = require('../models/tipoEstudio');
 const { TipoInformeOrden } = require('../models/tipoInformeOrden');
 const { TipoInformeOrdenTipoEstudio } = require('../models/tipoInformeOrdenTipoEstudio');
@@ -49,6 +50,22 @@ control.post = async (req, res = response) => {
         delete req.body.TipoEstudio;
         const model = new TipoInformeOrden(req.body);
 
+        const buscaTipo = await TipoInformeOrden.findOne({
+            where: {
+                descripcion: {
+                    [Op.iLike]: req.body.descripcion
+                },
+                estado: 1
+            }
+        });
+
+        if(buscaTipo){
+            return res.status(400).json({
+                state: 0,
+                message: 'El tipo de informe ya existe',
+            });
+        }
+
         await model.save();
 
         for (let i = 0; i < tipoEstudios.length; i++) {
@@ -78,27 +95,38 @@ control.put =  async (req, res = response) => {
         const { id } = req.params;
         delete req.body.id;
 
+        const buscaTipo = await TipoInformeOrden.findOne({
+            where: {
+                [Op.and]: [
+                    Sequelize.where(
+                        fn('LOWER', col('descripcion')),
+                        fn('LOWER', req.body.descripcion)
+                    ),
+                    {
+                        id: {
+                            [Op.ne]: id,
+                        },
+                        estado: 1,
+                    },
+                ],
+            },
+        });
+ 
+        if(buscaTipo){
+            return res.status(200).json({
+                state: 0,
+                message: 'El tipo de informe ya existe',
+            });
+        }
+
+
+
         const model = await TipoInformeOrden.findOne({
             where: {
                 id:id
             }
             
         })
-
-        if(model.codigo!=req.body.codigo){
-            const buscaModel = await TipoInformeOrden.findOne({
-                where: {
-                    codigo:req.body.codigo
-                }
-            })
-
-            if(buscaModel){
-                return res.status(400).json({
-                    state: 0,
-                    message: 'El codigo ya existe',
-                });
-            }
-        }
 
         const [rowsAffected, updatedModel] = await TipoInformeOrden.update(req.body, {
             where: {
@@ -138,7 +166,7 @@ control.put =  async (req, res = response) => {
     } catch (error) {
         res.status(500).json({
             state: 0,
-            message: 'Internal Server Error',
+            message: error,
         });
     }
 }

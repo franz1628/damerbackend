@@ -1,6 +1,6 @@
 const { response, request } = require('express');
 const bcryptjs = require('bcryptjs');
-const { where, Op } = require('sequelize');
+const { where, Op, Sequelize, fn, col } = require('sequelize');
 const { Distrito } = require('../models/distrito');
 const { Provincia } = require('../models/provincia');
 const { Departamento } = require('../models/departamento');
@@ -69,9 +69,16 @@ const post = async (req, res = response) => {
 
     const buscaDistrito = await Distrito.findOne({
         where : {
-            descripcion : model.descripcion,
-            idProvincia : model.idProvincia,
-            estado:1
+            [Op.and]: [
+                    Sequelize.where(
+                        fn('LOWER', col('descripcion')),
+                        fn('LOWER', model.descripcion)
+                    ),
+                    {
+                        idProvincia : model.idProvincia,
+                        estado:1,
+                    },
+                ],
         }
     })
 
@@ -158,12 +165,19 @@ const put = async (req, res = response) => {
 
     const buscaDistrito = await Distrito.findOne({
         where : {
-            id: {
-                [Op.ne] : id
-            },
-            descripcion : model.descripcion,
-            idProvincia : model.idProvincia,
-            estado:1
+            [Op.and]: [
+                Sequelize.where (
+                    fn('LOWER', col('descripcion')),
+                    fn('LOWER', model.descripcion,)
+                ),
+                {
+                    id: {
+                        [Op.ne]: id 
+                    },
+                    idProvincia : model.idProvincia,
+                    estado:1,
+                },
+            ],
         }
     })
 
