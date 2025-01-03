@@ -1,7 +1,7 @@
 const { response, request } = require('express');
 const bcryptjs = require('bcryptjs');
 const {  Departamento } = require('../models/departamento');
-const { where } = require('sequelize');
+const { where, Op, Sequelize, fn, col } = require('sequelize');
 
 const departamentoGet = async (req = request, res = response) => {
 
@@ -22,6 +22,28 @@ const departamentoPost = async (req, res = response) => {
     delete req.body.id;
     const departamento = new Departamento(req.body);
 
+    const buscaProvin = await Departamento.findOne({
+        where : {
+            [Op.and]: [
+                Sequelize.where (
+                    fn('LOWER', col('descripcion')),
+                    fn('LOWER', req.body.descripcion)
+                ),
+                {
+                    estado: 1,
+                },
+            ],
+        }
+    })    
+
+    if(buscaProvin){
+        return res.json({
+            data: [],
+            state: 0,
+            message: 'Ya existe ese departamento'
+        });
+    }
+
     // Guardar en BD
     await departamento.save();
 
@@ -35,6 +57,31 @@ const departamentoPut = async (req, res = response) => {
     const { id } = req.params;
 
     delete req.body.id;
+
+    const buscaProvin = await Departamento.findOne({
+        where : {
+            [Op.and]: [
+                Sequelize.where (
+                    fn('LOWER', col('descripcion')),
+                    fn('LOWER', req.body.descripcion)
+                ),
+                {
+                    id: {
+                        [Op.ne]: id 
+                    },
+                    estado: 1,
+                },
+            ],
+        }
+    })    
+
+    if(buscaProvin){
+        return res.json({
+            data: [],
+            state: 0,
+            message: 'Ya existe ese departamento'
+        });
+    }
   
 
     const departamento = await Departamento.update(req.body, {

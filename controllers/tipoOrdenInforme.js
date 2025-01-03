@@ -52,15 +52,22 @@ control.post = async (req, res = response) => {
 
         const buscaTipo = await TipoInformeOrden.findOne({
             where: {
-                descripcion: {
-                    [Op.iLike]: req.body.descripcion
-                },
-                estado: 1
+                [Op.and]: [
+                    Sequelize.where(
+                        fn('LOWER', col('descripcion')),
+                        fn('LOWER', req.body.descripcion)
+                    ),
+                    {
+                        estado: 1,
+                    },
+                ],
+
+                
             }
         });
 
         if(buscaTipo){
-            return res.status(400).json({
+            return res.status(200).json({
                 state: 0,
                 message: 'El tipo de informe ya existe',
             });
