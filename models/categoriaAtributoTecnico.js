@@ -3,6 +3,7 @@ const { db } = require("../database/config");
 const { AtributoTecnicoVariedad } = require("./atributoTecnicoVariedad");
 const { CategoriaAtributoTecnicoValor } = require("./categoriaAtributoTecnicoValor");
 const { Categoria } = require("./categoria");
+const { TipoUnidadMedida } = require("./tipoUnidadMedida");
 
 const CategoriaAtributoTecnico = db.define('CategoriaAtributoTecnico', {
 	idCategoria : {type:DataTypes.INTEGER},
@@ -43,6 +44,9 @@ CategoriaAtributoTecnico.belongsTo(AtributoTecnicoVariedad, { foreignKey: 'idAtr
 
 CategoriaAtributoTecnicoValor.belongsTo(CategoriaAtributoTecnico, { foreignKey: 'idCategoriaAtributoTecnico',as:'CategoriaAtributoTecnico',targetKey:'id'})
 CategoriaAtributoTecnico.belongsTo(Categoria, { foreignKey: 'idCategoria',as:'Categoria',targetKey:'id'})
+
+CategoriaAtributoTecnico.belongsTo(TipoUnidadMedida, { foreignKey: 'idTipoUnidadMedida',as:'TipoUnidadMedida',targetKey:'id'})
+
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
 

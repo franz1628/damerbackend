@@ -1,5 +1,7 @@
 const { response, request } = require('express');
 const { TipoUnidadMedida } = require('../models/tipoUnidadMedida');
+const { CategoriaAtributoTecnico } = require('../models/categoriaAtributoTecnico');
+const { Op } = require('sequelize');
 
 const get = async (req = request, res = response) => {
     const model_all = await TipoUnidadMedida.findAll({
@@ -26,6 +28,36 @@ const postCodigo = async (req = request, res = response) => {
     res.json(
         model
     );
+}
+
+
+const postTipoMedidaxCategoria = async (req = request, res = response) => {
+    const categoriasAtributosTecnicos = await CategoriaAtributoTecnico.findAll({
+        where: {
+            estado: 1,
+            idCategoria : req.body.idCategoria,
+            idTipoUnidadMedida : {
+                [Op.ne] : 0
+            }
+        },
+        include : [
+            {
+                model: TipoUnidadMedida,
+                as : 'TipoUnidadMedida'
+            }
+        ]
+    });
+
+    let tipos = [];
+    categoriasAtributosTecnicos.map(x => {
+        tipos.push(x.TipoUnidadMedida);
+    })
+
+   res.json({
+        data: tipos,
+        state: 1,
+        message: 'Lista'
+    });
 }
 
 const post = async (req, res = response) => {
@@ -87,8 +119,9 @@ const deleted = async (req, res = response) => {
 module.exports = {
     get,
     postCodigo,
+    postTipoMedidaxCategoria,
     post,
-    put,
+    put, 
     patch,
     deleted,
 }

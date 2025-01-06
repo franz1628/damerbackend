@@ -13,6 +13,10 @@ const CategoriaUnidadVenta = db.define('CategoriaUnidadVenta', {
     fechaRegistro:{
         type : DataTypes.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    default : {
+        type: DataTypes.BOOLEAN,
+        defaultValue: 0,
     }
 },{
     tableName: 'CATEGORIA_UNIDADVENTA'
