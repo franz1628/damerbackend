@@ -80,7 +80,6 @@ control.put  = async (req = request, res = response) => {
 control.postIdCategoria  = async (req = request, res = response) => {
     const model_all = await CategoriaUnidadVenta.findAll({
         where: {
-            estado: 1,
             idCategoria: req.body.idCategoria
         },
         include: [
@@ -99,6 +98,33 @@ control.postIdCategoria  = async (req = request, res = response) => {
         data: model_all,
         state: 1,
         message: ''
+    });
+}
+
+
+control.suspender = async (req, res = response) => {
+
+    const categoriaUnidadVenta = await CategoriaUnidadVenta.findOne({
+        where : {
+            id:req.body.model.id
+        }
+    })
+
+    let newestado = categoriaUnidadVenta.estado==0?1:0
+
+    const model = await CategoriaUnidadVenta.update({
+        estado: newestado
+    }, {
+        where: {
+            id: req.body.model.id,
+        },
+        individualHooks:true
+    });
+
+    res.json({
+        data: [],
+        state: 1,
+        message: 'Suspendido correctamente'
     });
 }
 

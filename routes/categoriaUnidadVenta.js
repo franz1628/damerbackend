@@ -10,6 +10,7 @@ const { get,
         postIdCategoria,
         put,
         post,
+        suspender,
         deleted,
         patch } = require('../controllers/categoriaUnidadVenta');
 
@@ -31,6 +32,10 @@ router.put('/:id',[
 router.post('/',[
     validFields
 ], post );
+
+router.post('/suspender',[
+    validFields
+], suspender );
 
 
 router.delete('/:id',[
