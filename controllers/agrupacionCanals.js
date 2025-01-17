@@ -7,4 +7,4 @@ const { Controller } = require('./controller');
 
 const control = Controller(AgrupacionCanals);
 
-module.exports = control;
+module.exports = control; 
