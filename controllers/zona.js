@@ -229,8 +229,16 @@ const patch = (req, res = response) => {
 const deleted = async (req, res = response) => {
     const { id } = req.params;
 
+    const miModel = await Zona.findOne({
+        where: {
+            id: id,
+        }
+    });
+
+
+
     const model = await Zona.update({
-        estado: false,
+        estado: !miModel.estado,
     }, {
         where: {
             id: id,
@@ -240,7 +248,7 @@ const deleted = async (req, res = response) => {
     res.json({
         data: [],
         state: 1,
-        message: 'Borrado correctamente'
+        message: miModel.estado?'Desactivado correctamente':'Activado correctamente'
     });
 }
 

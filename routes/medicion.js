@@ -7,6 +7,7 @@ const { isValidRole } = require('../helpers/db-validators');
 
 const { get,
         put,
+        nextMedicion,
         post,
         deleted,
         patch } = require('../controllers/medicion');
@@ -16,19 +17,20 @@ const router = Router();
 router.get('/', get );
 
 router.put('/:id',[
-    check('anio', 'El anio es requerido').not().isEmpty(),
-    check('mes', 'El mes es requerido').not().isEmpty(),
-    check('medicion', 'El medicion es requerido').not().isEmpty(),
+
 
     validFields
 ],put );
 
 router.post('/',[
-    check('anio', 'El anio es requerido').not().isEmpty(),
-    check('mes', 'El mes es requerido').not().isEmpty(),
-    check('medicion', 'El medicion es requerido').not().isEmpty(),
+
     validFields
 ], post );
+
+router.get('/nextMedicion',[
+
+    validFields
+], nextMedicion );
 
 router.delete('/:id',[
     validFields
