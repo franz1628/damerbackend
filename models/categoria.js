@@ -2,6 +2,7 @@ const { DataTypes, Sequelize } = require("sequelize");
 const { db } = require("../database/config");
 const { MegaCategoria } = require("./megaCategoria");
 const { Canasta } = require("./canasta");
+const { TipoCategoria } = require("./tipoCategoria");
 
 const Categoria = db.define('Categoria', {
     descripcion: {type: DataTypes.STRING},
@@ -9,6 +10,8 @@ const Categoria = db.define('Categoria', {
     tip: {type: DataTypes.STRING},
     idMegaCategoria: {type: DataTypes.INTEGER},
     idCanasta: {type: DataTypes.INTEGER},
+    idTipoCategoria: {type: DataTypes.INTEGER},
+    idCategorias: {type: DataTypes.STRING},
     alias1: {type: DataTypes.STRING},
     alias2: {type: DataTypes.STRING},
     alias3: {type: DataTypes.STRING},
@@ -46,6 +49,7 @@ const Categoria = db.define('Categoria', {
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
 Categoria.belongsTo(MegaCategoria, { foreignKey: 'idMegaCategoria',defaultValue:0 })
 Categoria.belongsTo(Canasta, { foreignKey: 'idCanasta',defaultValue:0 })
+Categoria.belongsTo(TipoCategoria, { foreignKey: 'idTipoCategoria',as:'TipoCategoria',targetKey:'id'})
 
 module.exports = {
     Categoria,

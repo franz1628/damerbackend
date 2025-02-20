@@ -37,13 +37,15 @@ const CategoriaAtributoTecnico = db.define('CategoriaAtributoTecnico', {
 });
 
 
+Categoria.hasMany(CategoriaAtributoTecnico,{foreignKey:'idCategoria',as:'CategoriaAtributoTecnico',targetKey:'id'});
+
 CategoriaAtributoTecnico.hasMany(CategoriaAtributoTecnicoValor,{foreignKey:'idCategoriaAtributoTecnico',as:'CategoriaAtributoTecnicoValor',targetKey:'id'});
 
 
 CategoriaAtributoTecnico.belongsTo(AtributoTecnicoVariedad, { foreignKey: 'idAtributoTecnicoVariedad',as:'AtributoTecnicoVariedad',targetKey:'id'})
 
 CategoriaAtributoTecnicoValor.belongsTo(CategoriaAtributoTecnico, { foreignKey: 'idCategoriaAtributoTecnico',as:'CategoriaAtributoTecnico',targetKey:'id'})
-CategoriaAtributoTecnico.belongsTo(Categoria, { foreignKey: 'idCategoria',as:'Categoria',targetKey:'id'})
+CategoriaAtributoTecnico.belongsTo(Categoria, { foreignKey: 'idCategoria',as:'Categoria',targetKey:'id'}) 
 
 CategoriaAtributoTecnico.belongsTo(TipoUnidadMedida, { foreignKey: 'idTipoUnidadMedida',as:'TipoUnidadMedida',targetKey:'id'})
 

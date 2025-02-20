@@ -3,6 +3,9 @@ const bcryptjs = require('bcryptjs');
 const { where, Op, Sequelize } = require('sequelize');
 const { Categoria } = require('../models/categoria');
 const { Sku } = require('../models/sku');
+const { CategoriaAtributoTecnico } = require('../models/categoriaAtributoTecnico');
+const { TipoCategoria } = require('../models/tipoCategoria');
+
 
 const get = async (req = request, res = response) => {
     const model_all = await Categoria.findAll({
@@ -11,7 +14,8 @@ const get = async (req = request, res = response) => {
         },
         order: [
             ['descripcion', 'ASC']
-        ]
+        ],
+       
     })
 
     res.json({
@@ -91,7 +95,22 @@ const postCanastaMegaCategoria = async (req, res = response) => {
             estado: 1,
 
             idMegaCategoria:idMegaCategoria,
-        }
+        },
+        order: [
+            ['descripcion', 'ASC']
+        ], 
+        include : [
+            {
+                model: CategoriaAtributoTecnico,
+                as : 'CategoriaAtributoTecnico',
+                
+            },
+            {
+                model: TipoCategoria,
+                as : 'TipoCategoria',
+                foreignKey:'idTipoCategoria'
+            }
+        ]
     })
 
     res.json({

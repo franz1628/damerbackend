@@ -87,6 +87,7 @@ class Server {
             via: '/api/via',
             tipoPresentacion: '/api/tipoPresentacion',
             tipoMoneda: '/api/tipoMoneda',
+            tipoCategoria: '/api/tipoCategoria',
             
         };
         this.app.use(express.json());
