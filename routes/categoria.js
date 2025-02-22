@@ -7,10 +7,12 @@ const { isValidRole } = require('../helpers/db-validators');
 
 const { get,
         postId,
+        changeState,
         postDescripcion,
         put,
         post,
         postCanastaMegaCategoria,
+        postCanastaMegaCategoriaAll,
         deleted,
         patch } = require('../controllers/categoria');
 
@@ -28,6 +30,10 @@ router.post('/descripcion',[
     validFields
 ] ,postDescripcion );
 
+router.post('/changeState',[
+    validFields
+] ,changeState);
+
 router.put('/:id',[
     check('descripcion', 'La descripcion es requerida').not().isEmpty(),
     validFields
@@ -41,6 +47,10 @@ router.post('/',[
 router.post('/canasta/megaCategoria',[
     validFields
 ], postCanastaMegaCategoria );
+
+router.post('/canasta/megaCategoriaAll',[
+    validFields
+], postCanastaMegaCategoriaAll );
 
 router.delete('/:id',[
     validFields

@@ -86,6 +86,29 @@ const post = async (req, res = response) => {
     }
 }
 
+const changeState = async (req, res = response) => {
+
+    const model = await Categoria.findOne({
+        where: {
+            id: req.body.id,
+        }
+    });
+
+    model.estado = req.body.estado;
+    const newModel = await Categoria.update({estado: !req.body.estado}, {
+        where: {
+            id: req.body.id,
+        }
+    });
+    
+
+    return res.json({
+        data: newModel,
+        state: 1,
+        message: req.body.estado ? 'Desactivado correctamente' : 'Activado correctamente'
+    });
+}
+
 const postCanastaMegaCategoria = async (req, res = response) => {
 
     const { idCanasta,idMegaCategoria } = req.body;
@@ -93,7 +116,6 @@ const postCanastaMegaCategoria = async (req, res = response) => {
     const model_all = await Categoria.findAll({
         where: {
             estado: 1,
-
             idMegaCategoria:idMegaCategoria,
         },
         order: [
@@ -103,7 +125,37 @@ const postCanastaMegaCategoria = async (req, res = response) => {
             {
                 model: CategoriaAtributoTecnico,
                 as : 'CategoriaAtributoTecnico',
-                
+            },
+            {
+                model: TipoCategoria,
+                as : 'TipoCategoria',
+                foreignKey:'idTipoCategoria'
+            }
+        ]
+    })
+
+    res.json({
+        data: model_all,
+        state: 1,
+        message: ''
+    });
+}
+
+const postCanastaMegaCategoriaAll = async (req, res = response) => {
+
+    const { idCanasta,idMegaCategoria } = req.body;
+
+    const model_all = await Categoria.findAll({
+        where: {
+            idMegaCategoria:idMegaCategoria,
+        },
+        order: [
+            ['descripcion', 'ASC']
+        ], 
+        include : [
+            {
+                model: CategoriaAtributoTecnico,
+                as : 'CategoriaAtributoTecnico',
             },
             {
                 model: TipoCategoria,
@@ -196,9 +248,11 @@ const deleted = async (req, res = response) => {
 module.exports = {
     get,
     postId,
+    changeState,
     postDescripcion,
     post,
     postCanastaMegaCategoria,
+    postCanastaMegaCategoriaAll,
     put,
     patch,
     deleted,
