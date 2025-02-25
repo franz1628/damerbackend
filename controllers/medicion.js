@@ -1,8 +1,9 @@
 const { response, request } = require('express');
 const bcryptjs = require('bcryptjs');
-const { where } = require('sequelize');
+const { where, Sequelize } = require('sequelize');
 const { Medicion } = require('../models/medicion');
 const e = require('express');
+const { db } = require('../database/config');
 
 const get = async (req = request, res = response) => {
     const model_all = await Medicion.findAll({
@@ -20,36 +21,29 @@ const get = async (req = request, res = response) => {
 }
 
 const post = async (req, res = response) => {
-    delete req.body.id;
+  
 
 
-    //hallando ultima medicion
-    const model_last = await Medicion.findOne({
-        order: [
-            ['id', 'DESC']
-        ]
+    const resultado = await db.query('EXEC dbo.creaMedicion', {
+        type: Sequelize.QueryTypes.SELECT,// Tipo de consulta
     });
 
-    const {anio,mes} = model_last;
-
-    if(mes==12){ 
-        req.body.anio = anio+1;
-        req.body.mes = 1;
-    } else{
-        req.body.anio = anio;
-        req.body.mes = mes+1;
+    console.log(resultado);
+    if(resultado[0].nuevaMedicion){
+        res.json({
+            data: [],
+            state: 1,
+            message: resultado[0].nuevaMedicion
+        });
+    }else{
+        res.json({
+            data: [],
+            state: 0,
+            message: resultado[0].error
+        });
     }
+  
 
-    req.body.medicion =  req.body.anio%100 + '' + (req.body.mes<10 ? '0'+req.body.mes : req.body.mes);
-
-    const model = new Medicion(req.body);
-
-    // Guardar en BD
-    await model.save();
-
-    res.json({
-        model
-    });
 }
 
 const nextMedicion = async (req, res = response) => { 

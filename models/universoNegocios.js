@@ -9,6 +9,7 @@ const UniversoNegocios = db.define('UniversoNegocios', {
     idDistrito: {type: DataTypes.INTEGER},
     idCanal: {type: DataTypes.INTEGER},
     valor: {type: DataTypes.INTEGER},
+    idMedicion: {type: DataTypes.INTEGER},
     estado: {
         type: DataTypes.INTEGER,
         defaultValue: 1,
