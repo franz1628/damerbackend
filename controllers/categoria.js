@@ -5,6 +5,7 @@ const { Categoria } = require('../models/categoria');
 const { Sku } = require('../models/sku');
 const { CategoriaAtributoTecnico } = require('../models/categoriaAtributoTecnico');
 const { TipoCategoria } = require('../models/tipoCategoria');
+const { AtributoTecnicoVariedad } = require('../models/atributoTecnicoVariedad');
 
 
 const get = async (req = request, res = response) => {
@@ -106,6 +107,45 @@ const changeState = async (req, res = response) => {
         data: newModel,
         state: 1,
         message: req.body.estado ? 'Desactivado correctamente' : 'Activado correctamente'
+    });
+}
+
+
+
+const getCategorias = async (req, res = response) => {
+
+    const categorias = req.body.idCategorias.split(',');
+
+    const model_all = await Categoria.findAll({
+        where: {
+            estado: 1,
+            id: {
+                [Op.in]: categorias
+            }
+        },
+        order: [
+            ['descripcion', 'ASC']
+        ],
+        include : [
+            {
+                model: CategoriaAtributoTecnico,
+                as : 'CategoriaAtributoTecnico',
+                include : [
+                    {
+                        model: AtributoTecnicoVariedad,
+                        as : 'AtributoTecnicoVariedad',
+                    }
+                ]
+            }
+        ]
+    });
+
+    
+
+    return res.json({
+        data: model_all,
+        state: 1,
+        message: 'Correcto'
     });
 }
 
@@ -249,6 +289,7 @@ module.exports = {
     get,
     postId,
     changeState,
+    getCategorias,
     postDescripcion,
     post,
     postCanastaMegaCategoria,

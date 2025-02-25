@@ -8,6 +8,7 @@ const { isValidRole } = require('../helpers/db-validators');
 const { get,
         postId,
         changeState,
+        getCategorias,
         postDescripcion,
         put,
         post,
@@ -33,6 +34,10 @@ router.post('/descripcion',[
 router.post('/changeState',[
     validFields
 ] ,changeState);
+
+router.post('/getCategorias',[
+    validFields
+] ,getCategorias);
 
 router.put('/:id',[
     check('descripcion', 'La descripcion es requerida').not().isEmpty(),
