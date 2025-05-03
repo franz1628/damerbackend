@@ -1,11 +1,7 @@
 const { response, request } = require('express');
 const bcryptjs = require('bcryptjs');
 const { Usuario } = require('../models/usuario');
-
-
-
-
-
+const jwt = require('jsonwebtoken');
 
 const usuarioGet = async(req = request, res = response) => {
 
@@ -39,41 +35,50 @@ const usuarioPost = async(req, res = response) => {
 }
 
 
-const usuarioLogin = async(req, res = response) => {
+const usuarioLogin = async (req, res = response) => {
     const { email, password } = req.body;
 
     try {
-        // Buscar el usuario por email
-        const usuario = await Usuario.findOne({
-            where: {
-                email: email
-            }
-        });
+        const usuario = await Usuario.findOne({ where: { email } });
 
-        if (usuario) {
-            // Comparar la contraseña proporcionada con la contraseña hash almacenada
-            const validPassword = bcryptjs.compareSync(password, usuario.password);
-            
-            if (validPassword) {
-                res.json({
-                    data: usuario,
-                    state: 1,
-                    message: ''
-                });
-            } else {
-                res.json({
-                    data: [],
-                    state: 0,
-                    message: 'Email y/o contraseña incorrectos'
-                });
-            }
-        } else {
-            res.json({
+        if (!usuario) {
+            return res.json({
                 data: [],
                 state: 0,
                 message: 'Email y/o contraseña incorrectos'
             });
         }
+
+        const validPassword = bcryptjs.compareSync(password, usuario.password);
+
+        if (!validPassword) {
+            return res.json({
+                data: [],
+                state: 0,
+                message: 'Email y/o contraseña incorrectos'
+            });
+        }
+
+        // Crear el JWT
+        const payload = {
+            uid: usuario.id,
+            nombre: usuario.nombre,
+            rol: usuario.rol
+        };
+
+        const token = jwt.sign(payload, process.env.JWT_SECRET, {
+            expiresIn: process.env.JWT_EXPIRES_IN || '4h'
+        });
+
+        res.json({
+            data: {
+                usuario,
+                token
+            },
+            state: 1,
+            message: 'Login exitoso'
+        });
+
     } catch (error) {
         console.error(error);
         res.status(500).json({
@@ -82,8 +87,7 @@ const usuarioLogin = async(req, res = response) => {
             message: 'Error del servidor'
         });
     }
-
-}
+};
 
 const usuarioPut = async(req, res = response) => {
 
