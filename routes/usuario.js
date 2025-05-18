@@ -11,6 +11,8 @@ const { usuarioGet,
         usuarioPost,
         usuarioLogin,
         usuarioDelete,
+        usuarioUpdateCargo,
+        usuarioUpdateVistas,
         usuarioPatch } = require('../controllers/usuario');
 
 const router = Router();
@@ -37,6 +39,16 @@ router.post('/',[
     check('email').custom( emailExists ),
     validFields
 ], usuarioPost );
+
+router.post('/updateCargo/:id',[
+
+    validFields
+], usuarioUpdateCargo );
+
+router.post('/updateVistas/:id',[
+
+    validFields
+], usuarioUpdateVistas );
 
 router.delete('/:id',[
     check('id', 'It is not a valid ID').isMongoId(),

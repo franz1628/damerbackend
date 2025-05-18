@@ -62,6 +62,10 @@ const Usuario = db.define('Usuario', {
     idCargo: {
         type: DataTypes.INTEGER,
     },
+    vistas : {
+        type: DataTypes.STRING,
+        defaultValue: '',
+    },
 },{
     tableName: 'Usuario'
 });

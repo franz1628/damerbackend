@@ -5,15 +5,18 @@ const jwt = require('jsonwebtoken');
 
 const usuarioGet = async(req = request, res = response) => {
 
-    const usuarios = await Usuario.findAll({
+    const models = await Usuario.findAll({
         where:{
             estado:1
         }
     })
 
     res.json({
-        usuarios
+        data: models,
+        state: 1,
+        message: 'correcto'
     });
+
 }
 
 const usuarioPost = async(req, res = response) => {
@@ -33,6 +36,63 @@ const usuarioPost = async(req, res = response) => {
         usuario
     });
 }
+
+const usuarioUpdateCargo = async(req, res = response) => {
+    
+    
+    const { id } = req.params;
+    const { idCargo } = req.body;
+
+
+    const model = await Usuario.findOne({ where: { id } });
+    model.idCargo = idCargo;
+
+    console.log(model);
+    
+
+    const [rowsAffected, updatedModel] = await Usuario.update({ idCargo }, {
+            where: {
+                id: id,
+            },
+            returning: true,
+            individualHooks: true
+        });
+
+    
+   
+    res.json({
+        data: updatedModel,
+        state: 1,
+        message: 'Actualizado correctamente'
+    });
+}
+
+const usuarioUpdateVistas = async(req, res = response) => {
+    const { id } = req.params;
+    const { vistas } = req.body;
+
+    const model = await Usuario.findOne({ where: { id } });
+    model.vistas = vistas;
+
+    console.log(vistas);
+    console.log(id);
+
+    const [rowsAffected, updatedModel] = await Usuario.update({ vistas }, {
+            where: {
+                id: id,
+            },
+            returning: true,
+            individualHooks: true
+        });
+
+    
+   
+    res.json({
+        data: updatedModel,
+        state: 1,
+        message: 'Actualizado correctamente'
+    });
+}   
 
 
 const usuarioLogin = async (req, res = response) => {
@@ -131,4 +191,6 @@ module.exports = {
     usuarioPut,
     usuarioPatch,
     usuarioDelete,
+    usuarioUpdateCargo,
+    usuarioUpdateVistas
 }
