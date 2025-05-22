@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const { db } = require("../database/config");
+const { Cargo } = require("./cargo");
 
 const Usuario = db.define('Usuario', {
     nombres: {
@@ -72,6 +73,8 @@ const Usuario = db.define('Usuario', {
 
 // Ejemplo de relación con otra tabla (ajusta según tu modelo de datos)
 // Usuario.belongsTo(TipoDocumento, { foreignKey: 'idTipoDocumento' });
+Usuario.belongsTo(Cargo, { foreignKey: 'idCargo',as:'Cargo',targetKey:'id'})
+
 
 module.exports = {
     Usuario,

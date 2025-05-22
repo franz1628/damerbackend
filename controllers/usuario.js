@@ -2,13 +2,20 @@ const { response, request } = require('express');
 const bcryptjs = require('bcryptjs');
 const { Usuario } = require('../models/usuario');
 const jwt = require('jsonwebtoken');
+const { Cargo } = require('../models/cargo');
 
 const usuarioGet = async(req = request, res = response) => {
 
     const models = await Usuario.findAll({
         where:{
-            estado:1
-        }
+            
+        },
+        include: [
+            {
+                model: Cargo,
+                as: 'Cargo',
+            }
+        ],
     })
 
     res.json({
@@ -33,7 +40,9 @@ const usuarioPost = async(req, res = response) => {
     await usuario.save();
 
     res.json({
-        usuario
+        data: usuario,
+        state: 1,
+        message: 'Guardado correctamente'
     });
 }
 
@@ -152,17 +161,55 @@ const usuarioLogin = async (req, res = response) => {
 const usuarioPut = async(req, res = response) => {
 
     const { id } = req.params;
-    const { _id, password, google, email, ...resto } = req.body;
+    const { _id, password, ...resto } = req.body;
 
-    if ( password ) {
-        // Encriptar la contraseña
+    const myModel = await Usuario.findOne({ where: { id } });
+    if(req.body.password==''){
+        req.body.password = myModel.password;
+        req.body.password2 = myModel.password2;
+    }else{
         const salt = bcryptjs.genSaltSync();
-        resto.password = bcryptjs.hashSync( password, salt );
+        req.body.password = bcryptjs.hashSync( password, salt );
+        req.body.password2 = req.body.password;
     }
 
-    const usuario = await Usuario.findByIdAndUpdate( id, resto );
+    if(req.body.email != myModel.email){
+        const emailExists = await Usuario.findOne({ where: { email: req.body.email } });
+        if (emailExists) {
+            return  res.json({
+                data: [],
+                state: 0,
+                message: 'El correo ya existe'
+            });
+        }
+    }
 
-    res.json(usuario);
+
+
+    
+    const updatedModel = await Usuario.update( {
+        nombres : req.body.nombres,
+        apellidoPaterno : req.body.apellidoPaterno,
+        apellidoMaterno : req.body.apellidoMaterno,
+        idCargo : req.body.idCargo,
+        estado : req.body.estado,
+        password : req.body.password,
+        password2 : req.body.password2,
+        email : req.body.email,
+    } , {
+            where: {
+                id: id,
+            },
+            returning: true,
+            individualHooks: true
+        });
+
+  
+    res.json({
+        data: updatedModel,
+        state: 1,
+        message: 'Actualizado correctamente'
+    });
 }
 
 const usuarioPatch = (req, res = response) => {

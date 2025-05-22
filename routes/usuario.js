@@ -21,9 +21,9 @@ const router = Router();
 router.get('/', usuarioGet );
 
 router.put('/:id',[
-    check('id', 'It is not a valid ID').isMongoId(),
-    check('id').custom( usuarioExists ),
-    check('role').custom( isValidRole ), 
+    check('nombres', 'Los nombres son requeridos').not().isEmpty(),
+    check('apellidoPaterno', 'Los apellidoPaterno son requeridos').not().isEmpty(),
+    check('apellidoMaterno', 'Los apellidoMaterno son requeridos').not().isEmpty(),
     validFields
 ],usuarioPut );
 
@@ -35,7 +35,7 @@ router.post('/',[
     check('nombres', 'Los nombres son requeridos').not().isEmpty(),
     check('apellidoPaterno', 'Los apellidoPaterno son requeridos').not().isEmpty(),
     check('apellidoMaterno', 'Los apellidoMaterno son requeridos').not().isEmpty(),
-    check('password', 'La contraseña debe tener minimo 6 caracteres').isLength({ min: 6 }),
+    //check('password', 'La contraseña debe tener minimo 6 caracteres').isLength({ min: 6 }),
     check('email').custom( emailExists ),
     validFields
 ], usuarioPost );
@@ -46,13 +46,11 @@ router.post('/updateCargo/:id',[
 ], usuarioUpdateCargo );
 
 router.post('/updateVistas/:id',[
-
     validFields
 ], usuarioUpdateVistas );
 
 router.delete('/:id',[
-    check('id', 'It is not a valid ID').isMongoId(),
-    check('id').custom( usuarioExists ),
+    
     validFields
 ],usuarioDelete );
 
