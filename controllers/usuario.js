@@ -3,6 +3,7 @@ const bcryptjs = require('bcryptjs');
 const { Usuario } = require('../models/usuario');
 const jwt = require('jsonwebtoken');
 const { Cargo } = require('../models/cargo');
+const { UsuarioVista } = require('../models/usuarioVista');
 
 const usuarioGet = async(req = request, res = response) => {
 
@@ -14,6 +15,12 @@ const usuarioGet = async(req = request, res = response) => {
             {
                 model: Cargo,
                 as: 'Cargo',
+            },
+            {
+                model: UsuarioVista,
+                as: 'UsuarioVista',
+                
+
             }
         ],
     })

@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 
 const { db } = require('../database/config');
 const path = require('path');
+const { UsuarioVista } = require('./usuarioVista');
 
 class Server {
 
@@ -90,6 +91,8 @@ class Server {
             tipoCategoria: '/api/tipoCategoria',
             cargo : '/api/cargo',
             vista: '/api/vista',
+            UsuarioVista: '/api/usuarioVista',
+            permiso: '/api/permiso',
             
         };
         this.app.use(express.json());
