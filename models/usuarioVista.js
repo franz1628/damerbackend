@@ -18,12 +18,10 @@ const UsuarioVista = db.define('UsuarioVista', {
         defaultValue: 1,
     },
     created_at: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
+        type: DataTypes.STRING,
     },
     updated_at: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
+        type: DataTypes.STRING,
     },
 },{
     tableName: 'USUARIO_VISTA',

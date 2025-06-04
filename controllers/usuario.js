@@ -85,29 +85,36 @@ const usuarioUpdateCargo = async(req, res = response) => {
 
 const usuarioUpdateVistas = async(req, res = response) => {
     const { id } = req.params;
-    const { vistas } = req.body;
+
 
     const model = await Usuario.findOne({ where: { id } });
-    model.vistas = vistas;
+    const vistas = req.body.vistas;
 
     console.log(vistas);
-    console.log(id);
-
-    const [rowsAffected, updatedModel] = await Usuario.update({ vistas }, {
-            where: {
-                id: id,
-            },
-            returning: true,
-            individualHooks: true
-        });
-
     
-   
-    res.json({
-        data: updatedModel,
-        state: 1,
-        message: 'Actualizado correctamente'
+
+    await UsuarioVista.destroy({
+        where: {
+            idUsuario: +id
+        }
     });
+    vistas.forEach(async (vista) => {
+        const usuarioVista = new UsuarioVista(
+            {
+                idUsuario: +id,
+                idVista: +vista[0],
+                idPermiso: +vista[1]
+            }
+        );
+        await usuarioVista.save();
+    });
+
+
+   res.json({
+       data: model,
+       state: 1,
+       message: 'Actualizado correctamente'
+   });
 }   
 
 
@@ -115,7 +122,18 @@ const usuarioLogin = async (req, res = response) => {
     const { email, password } = req.body;
 
     try {
-        const usuario = await Usuario.findOne({ where: { email } });
+        const usuario = await Usuario.findOne(
+            { 
+                where: { email } ,
+                include: [
+                    {
+                        model: UsuarioVista,
+                        as: 'UsuarioVista',
+                        
+                    }
+                ],
+            }
+        );
 
         if (!usuario) {
             return res.json({
@@ -143,7 +161,7 @@ const usuarioLogin = async (req, res = response) => {
         };
 
         const token = jwt.sign(payload, process.env.JWT_SECRET, {
-            expiresIn: process.env.JWT_EXPIRES_IN || '4h'
+            expiresIn: process.env.JWT_EXPIRES_IN || '10h'
         });
 
         res.json({
